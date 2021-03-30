@@ -56,14 +56,34 @@ pycraigslist classes
 
 * ``pycraigslist.community`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > community)
 * ``pycraigslist.events`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > event calendar)
-* ``pycraigslist.community`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > community)
-* ``pycraigslist.events`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > event calendar)
 * ``pycraigslist.forsale`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > for sale)
 * ``pycraigslist.gigs`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > gigs)
 * ``pycraigslist.housing`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > housing)
 * ``pycraigslist.jobs`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > jobs)
 * ``pycraigslist.services`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > services)
 * ``pycraigslist.resumes`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > resumes)
+
+We can search posts in parent classes. Let's find all paid gigs in Portland, Oregon:
+
+.. code:: python
+
+    import pycraigslist
+
+    paid_gigs = pycraigslist.gigs(site="portland", is_paid=True)
+    for gig in paid_gigs.search():
+        print(gig)
+
+    >>> {'area': 'mlt',
+        'category': 'cpg',
+        'id': '7296990293',
+        'last_updated': '2021-03-25 14:43',
+        'neighborhood': 'Portland',
+        'price': '',
+        'repost_of': '',
+        'site': 'portland',
+        'title': 'Part Time Administrative Work Needed - $20/HR',
+        'url': 'https://portland.craigslist.org/mlt/cpg/d/portland-part-time-administrative-work/7296990293.html'}
+        # ...
 
 pycraigslist subclasses
 ***********************
@@ -139,14 +159,14 @@ Using this information, let's search for apartments / housing for rent in Eugene
         print(room)
 
     >>> {'area': '',
-        'area-ft2': 1000,
-        'bedrooms': 2,
+        'area-ft2': '1000',
+        'bedrooms': '2',
         'category': 'apa',
         'id': '7267556874',
         'last_updated': '2021-02-24 08:55',
         'neighborhood': 'Eugene',
         'price': '$1,550',
-        'repost_of': None,
+        'repost_of': '',
         'site': 'eugene',
         'title': 'High End, Spacious Top Floor Two Bedroom!',
         'url': 'https://eugene.craigslist.org/apa/d/springfield-high-end-spacious-top-floor/7267556874.html'}
@@ -164,27 +184,23 @@ Note: keyword argument filters will override ``filters`` if there are conflictin
     "bicycle_wheel_size": "700C",
     "bicycle_type": "road",
     }
-    # we'd still get titanium bikes
+    # we'd still get titanium road bikes with size 700C wheels
     titanium_bikes = pycraigslist.forsale.bia(
         site="sfbay", area="sfc", bicycle_frame_material="titanium", filters=bike_filters
     )
 
-    # Although we have a conflicting filter (i.e. bicycle_frame_material), the bicycle_frame_material
-    # keyword argument will take precedence over bicycle_frame_material in bike_filters.
-    # Therefore, we'd still search for titanium road bikes with size 700C wheels.
-
 Searching for posts
 *******************
 
-To search for Craigslist posts, use the ``.search()`` method. ``.search()`` will get every post by default. 
+To search for Craigslist posts, use the ``.search()`` method. ``.search()`` will return a dictionary of attributes (type ``str``) for every post.
+``.search()`` will get every post by default. 
 Use the ``limit`` keyword parameter to add a stop limit to your query. For example, use ``limit=50`` if you want 50 posts.
 There is a maximum of 3000 posts per query.
-
 
 Let's find the first 20 posts for farming and gardening services in Denver, Colorado.
 
 .. code:: python
-    
+
     import pycraigslist
 
     gardening_services = pycraigslist.services.fgs(site="denver")
@@ -197,7 +213,7 @@ Let's find the first 20 posts for farming and gardening services in Denver, Colo
         'last_updated': '2021-03-29 15:15',
         'neighborhood': 'all areas',
         'price': '',
-        'repost_of': None,
+        'repost_of': '',
         'site': 'denver',
         'title': '🌲Mendez tree removal tree trimming stump grinding fully insured 🌲',
         'url': 'https://denver.craigslist.org/fgs/d/aurora-mendez-tree-removal-tree/7298949409.html'}
