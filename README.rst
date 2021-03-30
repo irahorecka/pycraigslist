@@ -37,7 +37,7 @@ Let's find cars & trucks in the East Bay Area, California that are silver and ha
         'last_updated': '2021-03-29 10:24',
         'neighborhood': 'concord / pleasant hill / martinez',
         'price': '$5,000',
-        'repost_of': None,
+        'repost_of': '',
         'site': 'sfbay',
         'title': '2001 Ford Ranger XLT',
         'url': 'https://sfbay.craigslist.org/eby/cto/d/oakland-2001-ford-ranger-xlt/7298808707.html'}
@@ -63,7 +63,7 @@ pycraigslist classes
 * ``pycraigslist.services`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > services)
 * ``pycraigslist.resumes`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > resumes)
 
-We can search posts in parent classes. Let's find all paid gigs in Portland, Oregon:
+We can search for posts in parent classes. Let's find paid gigs in Portland, Oregon:
 
 .. code:: python
 
@@ -192,8 +192,8 @@ Note: keyword argument filters will override ``filters`` if there are conflictin
 Searching for posts
 *******************
 
-To search for Craigslist posts, use the ``.search()`` method. ``.search()`` will return a dictionary of attributes (type ``str``) for every post.
-``.search()`` will get every post by default. 
+To search for Craigslist posts, use the ``.search()`` method.
+``.search()`` will return a dictionary of attributes (``str``) for every post and will get every post by default. 
 Use the ``limit`` keyword parameter to add a stop limit to your query. For example, use ``limit=50`` if you want 50 posts.
 There is a maximum of 3000 posts per query.
 
