@@ -2,11 +2,11 @@ black: ## black format every python file to line length 100
 	find . -type f -name "*.py" | xargs black --line-length=100;
 	find . -type d -name "__pycache__" | xargs rm -r;
 
-flake: ## flake8 every python file except ./craigslist_meta/metadata.py
-	find . -type f -name "*.py" -a ! -name "metadata.py" | xargs flake8;
+flake: ## flake8 every python file
+	find . -type f -name "*.py" -a | xargs flake8;
 
-pylint: ## pylint every python file except ./craigslist_meta/metadata.py
-	find . -type f -name "*.py" -a ! -name "metadata.py" | xargs pylint; 
+pylint: ## pylint every python file
+	find . -type f -name "*.py" -a | xargs pylint; 
 
 setup: ## build package distribution files
 	python ./setup.py sdist;
