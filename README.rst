@@ -184,6 +184,7 @@ There is a maximum of 3000 posts per query.
 Let's find the first 20 posts for farming and gardening services in Denver, Colorado.
 
 .. code:: python
+    
     import pycraigslist
 
     gardening_services = pycraigslist.services.fgs(site="denver")
