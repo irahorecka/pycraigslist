@@ -1,7 +1,7 @@
 from . import sessions
 
 
-def get_addl_filters_readable(url):
+def get_addl_readable_filters(url):
     """ Gets additional Craigslist query filters in readable format. """
     filters = get_addl_filters(url)
     filters_iter = filters.copy()
@@ -14,9 +14,9 @@ def get_addl_filters_readable(url):
 
 
 def get_posts(url, filters, **kwargs):
-    """ Gets every post on Craigslist as a dictionary from Craigslist, provided
-    a query url and filters. """
-    # pass copy of filters to disallow manipulation by reference
+    """ Gets every post on Craigslist as a dictionary with string values,
+    provided a query url and filters. """
+    # pass copy of filters to prevent manipulation by reference
     parsed_filters = parse_filters(url, filters.copy())
     # iterate through listings pages from a given search query
     search_html = sessions.get_html(url, params=parsed_filters)
@@ -31,8 +31,8 @@ def get_posts(url, filters, **kwargs):
 
 
 def parse_filters(url, filters):
-    """ Takes current user request filters and parses them to match keyword
-    value with appropriate integer value. """
+    """ Takes query filters and parses them to match keyword value
+    with appropriate integer value. """
     # TODO: can you include multiple filters per category?
     addl_filters = get_addl_filters(url)
     filters_iter = filters.copy()
@@ -81,6 +81,7 @@ def get_post_content(post_html, **kwargs):
     header_link = post_html.find("a", {"class": "hdrlnk"})
     neighborhood = post_html.find("span", {"class": "result-hood"})
     price = post_html.find("span", {"class": "result-price"})
+    repost_of = post_html.attrs.get("data-repost-of")
     time = post_html.find("time")
     if time:
         datetime = time.attrs["datetime"]
@@ -90,7 +91,7 @@ def get_post_content(post_html, **kwargs):
 
     # parse bs4 html
     post_id = post_html.attrs["data-pid"]
-    post_repost_of = post_html.attrs.get("data-repost-of")
+    post_repost_of = "" if not repost_of else repost_of
     post_last_updated = datetime
     post_title = header_link.text
     post_neighborhood = neighborhood.text.strip()[1:-1] if neighborhood else ""
@@ -98,7 +99,7 @@ def get_post_content(post_html, **kwargs):
     post_url = header_link.attrs["href"]
     post_site, post_area, post_category = parse_url_subdomains(post_url)
 
-    # construct post content to return to caller
+    # construct post content
     post_content = {
         "site": post_site,
         "area": post_area,
@@ -169,12 +170,16 @@ class AddlContent:
             content = []
         # this assumes no bedroom is > 99
         if "br" in content:
-            housing_attr["bedrooms"] = int(content[content.find("br") - 2 : content.find("br")])
+            housing_attr["bedrooms"] = str(
+                int(content[content.find("br") - 2 : content.find("br")])
+            )
         # for ft2 - assuming no area is greater than 10^10 ft2
         if "ft" in content:
-            housing_attr["area-ft2"] = int(content[content.find("ft") - 10 : content.find("ft")])
+            housing_attr["area-ft2"] = str(
+                int(content[content.find("ft") - 10 : content.find("ft")])
+            )
         # for m2 - assuming no area is greater than 10^10 m2
         if "m" in content:
-            housing_attr["area-m2"] = int(content[content.find("m") - 10 : content.find("m")])
+            housing_attr["area-m2"] = str(int(content[content.find("m") - 10 : content.find("m")]))
 
         return housing_attr

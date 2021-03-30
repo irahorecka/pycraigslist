@@ -39,12 +39,12 @@ class BaseAPI:
         The intention is to provide user with valid filter keys and values,
         therefore the returned dictionary is catered for ease of interpretation. """
         category = cls.__name__ if not cls.category else cls.category
-        search_category_url = "https://sfbay.craigslist.org/search/%s" % category
+        category_url = "https://sfbay.craigslist.org/search/%s" % category
         readable_filters = {
             key: "..." if value["value"] is None else "True/False"
             for key, value in cls.filters.items()
         }
-        readable_filters.update(query.get_addl_filters_readable(search_category_url))
+        readable_filters.update(query.get_addl_readable_filters(category_url))
 
         return readable_filters
 

@@ -6,4 +6,4 @@ __all__ = ["community", "events", "forsale", "gigs",
            "housing", "jobs", "services", "resumes"]
 # fmt: on
 
-__version__ = "0.1.1"
+__version__ = "0.2.0"
