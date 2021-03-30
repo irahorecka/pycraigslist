@@ -27,7 +27,7 @@ def get_posts(url, filters, **kwargs):
         parsed_filters["s"] = search_page
         search_html = sessions.get_html(url, params=parsed_filters)
 
-        return get_posts_in_search_page(search_html, **kwargs)
+        yield from get_posts_in_search_page(search_html, **kwargs)
 
 
 def parse_filters(url, filters):
