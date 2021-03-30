@@ -52,28 +52,28 @@ This library is intended to be expressive and easy to use.
 pycraigslist classes
 ********************
 
-::
+.. |nbsp|   unicode:: U+00A0 .. NO-BREAK SPACE
 
-* ``pycraigslist.community``    (craigslist.org > community)
-* ``pycraigslist.events``       (craigslist.org > event calendar)
-* ``pycraigslist.forsale``      (craigslist.org > for sale)
-* ``pycraigslist.gigs``         (craigslist.org > gigs)
-* ``pycraigslist.housing``      (craigslist.org > housing)
-* ``pycraigslist.jobs``         (craigslist.org > jobs)
-* ``pycraigslist.services``     (craigslist.org > services)
-* ``pycraigslist.resumes``      (craigslist.org > resumes)
+* ``pycraigslist.community`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > community)
+* ``pycraigslist.events`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > event calendar)
+* ``pycraigslist.community`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > community)
+* ``pycraigslist.events`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > event calendar)
+* ``pycraigslist.forsale`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > for sale)
+* ``pycraigslist.gigs`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > gigs)
+* ``pycraigslist.housing`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > housing)
+* ``pycraigslist.jobs`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > jobs)
+* ``pycraigslist.services`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > services)
+* ``pycraigslist.resumes`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > resumes)
 
 pycraigslist subclasses
 ***********************
 
 Most pycraigslist classes have subclasses to allow for categorical searches. For example:
 
-::
-
-* ``pycraigslist.forsale.bia``  (craigslist.org > for sale > bikes)
-* ``pycraigslist.forsale.cta``  (craigslist.org > for sale > cars & trucks)
-* ``pycraigslist.housing.apa``  (craigslist.org > housing > apartments / housing for rent)
-* ``pycraigslist.housing.roo``  (craigslist.org > housing > apartments / rooms & shares)
+* ``pycraigslist.forsale.bia`` |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > for sale > bikes)
+* ``pycraigslist.forsale.cta`` |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > for sale > cars & trucks)
+* ``pycraigslist.housing.apa`` |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > housing > apartments / housing for rent)
+* ``pycraigslist.housing.roo`` |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > housing > apartments / rooms & shares)
 
 Finding pycraigslist subclasses
 *******************************
