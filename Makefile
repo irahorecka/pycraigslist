@@ -12,7 +12,7 @@ setup: ## build package distribution files
 	python ./setup.py sdist;
 
 clean: ## remove package distribution files and pycache
-	rm -rf ./python_craigslist_meta.egg-info ./dist ./build;
+	rm -rf ./pycraigslist.egg-info ./dist ./build;
 	find . -type d -name "__pycache__" | xargs rm -r;
 
 upload: ## upload package distribution files to pypi
