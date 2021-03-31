@@ -132,5 +132,7 @@ dmypy.json
 .idea/
 .vscode/
 
-# Dev folder
-.dev/
+# OS stuff
+.DS_store
+
+.pycraigslist/_version.py
