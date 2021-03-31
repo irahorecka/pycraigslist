@@ -18,29 +18,55 @@ def get_posts(url, filters, **kwargs):
     provided a query url and filters. """
     # pass copy of filters to prevent manipulation by reference
     parsed_filters = parse_filters(url, filters.copy())
-    # iterate through listings pages from a given search query
     search_html = sessions.get_html(url, params=parsed_filters)
+    limit = kwargs["limit"]
     total_posts = get_total_posts(search_html)
-    # there are 120 posts per listing page
-    for search_page in range(int(total_posts / 120) + 1):
-        search_page *= 120
-        parsed_filters["s"] = search_page
-        search_html = sessions.get_html(url, params=parsed_filters)
+    # choose lesser number of posts
+    if not limit or limit > total_posts:
+        num_posts = total_posts
+    else:
+        num_posts = limit
 
-        yield from get_posts_in_search_page(search_html, **kwargs)
+    # iterate web pages from search query
+    # there are 120 posts per page
+    num_pages = int(num_posts / 120) + 1 if num_posts % 120 != 0 else int(num_posts / 120)
+    for page_count in range(num_pages):
+        post_index = page_count * 120
+        parsed_filters["s"] = post_index
+        search_html = sessions.get_html(url, params=parsed_filters)
+        yield from get_posts_in_search_page(search_html, post_index, num_posts, **kwargs)
 
 
 def parse_filters(url, filters):
     """ Takes query filters and parses them to match keyword value
     with appropriate integer value. """
-    # TODO: can you include multiple filters per category?
     addl_filters = get_addl_filters(url)
     filters_iter = filters.copy()
     for key, value in filters_iter.items():
-        if key in addl_filters:
-            filters[key] = addl_filters[key][value]
+        try:
+            if key in addl_filters:
+                filters[key] = [
+                    addl_filters[key][parsed_val] for parsed_val in parse_filter_value(value)
+                ]
+            else:
+                parse_filter_value(value)
+        # bad value
+        except (KeyError, ValueError) as bad_value:
+            raise ValueError("%s is not a valid value for filter '%s'" % (bad_value, key))
 
     return filters
+
+
+def parse_filter_value(filter_value):
+    """ Validates and further parses query filter values. """
+    if isinstance(filter_value, (bool, float, int, str)):
+        # returns filter value as list
+        return [filter_value]
+    try:
+        # returns multiple filter values as list
+        return iter(filter_value)
+    except TypeError:
+        raise ValueError(filter_value)
 
 
 def get_addl_filters(url):
@@ -63,15 +89,15 @@ def get_total_posts(search_html_content):
     return int(totalcount.text) if totalcount else None
 
 
-def get_posts_in_search_page(parsed_html, **kwargs):
+def get_posts_in_search_page(parsed_html, start_idx, stop_idx, **kwargs):
     """ Yields posts content from Craigslist search HTML document
     given a page of Craigslist listings. """
-    limit = kwargs["limit"]
     posts = parsed_html.find("ul", {"class": "rows"})
     for index, post in enumerate(posts.find_all("li", {"class": "result-row"}, recursive=False)):
         yield get_post_content(post, **kwargs)
-        # search all listing if limit value is 0
-        if index + 1 == limit:
+        # adjust for true post count index
+        index += start_idx
+        if index + 1 == stop_idx:
             break
 
 

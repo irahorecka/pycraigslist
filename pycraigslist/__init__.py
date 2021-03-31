@@ -1,3 +1,5 @@
+""" A simple and expressive Craigslist API wrapper. """
+
 # fmt: off
 from .api import (community, events, forsale, gigs,
                   housing, jobs, services, resumes)

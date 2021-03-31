@@ -17,7 +17,7 @@ class BaseAPI:
             self.filters.update(filters)
         self.filters.update(**kwargs)
 
-    def search(self, limit=0):
+    def search(self, limit=None):
         """ Yields Craigslist posts as dictionary. """
         if not isinstance(limit, int):
             raise TypeError("'limit' must be of type 'int'")
