@@ -179,12 +179,13 @@ Note: keyword argument filters will override ``filters`` if there are conflictin
 
     import pycraigslist
 
+    # array of filter values are also accepted
     bike_filters = {
     "bicycle_frame_material": "steel",
-    "bicycle_wheel_size": "700C",
+    "bicycle_wheel_size": ["650C", "700C"],
     "bicycle_type": "road",
     }
-    # we'd still get titanium road bikes with size 700C wheels
+    # we'd still get titanium road bikes with size 650C or 700C wheels
     titanium_bikes = pycraigslist.forsale.bia(
         site="sfbay", area="sfc", bicycle_frame_material="titanium", filters=bike_filters
     )
