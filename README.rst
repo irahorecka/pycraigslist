@@ -179,9 +179,9 @@ Note: keyword argument filters will override ``filters`` if there are conflictin
 
     import pycraigslist
 
-    # array of filter values are also accepted
     bike_filters = {
     "bicycle_frame_material": "steel",
+    # array of filter values are accepted
     "bicycle_wheel_size": ["650C", "700C"],
     "bicycle_type": "road",
     }
