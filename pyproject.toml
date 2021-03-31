@@ -8,19 +8,18 @@ dist-name = "pycraigslist"
 author = "Ira Horecka"
 author-email = "ira89@icloud.com"
 home-page = "https://github.com/irahorecka/pycraigslist"
-classifiers = [ "License :: OSI Approved :: MIT License",]
 description-file = "README.rst"
 classifiers = [
-    Intended Audience :: Developers
-    License :: OSI Approved :: MIT License
-    Operating System :: OS Independent
-    Programming Language :: Python :: 3.5
-    Programming Language :: Python :: 3.6
-    Programming Language :: Python :: 3.7
-    Programming Language :: Python :: 3.8
-    Programming Language :: Python :: 3.9
-    Topic :: Software Development :: Libraries
-    Topic :: Utilities
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Utilities",
 ]
 requires-python = ">=3.5"
 requires = ["requests>=2.25.0", "beautifulsoup4>=4.9.0"]

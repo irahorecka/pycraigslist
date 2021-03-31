@@ -19,12 +19,13 @@ class BaseAPI:
 
     def search(self, limit=None):
         """ Yields Craigslist posts as dictionary. """
-        if not isinstance(limit, int):
-            raise TypeError("'limit' must be of type 'int'")
-        if limit < 0:
-            raise ValueError("'limit' must be greater than / equal to 0")
+        if limit is None or isinstance(limit, int) and limit >= 0:
+            yield from query.get_posts(self.url, self.filters, category=self.category, limit=limit)
 
-        yield from query.get_posts(self.url, self.filters, category=self.category, limit=limit)
+        elif not isinstance(limit, int):
+            raise TypeError("'limit' must be of type 'int'")
+        else:
+            raise ValueError("'limit' must be greater than / equal to 0")
 
     @property
     def url(self):

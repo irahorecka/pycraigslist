@@ -9,7 +9,7 @@ pylint: ## pylint every python file
 	find . -type f -name "*.py" -a | xargs pylint; 
 
 setup: ## build package distribution files
-	flit init;
+	flit build;
 
 clean: ## remove package distribution files and pycache
 	rm -rf ./pycraigslist.egg-info ./dist ./build;
