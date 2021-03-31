@@ -1,0 +1,12 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "pycraigslist"
+author = "Ira Horecka"
+author-email = "ira89@icloud.com"
+home-page = "https://github.com/irahorecka/pycraigslist"
+classifiers = [ "License :: OSI Approved :: MIT License",]
+description-file = "README.rst"
+
