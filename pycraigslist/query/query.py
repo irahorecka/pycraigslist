@@ -34,6 +34,7 @@ def get_posts(url, filters, **kwargs):
         post_index = page_count * 120
         parsed_filters["s"] = post_index
         search_html = sessions.get_html(url, params=parsed_filters)
+
         yield from get_posts_in_search_page(search_html, post_index, num_posts, **kwargs)
 
 
@@ -196,16 +197,15 @@ class AddlContent:
             content = []
         # this assumes no bedroom is > 99
         if "br" in content:
-            housing_attr["bedrooms"] = str(
-                int(content[content.find("br") - 2 : content.find("br")])
-            )
+            br_idx = content.find("br")
+            housing_attr["bedrooms"] = str(int(content[br_idx - 2 : br_idx]))
         # for ft2 - assuming no area is greater than 10^10 ft2
         if "ft" in content:
-            housing_attr["area-ft2"] = str(
-                int(content[content.find("ft") - 10 : content.find("ft")])
-            )
+            ft_idx = content.find("ft")
+            housing_attr["area-ft2"] = str(int(content[ft_idx - 10 : ft_idx]))
         # for m2 - assuming no area is greater than 10^10 m2
         if "m" in content:
-            housing_attr["area-m2"] = str(int(content[content.find("m") - 10 : content.find("m")]))
+            m_idx = content.find("m")
+            housing_attr["area-m2"] = str(int(content[m_idx - 10 : m_idx]))
 
         return housing_attr
