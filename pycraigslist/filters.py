@@ -67,9 +67,7 @@ class search:
             "min_price": {"url_key": "min_price", "value": None},
             "max_price": {"url_key": "max_price", "value": None},
             # make and model
-            "make": {"url_key": "auto_make_model", "value": None},
-            "model": {"url_key": "auto_make_model", "value": None},
-            # model year
+            "make_model": {"url_key": "auto_make_model", "value": None},
             "min_year": {"url_key": "min_auto_year", "value": None},
             "max_year": {"url_key": "max_auto_year", "value": None},
             # odometer
@@ -85,7 +83,7 @@ class search:
         **base,
         **{
             # paid/unpaid
-            "is_paid": {"url_key": "is_paid", "value": None},
+            "is_paid": {"url_key": "is_paid", "value": 1},
         },
     }
 

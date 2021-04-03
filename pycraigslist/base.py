@@ -1,12 +1,11 @@
-from . import filters
 from . import models
 
 
 class BaseAPI:
-    """ Base class for interfacing with the Craigslist API. """
+    """Base class for interfacing with the Craigslist API."""
 
     category = ""
-    filters = {}
+    search_filters = {}
 
     def __init__(self, site="sfbay", area="", filters=None, **kwargs):
         self.site = site
@@ -18,9 +17,12 @@ class BaseAPI:
         self.filters.update(**kwargs)
 
     def search(self, limit=None):
-        """ Yields Craigslist posts as dictionary. """
+        """Yields Craigslist posts as dictionary."""
+        parsed_filters = models.filters.parse(self.url, self.filters, self.search_filters)
         if limit is None or isinstance(limit, int) and limit >= 0:
-            yield from models.get_posts(self.url, self.filters, category=self.category, limit=limit)
+            yield from models.search.yield_posts(
+                self.url, parsed_filters, category=self.category, limit=limit
+            )
 
         elif not isinstance(limit, int):
             raise TypeError("'limit' must be of type 'int'")
@@ -29,7 +31,7 @@ class BaseAPI:
 
     @property
     def url(self):
-        """ Builds Craigslist query URL. """
+        """Builds Craigslist query URL."""
         if not self.area:
             return "https://%s.craigslist.org/search/%s" % (self.site, self.category)
         return "https://%s.craigslist.org/search/%s/%s" % (self.site, self.area, self.category)
@@ -40,20 +42,23 @@ class BaseAPI:
         The intention is to provide user with valid filter keys and values,
         therefore the returned dictionary is catered for ease of interpretation."""
         category = cls.__name__ if not cls.category else cls.category
+        # default sfbay classified as craigslist search url
         category_url = "https://sfbay.craigslist.org/search/%s" % category
         readable_filters = {
             key: "..." if value["value"] is None else "True/False"
-            for key, value in cls.filters.items()
+            for key, value in cls.search_filters.items()
         }
-        readable_filters.update(models.get_addl_readable_filters(category_url))
+        readable_filters.update(models.filters.get_addl_readable(category_url))
 
         return readable_filters
 
 
 class ParentMethods:
-    """ Provides parent classes with additional class methods. """
+    """Provides parent classes with additional class methods."""
 
     @classmethod
     def get_categories(cls):
-        """ Gets valid Craigslist categories of instance. """
+        """Gets valid Craigslist categories of instance."""
+        from . import filters
+
         return filters.category.get(cls.__name__)
