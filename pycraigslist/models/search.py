@@ -1,17 +1,17 @@
 from . import sessions
 
 
-def yield_posts(url, filters, **kwargs):
+def fetch_posts(url, filters, **kwargs):
     """Yields every post on Craigslist as a dictionary with string values,
     provided a url and query filters."""
     search_html = next(sessions.yield_html(url, params=filters))
     total_post_count = get_total_post_count(search_html)
     limit = kwargs["limit"]
-    # choose lesser number of posts
-    if not limit or limit > total_post_count:
+    # choose lesser number of posts if comparable
+    if not limit or total_post_count < limit:
         limit = total_post_count
 
-    yield from yield_posts_to_limit(url, filters, limit, **kwargs)
+    yield from fetch_posts_to_limit(url, filters, limit, **kwargs)
 
 
 def get_total_post_count(search_html_content):
@@ -20,11 +20,12 @@ def get_total_post_count(search_html_content):
     return int(totalcount.text) if totalcount else None
 
 
-def yield_posts_to_limit(url, filters, post_count, **kwargs):
+def fetch_posts_to_limit(url, filters, num_posts, **kwargs):
     """Exhaustively yield post contents from Craigslist url and filters
-    up to post_count."""
+    up to num_posts."""
     # find number of pages for search - there are 120 posts per page
-    num_pages = int(post_count / 120) + 1 if post_count % 120 != 0 else int(post_count / 120)
+    num_pages = int(num_posts / 120) + 1 if num_posts % 120 != 0 else int(num_posts / 120)
+    # container to hold appending iterables
     zip_iter = []
     for page_num in range(num_pages):
         # get first post's index in a search page
@@ -37,11 +38,11 @@ def yield_posts_to_limit(url, filters, post_count, **kwargs):
     search_pages = sessions.yield_html(search_urls, params=page_filters)
     for idx, html in enumerate(search_pages):
         yield from (
-            yield_posts_from_page(html, start_idx=start_posts[idx], stop_idx=post_count, **kwargs)
+            fetch_posts_from_page(html, start_idx=start_posts[idx], stop_idx=num_posts, **kwargs)
         )
 
 
-def yield_posts_from_page(parsed_html, start_idx, stop_idx, **kwargs):
+def fetch_posts_from_page(parsed_html, start_idx, stop_idx, **kwargs):
     """Yields posts content from a page (HTML doc) of Craigslist listings."""
     posts = parsed_html.find("ul", {"class": "rows"})
     for idx, post in enumerate(posts.find_all("li", {"class": "result-row"}, recursive=False)):

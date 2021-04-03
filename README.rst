@@ -7,7 +7,7 @@ pycraigslist
    :target: https://pypi.python.org/pypi/pycraigslist
 
 
-A simple and expressive `Craigslist <https://www.craigslist.org/about/sites>`__ API wrapper.
+A fast and expressive `Craigslist <https://www.craigslist.org/about/sites>`__ API wrapper.
 
 Disclaimer
 ----------

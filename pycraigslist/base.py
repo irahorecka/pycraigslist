@@ -19,8 +19,9 @@ class BaseAPI:
     def search(self, limit=None):
         """Yields Craigslist posts as dictionary."""
         parsed_filters = models.filters.parse(self.url, self.filters, self.search_filters)
+        # if limit is valid
         if limit is None or isinstance(limit, int) and limit >= 0:
-            yield from models.search.yield_posts(
+            yield from models.search.fetch_posts(
                 self.url, parsed_filters, category=self.category, limit=limit
             )
 

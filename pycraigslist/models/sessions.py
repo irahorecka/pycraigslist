@@ -12,11 +12,11 @@ _RETRY_ARGS = {
 
 
 class MaximumRequestsError(Exception):
-    """Exceed maximum get requests."""
+    """Exceeds maximum get requests."""
 
 
 def yield_html(url, **kwargs):
-    """Yield HTML doc(s) to caller."""
+    """Yields HTML doc(s) to caller."""
     try:
         # single request: a url string
         if isinstance(url, str):
@@ -38,14 +38,14 @@ def yield_html(url, **kwargs):
 
 
 def get_html(content):
-    """Get HTML document from response content."""
+    """Gets bs4.BeautifulSoup object from response content."""
     return BeautifulSoup(content, "html.parser")
 
 
 @tenacity.retry(**_RETRY_ARGS)
 def get_request(url, params=None):
     """Gets requests.models.Response object using requests.get.
-    Retry request if request fails, with number of attepmpts and
+    Retry request if request fails, with number of attempts and
     wait time specified in _RETRY_ARGS."""
     params = {} if params is None else params
     params.setdefault("headers", {}).setdefault("User-Agent", USER_AGENT)
@@ -65,10 +65,11 @@ def concurrency(PoolExecutor, map_func, *args, **kwargs):
     """General concurrency procedure to submit map-able
     functions to arguments."""
     # this procedure is designed to handle process pools and thread pools
+    # zip args and kwarg values to make tuple of args
     zipped_args = zip(*args, *kwargs.values())
     with PoolExecutor(max_workers=5) as executor:
         futures = {
-            # func must accept all positional arguments
+            # func must accept all positional arguments (kwargs assumed by args OK)
             executor.submit(map_func, arg_tuple)
             for arg_tuple in zipped_args
         }
@@ -77,8 +78,8 @@ def concurrency(PoolExecutor, map_func, *args, **kwargs):
 
 
 def parse_kwargs(kwargs):
-    """Remove first kwarg value from list or tuple wrapper if wrapped and
-    is len of 1."""
+    """Removes first kwarg value from list or tuple wrapper if wrapped and
+    is the only value."""
     for key, value in kwargs.copy().items():
         if isinstance(value, (list, tuple)) and len(value) == 1:
             kwargs[key] = value[0]

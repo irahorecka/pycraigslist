@@ -7,7 +7,7 @@ def get_addl_readable(url):
     filters_iter = filters.copy()
     for key, value in filters_iter.items():
         if isinstance(value, dict):
-            # get only the filter key bound to its numerical selector value
+            # get only filter names
             # e.g. ['apartment', 'condo'] from {'apartment': '1', 'condo': '2'}
             filters[key] = list(value)
 
@@ -32,8 +32,8 @@ def get_addl(url):
 
 
 def parse(url, filters, search_filters):
-    """Parses and validates url and filters using search_filters as template reference.
-    Returns filters for GET request parameter `params`."""
+    """Parses and validates url and filters using categorical search filters as
+    template reference. Returns filters for requests.get(params=)."""
     addl_filters = get_addl(url)
 
     # iterate over a copy of filters
