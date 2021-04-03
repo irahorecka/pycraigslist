@@ -7,7 +7,7 @@ USER_AGENT = "Mozilla/5.0"
 # Retry 10 times, starting with 0.01 second and doubling the delay every time
 _RETRY_ARGS = {
     "wait": tenacity.wait.wait_random_exponential(multiplier=0.01, exp_base=2),
-    "stop": tenacity.stop.stop_after_attempt(8),
+    "stop": tenacity.stop.stop_after_attempt(12),
 }
 
 
