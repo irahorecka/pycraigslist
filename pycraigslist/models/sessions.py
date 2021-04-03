@@ -43,10 +43,11 @@ def get_html(content):
 
 
 @tenacity.retry(**_RETRY_ARGS)
-def get_request(url, params={}):
+def get_request(url, params=None):
     """Gets requests.models.Response object using requests.get.
     Retry request if request fails, with number of attepmpts and
     wait time specified in _RETRY_ARGS."""
+    params = {} if params is None else params
     params.setdefault("headers", {}).setdefault("User-Agent", USER_AGENT)
     return requests.get(url, params=params, timeout=5)
 

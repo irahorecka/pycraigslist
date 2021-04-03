@@ -1,6 +1,12 @@
 pycraigslist
 ============
 
+|PyPI version shields.io|
+
+.. |PyPI version shields.io| image:: https://img.shields.io/pypi/v/pycraigslist.svg
+   :target: https://pypi.python.org/pypi/pycraigslist
+
+
 A simple and expressive `Craigslist <https://www.craigslist.org/about/sites>`__ API wrapper.
 
 Disclaimer
