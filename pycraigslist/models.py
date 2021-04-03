@@ -14,33 +14,37 @@ def get_addl_readable_filters(url):
 
 
 def get_posts(url, filters, **kwargs):
-    """ Gets every post on Craigslist as a dictionary with string values,
-    provided a query url and filters. """
+    """Gets every post on Craigslist as a dictionary with string values,
+    provided a query url and filters."""
     # pass copy of filters to prevent manipulation by reference
     parsed_filters = parse_filters(url, filters.copy())
-    search_html = sessions.get_html(url, params=parsed_filters)
-    limit = kwargs["limit"]
+    search_html = next(sessions.yield_html(url, params=parsed_filters))
     total_posts = get_total_posts(search_html)
+    limit = kwargs["limit"]
     # choose lesser number of posts
     if not limit or limit > total_posts:
         num_posts = total_posts
     else:
         num_posts = limit
-
     # iterate web pages from search query
     # there are 120 posts per page
     num_pages = int(num_posts / 120) + 1 if num_posts % 120 != 0 else int(num_posts / 120)
-    for page_count in range(num_pages):
-        post_index = page_count * 120
-        parsed_filters["s"] = post_index
-        search_html = sessions.get_html(url, params=parsed_filters)
 
-        yield from get_posts_in_search_page(search_html, post_index, num_posts, **kwargs)
+    url_filters_idx = []
+    for page_count in range(num_pages):
+        post_number = page_count * 120
+        parsed_filters["s"] = post_number
+        url_filters_idx.append((url, parsed_filters.copy(), post_number))
+
+    search_urls, filters, post_numbers = zip(*url_filters_idx)
+    search_htmls = sessions.yield_html(search_urls, params=filters, threaded=True)
+    for idx, html in enumerate(search_htmls):
+        yield from (get_posts_in_search_page(html, post_numbers[idx], num_posts, **kwargs))
 
 
 def parse_filters(url, filters):
-    """ Takes query filters and parses them to match keyword value
-    with appropriate integer value. """
+    """Takes query filters and parses them to match keyword value
+    with appropriate integer value."""
     addl_filters = get_addl_filters(url)
     filters_iter = filters.copy()
     for key, value in filters_iter.items():
@@ -73,7 +77,7 @@ def parse_filter_value(filter_value):
 def get_addl_filters(url):
     """ Gets additional Craigslist query filters. """
     filters = {}
-    search_html = sessions.get_html(url)
+    search_html = next(sessions.yield_html(url))
     for list_filter in search_html.find_all("div", class_="search-attribute"):
         filter_key = list_filter.attrs["data-attr"]
         filter_labels = list_filter.find_all("label")
@@ -91,14 +95,14 @@ def get_total_posts(search_html_content):
 
 
 def get_posts_in_search_page(parsed_html, start_idx, stop_idx, **kwargs):
-    """ Yields posts content from Craigslist search HTML document
-    given a page of Craigslist listings. """
+    """Yields posts content from Craigslist search HTML document
+    given a page of Craigslist listings."""
     posts = parsed_html.find("ul", {"class": "rows"})
-    for index, post in enumerate(posts.find_all("li", {"class": "result-row"}, recursive=False)):
+    for idx, post in enumerate(posts.find_all("li", {"class": "result-row"}, recursive=False)):
         yield get_post_content(post, **kwargs)
-        # adjust for true post count index
-        index += start_idx
-        if index + 1 == stop_idx:
+        # adjust for true post count idx
+        idx += start_idx
+        if idx + 1 == stop_idx:
             break
 
 
@@ -176,8 +180,8 @@ def get_addl_content(post_html, **kwargs):
 # have extra post attributes, add appropriate selector and parsing method
 # to this class.
 class AddlContent:
-    """ Gets additional post content from post's HTML and Craigslist
-    search category. """
+    """Gets additional post content from post's HTML and Craigslist
+    search category."""
 
     from_search_page = {
         "apa": lambda post: AddlContent.parse_housing(
@@ -193,7 +197,7 @@ class AddlContent:
         housing_attr = {}
         try:
             content = contents[0]
-        except IndexError:
+        except idxError:
             content = []
         # this assumes no bedroom is > 99
         if "br" in content:
