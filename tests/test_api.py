@@ -1,8 +1,8 @@
 from pytest import mark
 
+import specs
 import pycraigslist
 from pycraigslist import models
-import specs
 
 
 @mark.parametrize("filters", specs.filters.housing)
