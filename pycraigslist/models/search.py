@@ -1,3 +1,4 @@
+import re
 from . import sessions
 
 
@@ -6,11 +7,14 @@ def fetch_posts(url, filters, **kwargs):
     provided a url and query filters."""
     search_html = next(sessions.yield_html(url, params=filters))
     total_post_count = get_total_post_count(search_html)
+    # return empty search if total_post_count cannot be found in search page
+    if total_post_count is None:
+        return ()
+
     limit = kwargs["limit"]
     # choose lesser number of posts if comparable
     if not limit or total_post_count < limit:
         limit = total_post_count
-
     yield from fetch_posts_to_limit(url, filters, limit, **kwargs)
 
 
@@ -42,16 +46,33 @@ def fetch_posts_to_limit(url, filters, num_posts, **kwargs):
         )
 
 
-def fetch_posts_from_page(parsed_html, start_idx, stop_idx, **kwargs):
+def fetch_posts_from_page(page_html, start_idx, stop_idx, **kwargs):
     """Yields posts content from a page (HTML doc) of Craigslist listings."""
-    posts = parsed_html.find("ul", {"class": "rows"})
+    posts = page_html.find("ul", {"class": "rows"})
     for idx, post in enumerate(posts.find_all("li", {"class": "result-row"}, recursive=False)):
-        yield get_post_content(post, **kwargs)
+        # we want country and region to precede all keys
+        post_json = get_post_country_region(page_html)
+        post_json.update(get_post_content(post, **kwargs))
+        yield post_json
         # adjust for true post count idx
         idx += start_idx
         if idx + 1 == stop_idx:
             # reach post limit
             break
+
+
+def get_post_country_region(page_html):
+    """Gets post's country and region from a page (HTML doc) of
+    Craigslist listings."""
+    post_country_region = {}
+    script = page_html.find("script", type="text/javascript")
+
+    country_pattern = re.compile('var areaCountry = "(.*?)";')
+    region_pattern = re.compile('var areaRegion = "(.*?)";')
+    post_country_region["country"] = country_pattern.findall(script.string)[0]
+    post_country_region["region"] = region_pattern.findall(script.string)[0]
+
+    return post_country_region
 
 
 def get_post_content(post_html, **kwargs):
