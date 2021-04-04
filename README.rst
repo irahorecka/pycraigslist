@@ -37,16 +37,18 @@ Let's find cars & trucks in the East Bay Area, California that are silver and ha
     for auto in silver_autos.search():
         print(auto)
 
-    >>> {'area': 'eby',
-        'category': 'cto',
-        'id': '7298808707',
-        'last_updated': '2021-03-29 10:24',
-        'neighborhood': 'concord / pleasant hill / martinez',
-        'price': '$5,000',
-        'repost_of': '',
+    >>> {'country': 'US',
+        'region': 'CA',
         'site': 'sfbay',
-        'title': '2001 Ford Ranger XLT',
-        'url': 'https://sfbay.craigslist.org/eby/cto/d/oakland-2001-ford-ranger-xlt/7298808707.html'}
+        'area': 'eby',
+        'category': 'cto',
+        'id': '7296500058',
+        'repost_of': '7291128432',
+        'last_updated': '2021-03-24 15:09',
+        'title': 'Subaru outback',
+        'neighborhood': 'hayward / castro valley',
+        'price': '$13,600',
+        'url': 'https://sfbay.craigslist.org/eby/cto/d/hayward-subaru-outback/7296500058.html'}
         # ...    
 
 Background
@@ -79,16 +81,18 @@ We can search for posts in parent classes. Let's find paid gigs in Portland, Ore
     for gig in paid_gigs.search():
         print(gig)
 
-    >>> {'area': 'mlt',
-        'category': 'cpg',
-        'id': '7296990293',
-        'last_updated': '2021-03-25 14:43',
-        'neighborhood': 'Portland',
-        'price': '',
-        'repost_of': '',
+    >>> {'country': 'US',
+        'region': 'OR',
         'site': 'portland',
-        'title': 'Part Time Administrative Work Needed - $20/HR',
-        'url': 'https://portland.craigslist.org/mlt/cpg/d/portland-part-time-administrative-work/7296990293.html'}
+        'area': 'mlt',
+        'category': 'lbg',
+        'id': '7295392821',
+        'repost_of': '7292985211',
+        'last_updated': '2021-03-22 13:00',
+        'title': 'Packing and moving',
+        'neighborhood': 'SE Portland',
+        'price': '',
+        'url': 'https://portland.craigslist.org/mlt/lbg/d/portland-packing-and-moving/7295392821.html'}
         # ...
 
 pycraigslist subclasses
@@ -117,6 +121,8 @@ To search for subclasses, use ``.get_categories()``. The resulting keys are the 
         'off': 'office & commercial',
         'prk': 'parking & storage',
         'rea': 'real estate',
+        'reb': 'real estate - by dealer',
+        'reo': 'real estate - by owner',
         'roo': 'rooms & shares',
         'sub': 'sublets & temporary',
         'vac': 'vacation rentals',
@@ -125,7 +131,9 @@ To search for subclasses, use ``.get_categories()``. The resulting keys are the 
         'sha': 'wanted: room/share',
         'sbw': 'wanted: sublet/temp'}
 
-For example, if I'm interested in searching for vacation rentals, I'd use the subclass ``pycraigslist.housing.vac``.
+If we're interested in searching for vacation rentals, we'd use the subclass ``pycraigslist.housing.vac``.
+We can get the category name of our subclass using the ``__doc__`` attribute.
+We'd get ``'real estate - by owner'`` from ``pycraigslist.housing.reo.__doc__``.
 
 Finding and using filters
 *************************
@@ -164,18 +172,20 @@ Using this information, let's search for apartments / housing for rent in Eugene
     for room in one_bedrooms.search():
         print(room)
 
-    >>> {'area': '',
-        'area-ft2': '1000',
-        'bedrooms': '2',
+    >>> {'country': 'US',
+        'region': 'OR',
+        'site': 'eugene',
+        'area': '',
         'category': 'apa',
         'id': '7267556874',
+        'repost_of': '',
         'last_updated': '2021-02-24 08:55',
+        'title': 'High End, Spacious Top Floor Two Bedroom!',
         'neighborhood': 'Eugene',
         'price': '$1,550',
-        'repost_of': '',
-        'site': 'eugene',
-        'title': 'High End, Spacious Top Floor Two Bedroom!',
-        'url': 'https://eugene.craigslist.org/apa/d/springfield-high-end-spacious-top-floor/7267556874.html'}
+        'url': 'https://eugene.craigslist.org/apa/d/springfield-high-end-spacious-top-floor/7267556874.html',
+        'bedrooms': '2',
+        'area-ft2': '1000'}
         # ...
 
 If we want to apply a bunch of filters, pass a dictionary of filters into the ``filters`` keyword parameter.
@@ -200,8 +210,8 @@ Searching for posts
 *******************
 
 To search for Craigslist posts, use the ``.search()`` method.
-``.search()`` will return a dictionary of attributes (``str``) for every post and will get every post by default. 
-Use the ``limit`` keyword parameter to add a stop limit to your query. For example, use ``limit=50`` if you want 50 posts.
+``.search()`` will return a dictionary of attributes (type ``str``) for every post and will get every post by default. 
+Use the ``limit`` keyword parameter to add a stop limit to a query. For example, use ``limit=50`` if we want 50 posts.
 There is a maximum of 3000 posts per query.
 
 Let's find the first 20 posts for farming and gardening services in Denver, Colorado.
@@ -214,16 +224,18 @@ Let's find the first 20 posts for farming and gardening services in Denver, Colo
     for service in gardening_services.search(limit=20):
         print(service)
 
-    >>> {'area': '',
-        'category': 'fgs',
-        'id': '7298949409',
-        'last_updated': '2021-03-29 15:15',
-        'neighborhood': 'all areas',
-        'price': '',
-        'repost_of': '',
+    >>> {'country': 'US',
+        'region': 'CO',
         'site': 'denver',
-        'title': '🌲Mendez tree removal tree trimming stump grinding fully insured 🌲',
-        'url': 'https://denver.craigslist.org/fgs/d/aurora-mendez-tree-removal-tree/7298949409.html'}
+        'area': '',
+        'category': 'fgs',
+        'id': '7301324564',
+        'repost_of': '6974119634',
+        'last_updated': '2021-04-03 11:47',
+        'title': '🌲 Tree Removal/Trimming, Stump Grind: LICENSED/INSURED! 720-605-1584',
+        'neighborhood': 'All Areas',
+        'price': '',
+        'url': 'https://denver.craigslist.org/fgs/d/littleton-tree-removal-trimming-stump/7301324564.html'}
         # ...
 
 Contribute
