@@ -19,6 +19,7 @@ def test_limits(limit):
     apa = pycraigslist.housing.apa()
     filters = {"searchNearby": 1, "s": 0}
     len_posts = len([post for post in apa.search(limit=limit)])
+
     search_html = next(models.sessions.yield_html(apa.url, params=filters))
     expected_len = models.search.get_total_post_count(search_html)
 
