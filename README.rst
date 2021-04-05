@@ -1,10 +1,12 @@
 pycraigslist
 ============
 
-|PyPI version shields.io|
+|PyPI version fury.io| |PyPI pyversions|
 
-.. |PyPI version shields.io| image:: https://img.shields.io/pypi/v/pycraigslist.svg
-   :target: https://pypi.python.org/pypi/pycraigslist
+.. |PyPI version fury.io| image:: https://badge.fury.io/py/pycraigslist.svg
+    :target: https://pypi.python.org/pypi/pycraigslist
+.. |PyPI pyversions| image:: https://img.shields.io/pypi/pyversions/pycraigslist.svg
+    :target: https://pypi.python.org/pypi/pycraigslist/
 
 
 A fast and expressive `Craigslist <https://www.craigslist.org/about/sites>`__ API wrapper.
