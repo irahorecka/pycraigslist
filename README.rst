@@ -160,7 +160,7 @@ To find valid filters for a class or subclass, use ``.get_filters()``.
         'parking': ['carport', 'attached garage', 'detached garage', 'off-street parking', 'street parking',
                     'valet parking', 'no parking']}
 
-Using this information, let's search for apartments / housing for rent in Eugene, Oregon that have at least 1 bedroom and a carport.
+Using this information, let's search for apartments / housing for rent in Eugene, Oregon that have at least 1 bedroom and a carport:
 
 .. code:: python
 
@@ -210,12 +210,12 @@ Searching for posts
 General search
 **************
 
-To search for Craigslist posts, use the ``.search()`` method.
+To search for Craigslist posts, use ``.search()``.
 ``.search()`` will return a dictionary of attributes (type ``str``) for every post and will get every post by default. 
 Use the ``limit`` keyword parameter to add a stop limit to a query. For example, use ``limit=50`` if we want 50 posts.
 There is a maximum of 3000 posts per query.
 
-Let's find the first 20 posts for farming and gardening services in Denver, Colorado.
+Let's find the first 20 posts for farming and gardening services in Denver, Colorado:
 
 .. code:: python
 
@@ -242,12 +242,12 @@ Let's find the first 20 posts for farming and gardening services in Denver, Colo
 Detailed search
 ***************
 
-Use the ``.search_detail()`` method to get detailed Craigslist posts.
-The ``limit`` keyword argument in ``.search()`` also applies to ``.search_detail()``.
+Use ``.search_detail()`` to get detailed Craigslist posts.
+The ``limit`` keyword parameter in ``.search`` also applies to ``.search_detail``.
 Set ``include_body=True`` to include the post's body in the output. By default, ``include_body=False``.
 Disclaimer: ``.search_detail`` is more time consuming than ``.search``.
 
-Let's get detailed posts with the post body for all cars & trucks for sale in Abilene, Texas.
+Let's get detailed posts with the post body for all cars & trucks for sale in Abilene, Texas:
 
 .. code:: python
 
@@ -290,7 +290,7 @@ Additional attributes
 ---------------------
 
 * ``__doc__``: Gets category name of a subclass.
-* ``url``: Gets search URL of a pycraigslist object.
+* ``url``: Gets categorical search URL of a pycraigslist object.
 * ``count``: Gets number of posts of a pycraigslist object.
 
 .. code:: python
