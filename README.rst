@@ -25,30 +25,28 @@ Installation
 Jump Start
 ----------
 
-Let's find cars & trucks in the East Bay Area, California that are silver and have less than 60,000 miles:
+Let's find posts with keyword "Mazda Miata" in the East Bay Area, California:
 
 .. code:: python
 
     import pycraigslist
 
-    silver_autos = pycraigslist.forsale.cta(
-        site="sfbay", area="eby", auto_paint="silver", max_miles=60000
-    )
-    for auto in silver_autos.search():
-        print(auto)
+    miatas = pycraigslist.forsale.cta(site="sfbay", area="eby", query="Mazda Miata")
+    for miata in miatas.search():
+        print(miata)
 
     >>> {'country': 'US',
         'region': 'CA',
         'site': 'sfbay',
-        'area': 'eby',
+        'area': 'scz',
         'category': 'cto',
-        'id': '7296500058',
-        'repost_of': '7291128432',
-        'last_updated': '2021-03-24 15:09',
-        'title': 'Subaru outback',
-        'neighborhood': 'hayward / castro valley',
-        'price': '$13,600',
-        'url': 'https://sfbay.craigslist.org/eby/cto/d/hayward-subaru-outback/7296500058.html'}
+        'id': '7298072504',
+        'repost_of': '',
+        'last_updated': '2021-03-27 17:12',
+        'title': '2005 Mazda MX-5 Miata',
+        'neighborhood': 'santa cruz',
+        'price': '$3,250',
+        'url': 'https://sfbay.craigslist.org/scz/cto/d/santa-cruz-2005-mazda-mx-miata/7298072504.html'}
         # ...    
 
 Background
@@ -132,12 +130,10 @@ To search for subclasses, use ``.get_categories()``. The resulting keys are the 
         'sbw': 'wanted: sublet/temp'}
 
 If we're interested in searching for vacation rentals, we'd use the subclass ``pycraigslist.housing.vac``.
-We can get the category name of our subclass using the ``__doc__`` attribute.
-We'd get ``'real estate - by owner'`` from ``pycraigslist.housing.reo.__doc__``.
 
 Finding and using filters
 *************************
-As demonstrated in the jump-start example, we can pass filters when constructing our Craigslist search.
+As demonstrated in the jump-start example, we can apply filters to our Craigslist search.
 To find valid filters for a class or subclass, use ``.get_filters()``.
 
 .. code:: python
@@ -237,6 +233,77 @@ Let's find the first 20 posts for farming and gardening services in Denver, Colo
         'price': '',
         'url': 'https://denver.craigslist.org/fgs/d/littleton-tree-removal-trimming-stump/7301324564.html'}
         # ...
+
+Searching for detailed posts
+****************************
+
+Use the ``.search_detail()`` method to get detailed Craigslist posts.
+The ``limit`` keyword argument in ``.search()`` also applies to ``.search_detail()``.
+Set ``include_body=True`` to include the post's body in the output. By default, ``include_body=False``.
+Disclaimer: ``.search_detail`` is more time consuming than ``.search``.
+
+Let's get detailed posts with the post body for all cars & trucks for sale in Abilene, Texas.
+
+.. code:: python
+
+    import pycraigslist
+
+    all_autos = pycraigslist.forsale.cta(site="abilene")
+    for auto in all_autos.search_detail(include_body=True):
+        print(auto)
+        
+    >>> {'country': 'US',
+        'region': 'TX',
+        'site': 'abilene',
+        'area': '',
+        'category': 'cto',
+        'id': '7301439387',
+        'repost_of': '',
+        'last_updated': '2021-04-03 16:15',
+        'title': 'Ford F-250 Super Duty XLT',
+        'neighborhood': 'Abilene',
+        'price': '$16,000',
+        'url': 'https://abilene.craigslist.org/cto/d/abilene-ford-250-super-duty-xlt/7301439387.html',
+        'lat': '32.255519',
+        'lon': '-99.787999',
+        'address': '1226 County Road 150',
+        'misc': ['2005 chevrolet malibu', 'delivery available'],
+        'condition': 'good',
+        'cylinders': '6 cylinders',
+        'drive': 'fwd',
+        'fuel': 'gas',
+        'odometer': '140000',
+        'paint color': 'white',
+        'size': 'full-size',
+        'title status': 'clean',
+        'transmission': 'automatic',
+        'type': 'sedan',
+        'body': '05 Chev. Malibu. Run out good, stingy on gas.\nReady to go.'}
+        # ...
+
+Additional attributes
+*********************
+* ``__doc__``: Gets category name of a subclass.
+* ``url``: Gets search URL of a pycraigslist object.
+* ``count``: Gets number of posts of a pycraigslist object.
+
+.. code:: python
+    
+    import pycraigslist
+
+    east_bay_apa = pycraigslist.housing.apa(site="sfbay", area="eby", max_price=800)
+
+    # 1
+    print(east_bay_apa.__doc__)
+    >>> 'apartments / housing for rent'
+
+    # 2
+    print(east_bay_apa.url)
+    >>> 'https://sfbay.craigslist.org/search/eby/apa'
+
+    # 3
+    print(east_bay_apa.count)
+    >>> 56
 
 Contribute
 ----------
