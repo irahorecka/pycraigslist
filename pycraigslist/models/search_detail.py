@@ -10,7 +10,7 @@ from . import sessions
 
 def fetch_posts(posts_iter, **kwargs):
     """Fetches details from every post in posts_iter."""
-    # yield all post values (can this be avoided..?)
+    # yield all post values
     posts = tuple(posts_iter)
     posts_url = [post["url"] for post in posts]
     params = [{} for _ in posts_url]
@@ -18,6 +18,7 @@ def fetch_posts(posts_iter, **kwargs):
     post_htmls = sessions.yield_html(posts_url, params=params)
     kwargs["filters"] = invert_filters(kwargs["filters"])
 
+    # yield detailed posts to caller
     for post_idx, html in enumerate(post_htmls):
         yield {**posts[post_idx], **get_post_details(html, **kwargs)}
 
@@ -38,7 +39,7 @@ def invert_filters(search_filters):
 
 
 def get_post_details(post_content, **kwargs):
-    """Gets additional post detail as dictionary."""
+    """Gets additional post details as dictionary."""
     addl_detail = {}
     addl_detail.update(get_geotag(post_content))
     addl_detail.update(get_address(post_content))
@@ -101,7 +102,7 @@ def get_post_attrs(post_content, **kwargs):
 
 
 def get_attrs(post_content):
-    """Get attribute keys from post's HTML content."""
+    """Gets attribute keys from post's HTML content."""
     for attribute in post_content.find_all("p", {"class": "attrgroup"}):
         for attr in attribute.find_all("span"):
             attr_text = attr.text.strip()
@@ -110,8 +111,8 @@ def get_attrs(post_content):
 
 
 def parse_attrs(post_attrs, attr, filters):
-    """Parses attributes using filters as reference. Add parsed attributes
-    to attributes collection by reference."""
+    """Parses attributes using search filters as reference. Adds parsed
+    attributes to attributes collection (post_attrs) by reference."""
     if attr in filters:
         if isinstance(filters[attr], dict):
             # e.g. update with {"cats_ok": "true"} from {"cats are ok - purrr": {"cats_ok": "true"},}

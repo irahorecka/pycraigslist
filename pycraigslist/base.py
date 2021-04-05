@@ -1,4 +1,12 @@
+"""
+pycraigslist.base
+~~~~~~~~~~~~~~~~~
+
+This module handles all communication from the user to the Craigslist API.
+"""
+
 from . import models
+from .utils import parse_limit
 
 
 class BaseAPI:
@@ -10,25 +18,33 @@ class BaseAPI:
     def __init__(self, site="sfbay", area="", filters=None, **kwargs):
         self.site = site
         self.area = area
+        self.search_filters = {**self.search_filters, **models.filters.get_addl(self.url)}
         self.filters = {"searchNearby": 1, "s": 0}
         # **kwargs will override filters if matching key exists
         if isinstance(filters, dict):
             self.filters.update(filters)
         self.filters.update(**kwargs)
+        # parse self.filters to construct valid HTTP parameters
+        self.filters = models.filters.parse(self.filters, self.search_filters)
 
+    @parse_limit
     def search(self, limit=None):
         """Yields Craigslist posts as dictionary."""
-        parsed_filters = models.filters.parse(self.url, self.filters, self.search_filters)
-        # if limit is valid
-        if limit is None or isinstance(limit, int) and limit >= 0:
-            yield from models.search.fetch_posts(
-                self.url, parsed_filters, category=self.category, limit=limit
-            )
+        yield from models.search.fetch_posts(
+            self.url, self.filters, category=self.category, limit=limit
+        )
 
-        elif not isinstance(limit, int):
-            raise TypeError("'limit' must be of type 'int'")
-        else:
-            raise ValueError("'limit' must be greater than / equal to 0")
+    @parse_limit
+    def search_detail(self, limit=None, include_body=False):
+        """Yields detailed Craigslist posts as dictionary."""
+        yield from models.search_detail.fetch_posts(
+            self.search(limit=limit), filters=self.search_filters, include_body=include_body
+        )
+
+    @property
+    def count(self):
+        """Gets approximate number of Craigslist posts."""
+        return models.search.get_total_post_count(self.url, self.filters)
 
     @property
     def url(self):
@@ -43,7 +59,7 @@ class BaseAPI:
         The intention is to provide user with valid filter keys and values,
         therefore the returned dictionary is catered for ease of interpretation."""
         category = cls.__name__ if not cls.category else cls.category
-        # default sfbay classified as craigslist search url
+        # set sfbay classified as default craigslist search url
         category_url = "https://sfbay.craigslist.org/search/%s" % category
         readable_filters = {
             key: "..." if value["value"] is None else "True/False"

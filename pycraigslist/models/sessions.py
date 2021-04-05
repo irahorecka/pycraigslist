@@ -1,9 +1,16 @@
+"""
+pycraigslist.models.sessions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This module handles all requests and construction of BeautifulSoup objects.
+"""
+
 import concurrent.futures
 import tenacity
 import requests
 from bs4 import BeautifulSoup
 
-USER_AGENT = "Mozilla/5.0"
+HEADERS = {"headers": {"User-Agent": "Mozilla/5.0"}}
 # Retry 10 times, starting with 0.01 second and doubling the delay every time
 _RETRY_ARGS = {
     "wait": tenacity.wait.wait_random_exponential(multiplier=0.01, exp_base=2),
@@ -16,7 +23,7 @@ class MaximumRequestsError(Exception):
 
 
 def yield_html(url, **kwargs):
-    """Yields HTML doc(s) to caller."""
+    """Yields HTML content(s) to caller."""
     try:
         # single request: a url string
         if isinstance(url, str):
@@ -47,8 +54,12 @@ def get_request(url, params=None):
     """Gets requests.models.Response object using requests.get.
     Retry request if request fails, with number of attempts and
     wait time specified in _RETRY_ARGS."""
-    params = {} if params is None else params
-    params.setdefault("headers", {}).setdefault("User-Agent", USER_AGENT)
+    if params is None:
+        params = HEADERS
+    # don't add headers if params is {}
+    elif params != {}:
+        params.update(HEADERS)
+
     return requests.get(url, params=params, timeout=5)
 
 

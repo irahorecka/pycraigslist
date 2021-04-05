@@ -1,3 +1,11 @@
+"""
+pycraigslist.api
+~~~~~~~~~~~~~~~~
+
+This module provides a suite of pycraigslist objects to construct a
+Craigslist search.
+"""
+
 from .base import BaseAPI, ParentMethods
 from . import filters
 
@@ -143,6 +151,9 @@ class events(BaseAPI, ParentMethods):
 
     category = "eee"
     search_filters = filters.search.events
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
 
 class forsale(BaseAPI, ParentMethods):
@@ -1247,6 +1258,7 @@ class forsale(BaseAPI, ParentMethods):
 
 
 class gigs(BaseAPI, ParentMethods):
+    """Craigslist gigs API wrapper."""
 
     category = "ggg"
     search_filters = filters.search.gigs
@@ -1255,6 +1267,8 @@ class gigs(BaseAPI, ParentMethods):
         super().__init__(*args, **kwargs)
 
     class cpg(BaseAPI):
+        """computer gigs"""
+
         search_filters = filters.search.gigs
 
         def __init__(self, *args, **kwargs):
@@ -1262,6 +1276,8 @@ class gigs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class crg(BaseAPI):
+        """creative gigs"""
+
         search_filters = filters.search.gigs
 
         def __init__(self, *args, **kwargs):
@@ -1269,6 +1285,8 @@ class gigs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class cwg(BaseAPI):
+        """crew gigs"""
+
         search_filters = filters.search.gigs
 
         def __init__(self, *args, **kwargs):
@@ -1276,6 +1294,8 @@ class gigs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class dmg(BaseAPI):
+        """domestic gigs"""
+
         search_filters = filters.search.gigs
 
         def __init__(self, *args, **kwargs):
@@ -1283,6 +1303,8 @@ class gigs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class evg(BaseAPI):
+        """event gigs"""
+
         search_filters = filters.search.gigs
 
         def __init__(self, *args, **kwargs):
@@ -1290,6 +1312,8 @@ class gigs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class lbg(BaseAPI):
+        """labor gigs"""
+
         search_filters = filters.search.gigs
 
         def __init__(self, *args, **kwargs):
@@ -1297,6 +1321,8 @@ class gigs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class tlg(BaseAPI):
+        """talent gigs"""
+
         search_filters = filters.search.gigs
 
         def __init__(self, *args, **kwargs):
@@ -1304,6 +1330,8 @@ class gigs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class wrg(BaseAPI):
+        """writing gigs"""
+
         search_filters = filters.search.gigs
 
         def __init__(self, *args, **kwargs):
@@ -1321,13 +1349,8 @@ class housing(BaseAPI, ParentMethods):
         super().__init__(*args, **kwargs)
 
     class apa(BaseAPI):
-        search_filters = filters.search.housing
+        """apartments / housing for rent"""
 
-        def __init__(self, *args, **kwargs):
-            self.category = self.__class__.__name__
-            super().__init__(*args, **kwargs)
-
-    class off(BaseAPI):
         search_filters = filters.search.housing
 
         def __init__(self, *args, **kwargs):
@@ -1335,6 +1358,17 @@ class housing(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class swp(BaseAPI):
+        """housing swap"""
+
+        search_filters = filters.search.housing
+
+        def __init__(self, *args, **kwargs):
+            self.category = self.__class__.__name__
+            super().__init__(*args, **kwargs)
+
+    class off(BaseAPI):
+        """office & commercial"""
+
         search_filters = filters.search.housing
 
         def __init__(self, *args, **kwargs):
@@ -1342,6 +1376,8 @@ class housing(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class prk(BaseAPI):
+        """parking & storage"""
+
         search_filters = filters.search.housing
 
         def __init__(self, *args, **kwargs):
@@ -1349,6 +1385,26 @@ class housing(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class rea(BaseAPI):
+        """real estate"""
+
+        search_filters = filters.search.housing
+
+        def __init__(self, *args, **kwargs):
+            self.category = self.__class__.__name__
+            super().__init__(*args, **kwargs)
+
+    class reb(BaseAPI):
+        """real estate - by dealer"""
+
+        search_filters = filters.search.housing
+
+        def __init__(self, *args, **kwargs):
+            self.category = self.__class__.__name__
+            super().__init__(*args, **kwargs)
+
+    class reo(BaseAPI):
+        """real estate - by owner"""
+
         search_filters = filters.search.housing
 
         def __init__(self, *args, **kwargs):
@@ -1356,6 +1412,8 @@ class housing(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class roo(BaseAPI):
+        """rooms & shares"""
+
         search_filters = filters.search.housing
 
         def __init__(self, *args, **kwargs):
@@ -1363,6 +1421,8 @@ class housing(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class sub(BaseAPI):
+        """sublets & temporary"""
+
         search_filters = filters.search.housing
 
         def __init__(self, *args, **kwargs):
@@ -1370,6 +1430,8 @@ class housing(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class vac(BaseAPI):
+        """vacation rentals"""
+
         search_filters = filters.search.housing
 
         def __init__(self, *args, **kwargs):
@@ -1377,6 +1439,8 @@ class housing(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class hou(BaseAPI):
+        """wanted: apts"""
+
         search_filters = filters.search.housing
 
         def __init__(self, *args, **kwargs):
@@ -1384,6 +1448,8 @@ class housing(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class rew(BaseAPI):
+        """wanted: real estate"""
+
         search_filters = filters.search.housing
 
         def __init__(self, *args, **kwargs):
@@ -1391,6 +1457,8 @@ class housing(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class sha(BaseAPI):
+        """wanted: room/share"""
+
         search_filters = filters.search.housing
 
         def __init__(self, *args, **kwargs):
@@ -1398,6 +1466,8 @@ class housing(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class sbw(BaseAPI):
+        """wanted: sublet/temp"""
+
         search_filters = filters.search.housing
 
         def __init__(self, *args, **kwargs):
@@ -1415,6 +1485,8 @@ class jobs(BaseAPI, ParentMethods):
         super().__init__(*args, **kwargs)
 
     class acc(BaseAPI):
+        """accounting/finance"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1422,6 +1494,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class ofc(BaseAPI):
+        """admin/office"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1429,6 +1503,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class egr(BaseAPI):
+        """architect/engineer/cad"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1436,6 +1512,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class med(BaseAPI):
+        """art/media/design"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1443,6 +1521,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class bus(BaseAPI):
+        """business/mgmt"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1450,6 +1530,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class csr(BaseAPI):
+        """customer service"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1457,6 +1539,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class edu(BaseAPI):
+        """education/teaching"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1464,6 +1548,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class etc(BaseAPI):
+        """et cetera"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1471,6 +1557,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class fbh(BaseAPI):
+        """food/beverage/hospitality"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1478,6 +1566,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class lab(BaseAPI):
+        """general labor"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1485,6 +1575,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class gov(BaseAPI):
+        """government"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1492,6 +1584,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class hea(BaseAPI):
+        """healthcare"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1499,6 +1593,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class hum(BaseAPI):
+        """human resource"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1506,6 +1602,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class lgl(BaseAPI):
+        """legal/paralegal"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1513,6 +1611,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class mnu(BaseAPI):
+        """manufacturing"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1520,6 +1620,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class mar(BaseAPI):
+        """marketing/advertising/pr"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1527,6 +1629,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class npo(BaseAPI):
+        """nonprofit"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1534,6 +1638,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class rej(BaseAPI):
+        """real estate"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1541,6 +1647,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class ret(BaseAPI):
+        """retail/wholesale"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1548,6 +1656,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class sls(BaseAPI):
+        """sales"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1555,6 +1665,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class spa(BaseAPI):
+        """salon/spa/fitness"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1562,6 +1674,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class sci(BaseAPI):
+        """science/biotech"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1569,6 +1683,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class sec(BaseAPI):
+        """security"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1576,6 +1692,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class trd(BaseAPI):
+        """skilled trades/artisan"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1583,6 +1701,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class sof(BaseAPI):
+        """software/qa/dba/etc"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1590,6 +1710,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class sad(BaseAPI):
+        """systems/networking"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1597,6 +1719,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class tch(BaseAPI):
+        """technical support"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1604,6 +1728,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class trp(BaseAPI):
+        """transportation"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1611,6 +1737,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class tfr(BaseAPI):
+        """tv/film/video/radio"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1618,6 +1746,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class web(BaseAPI):
+        """web/html/info design"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1625,6 +1755,8 @@ class jobs(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class wri(BaseAPI):
+        """writing/editing"""
+
         search_filters = filters.search.jobs
 
         def __init__(self, *args, **kwargs):
@@ -1652,6 +1784,8 @@ class services(BaseAPI, ParentMethods):
         super().__init__(*args, **kwargs)
 
     class aos(BaseAPI):
+        """automotive services"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1659,6 +1793,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class bts(BaseAPI):
+        """beauty services"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1666,6 +1802,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class cms(BaseAPI):
+        """cell phone / mobile services"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1673,6 +1811,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class cps(BaseAPI):
+        """computer services"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1680,6 +1820,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class crs(BaseAPI):
+        """creative services"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1687,6 +1829,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class cys(BaseAPI):
+        """cycle services"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1694,6 +1838,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class evs(BaseAPI):
+        """event services"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1701,6 +1847,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class fgs(BaseAPI):
+        """farm & garden services"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1708,6 +1856,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class fns(BaseAPI):
+        """financial services"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1715,6 +1865,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class hss(BaseAPI):
+        """household services"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1722,6 +1874,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class lbs(BaseAPI):
+        """labor / hauling / moving"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1729,6 +1883,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class lgs(BaseAPI):
+        """legal services"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1736,6 +1892,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class lss(BaseAPI):
+        """lessons & tutoring"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1743,6 +1901,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class mas(BaseAPI):
+        """marine services"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1750,6 +1910,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class pas(BaseAPI):
+        """pet services"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1757,6 +1919,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class rts(BaseAPI):
+        """real estate services"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1764,6 +1928,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class sks(BaseAPI):
+        """skilled trade services"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1771,6 +1937,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class biz(BaseAPI):
+        """small biz ads"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1778,6 +1946,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class trv(BaseAPI):
+        """travel/vacation services"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):
@@ -1785,6 +1955,8 @@ class services(BaseAPI, ParentMethods):
             super().__init__(*args, **kwargs)
 
     class wet(BaseAPI):
+        """writing / editing / translation"""
+
         search_filters = filters.search.services
 
         def __init__(self, *args, **kwargs):

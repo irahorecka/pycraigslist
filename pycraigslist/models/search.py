@@ -1,3 +1,10 @@
+"""
+pycraigslist.models.search
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This module gets and parses posts from a Craigslist query.
+"""
+
 import re
 from . import sessions
 
@@ -5,10 +12,9 @@ from . import sessions
 def fetch_posts(url, filters, **kwargs):
     """Yields every post on Craigslist as a dictionary with string values,
     provided a url and query filters."""
-    search_html = next(sessions.yield_html(url, params=filters))
-    total_post_count = get_total_post_count(search_html)
+    total_post_count = get_total_post_count(url, filters)
     # return empty search if total_post_count cannot be found in search page
-    if total_post_count is None:
+    if total_post_count == 0:
         return ()
 
     limit = kwargs["limit"]
@@ -18,36 +24,37 @@ def fetch_posts(url, filters, **kwargs):
     yield from fetch_posts_to_limit(url, filters, limit, **kwargs)
 
 
-def get_total_post_count(search_html_content):
-    """Gets total number of posts from Craigslist search page."""
-    totalcount = search_html_content.find("span", {"class": "totalcount"})
-    return int(totalcount.text) if totalcount else None
+def get_total_post_count(url, filters):
+    """Gets total number of posts from Craigslist url and parameters."""
+    search_html = next(sessions.yield_html(url, params=filters))
+    total_count = search_html.find("span", {"class": "totalcount"})
+    return 0 if total_count is None else int(total_count.text)
 
 
 def fetch_posts_to_limit(url, filters, num_posts, **kwargs):
-    """Exhaustively yield post contents from Craigslist url and filters
-    up to num_posts."""
-    # find number of pages for search - there are 120 posts per page
+    """Exhaustively yields post contents (up to num_posts) from Craigslist
+    url and filters."""
+    # find number of search pages - there are 120 posts per page
     num_pages = int(num_posts / 120) + 1 if num_posts % 120 != 0 else int(num_posts / 120)
     # container to hold appending iterables
     zip_iter = []
     for page_num in range(num_pages):
-        # get first post's index in a search page
-        start_index = page_num * 120
-        filters["s"] = start_index
-        zip_iter.append((url, filters.copy(), start_index))
+        # get first post's post index in a search page
+        # e.g. third page first post is 240, i.e. it is the 240th post in the query
+        filters["s"] = page_num * 120
+        zip_iter.append((url, filters.copy(), filters["s"]))
 
     # unzip for threading requests
-    search_urls, page_filters, start_posts = zip(*zip_iter)
+    search_urls, page_filters, start_idxs = zip(*zip_iter)
     search_pages = sessions.yield_html(search_urls, params=page_filters)
     for idx, html in enumerate(search_pages):
         yield from (
-            fetch_posts_from_page(html, start_idx=start_posts[idx], stop_idx=num_posts, **kwargs)
+            fetch_posts_from_page(html, start_idx=start_idxs[idx], stop_idx=num_posts, **kwargs)
         )
 
 
 def fetch_posts_from_page(page_html, start_idx, stop_idx, **kwargs):
-    """Yields posts content from a page (HTML doc) of Craigslist listings."""
+    """Yields posts' content from a page of Craigslist listings (HTML content)."""
     posts = page_html.find("ul", {"class": "rows"})
     for idx, post in enumerate(posts.find_all("li", {"class": "result-row"}, recursive=False)):
         # we want country and region to precede all keys
@@ -62,22 +69,22 @@ def fetch_posts_from_page(page_html, start_idx, stop_idx, **kwargs):
 
 
 def get_post_country_region(page_html):
-    """Gets post's country and region from a page (HTML doc) of
-    Craigslist listings."""
+    """Gets post's country and region from a page of Craigslist listings
+    (HTML content)."""
     post_country_region = {}
     script = page_html.find("script", type="text/javascript")
+    country_re_pattern = re.compile('var areaCountry = "(.*?)";')
+    region_re_pattern = re.compile('var areaRegion = "(.*?)";')
 
-    country_pattern = re.compile('var areaCountry = "(.*?)";')
-    region_pattern = re.compile('var areaRegion = "(.*?)";')
-    post_country_region["country"] = country_pattern.findall(script.string)[0]
-    post_country_region["region"] = region_pattern.findall(script.string)[0]
+    post_country_region["country"] = country_re_pattern.findall(script.string)[0]
+    post_country_region["region"] = region_re_pattern.findall(script.string)[0]
 
     return post_country_region
 
 
 def get_post_content(post_html, **kwargs):
     """Gets content from an individual post's HTML."""
-    # prep bs4 html for parse
+    # prepare bs4 html for parse
     header_link = post_html.find("a", {"class": "hdrlnk"})
     neighborhood = post_html.find("span", {"class": "result-hood"})
     price = post_html.find("span", {"class": "result-price"})
@@ -91,7 +98,7 @@ def get_post_content(post_html, **kwargs):
 
     # parse bs4 html
     post_id = post_html.attrs["data-pid"]
-    post_repost_of = "" if not repost_of else repost_of
+    post_repost_of = repost_of or ""
     post_last_updated = datetime
     post_title = header_link.text
     post_neighborhood = neighborhood.text.strip()[1:-1] if neighborhood else ""
@@ -136,24 +143,23 @@ def parse_url_subdomains(url):
 
 
 def get_addl_content(post_html, **kwargs):
-    """Gets additional post content from HTML doc."""
+    """Gets additional post content from post's HTML row."""
     category = kwargs["category"]
     try:
-        get_content = AddlContent.from_search_page[category]
+        get_content = AddlContent.search[category]
         return get_content(post_html)
     except KeyError:
         return {}
 
 
 class AddlContent:
-    """Gets additional post content from post's HTML doc and Craigslist
-    search category."""
+    """Gets additional post content from post's HTML row."""
 
-    # Though only containing one key and method, if a listings page is found to
-    # have extra post attributes, add appropriate selector and parsing method
-    # to this class.
+    # Though currently containing one key and method, if a listings page is found to
+    # have extra post attributes than standard, add appropriate selector and parsing
+    # method to this class.
 
-    from_search_page = {
+    search = {
         "apa": lambda post: AddlContent.parse_housing(
             post.find("span", {"class": "housing"}).contents
         )

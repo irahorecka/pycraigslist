@@ -1,3 +1,11 @@
+"""
+pycraigslist.filters
+~~~~~~~~~~~~~~~~~~~~
+
+This module stores Craigslist search filters and categories.
+"""
+
+
 class search:
     """Store search filters by broad category."""
 
@@ -171,7 +179,7 @@ class category:
 
     @classmethod
     def get(cls, key):
-        """Gets niche category from broad category key."""
+        """Gets niche categories from broad category key."""
         index_table = {
             "community": cls.community,
             "events": cls.events,
