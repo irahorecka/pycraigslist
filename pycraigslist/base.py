@@ -5,6 +5,7 @@ pycraigslist.base
 This module handles all communication from the user to the Craigslist API.
 """
 
+import urllib
 from . import models
 from .utils import parse_limit
 
@@ -18,7 +19,7 @@ class BaseAPI:
     def __init__(self, site="sfbay", area="", filters=None, **kwargs):
         self.site = site
         self.area = area
-        self.search_filters = {**self.search_filters, **models.filters.get_addl(self.url)}
+        self.search_filters = {**self.search_filters, **models.filters.get_addl(self._base_url)}
         self.filters = {"searchNearby": 1, "s": 0}
         # **kwargs will override filters if matching key exists
         if isinstance(filters, dict):
@@ -31,7 +32,7 @@ class BaseAPI:
     def search(self, limit=None):
         """Yields Craigslist posts as dictionary."""
         yield from models.search.fetch_posts(
-            self.url, self.filters, category=self.category, limit=limit
+            self._base_url, self.filters, category=self.category, limit=limit
         )
 
     @parse_limit
@@ -44,11 +45,16 @@ class BaseAPI:
     @property
     def count(self):
         """Gets approximate number of Craigslist posts."""
-        return models.search.get_total_post_count(self.url, self.filters)
+        return models.search.get_total_post_count(self._base_url, self.filters)
 
     @property
     def url(self):
-        """Builds Craigslist query URL."""
+        """Builds full Craigslist query URL."""
+        return "%s?%s" % (self._base_url, urllib.parse.urlencode(self.filters, doseq=True))
+
+    @property
+    def _base_url(self):
+        """Builds standard Craigslist query URL."""
         if not self.area:
             return "https://%s.craigslist.org/search/%s" % (self.site, self.category)
         return "https://%s.craigslist.org/search/%s/%s" % (self.site, self.area, self.category)

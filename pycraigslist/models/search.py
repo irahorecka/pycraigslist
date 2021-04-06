@@ -71,13 +71,27 @@ def fetch_posts_from_page(page_html, start_idx, stop_idx, **kwargs):
 def get_post_country_region(page_html):
     """Gets post's country and region from a page of Craigslist listings
     (HTML content)."""
-    post_country_region = {}
-    script = page_html.find("script", type="text/javascript")
-    country_re_pattern = re.compile('var areaCountry = "(.*?)";')
-    region_re_pattern = re.compile('var areaRegion = "(.*?)";')
+    # javascript syntax for areaCountry and areaRegion
+    js_country_re = re.compile('var areaCountry = "(.*?)";')
+    js_region_re = re.compile('var areaRegion = "(.*?)";')
+    # json syntax for areaCountry and areaRegion
+    json_country_re = re.compile('areaCountry: "(.*?)",')
+    json_region_re = re.compile('areaRegion: "(.*?)",')
 
-    post_country_region["country"] = country_re_pattern.findall(script.string)[0]
-    post_country_region["region"] = region_re_pattern.findall(script.string)[0]
+    post_country_region = {}
+    scripts = page_html.find_all("script")
+    for script in scripts:
+        if script.string is None:
+            continue
+        # if country pattern matches, region pattern will match
+        if bool(js_country_re.findall(script.string)):
+            post_country_region["country"] = js_country_re.findall(script.string)[0]
+            post_country_region["region"] = js_region_re.findall(script.string)[0]
+            break
+        if bool(json_country_re.findall(script.string)):
+            post_country_region["country"] = json_country_re.findall(script.string)[0]
+            post_country_region["region"] = json_region_re.findall(script.string)[0]
+            break
 
     return post_country_region
 

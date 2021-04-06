@@ -11,7 +11,7 @@ from . import filters
 
 
 class community(BaseAPI, ParentMethods):
-    """Craigslist community API wrapper."""
+    """community"""
 
     category = "ccc"
     search_filters = filters.search.community
@@ -147,7 +147,7 @@ class community(BaseAPI, ParentMethods):
 
 
 class events(BaseAPI, ParentMethods):
-    """Craigslist events API wrapper."""
+    """events"""
 
     category = "eee"
     search_filters = filters.search.events
@@ -157,7 +157,7 @@ class events(BaseAPI, ParentMethods):
 
 
 class forsale(BaseAPI, ParentMethods):
-    """Craigslist for sale API wrapper."""
+    """for sale"""
 
     category = "sss"
     search_filters = filters.search.forsale
@@ -1258,7 +1258,7 @@ class forsale(BaseAPI, ParentMethods):
 
 
 class gigs(BaseAPI, ParentMethods):
-    """Craigslist gigs API wrapper."""
+    """gigs"""
 
     category = "ggg"
     search_filters = filters.search.gigs
@@ -1340,7 +1340,7 @@ class gigs(BaseAPI, ParentMethods):
 
 
 class housing(BaseAPI, ParentMethods):
-    """Craigslist housing API wrapper."""
+    """housing"""
 
     category = "hhh"
     search_filters = filters.search.housing
@@ -1476,7 +1476,7 @@ class housing(BaseAPI, ParentMethods):
 
 
 class jobs(BaseAPI, ParentMethods):
-    """Craigslist jobs API wrapper."""
+    """jobs"""
 
     category = "jjj"
     search_filters = filters.search.jobs
@@ -1765,7 +1765,7 @@ class jobs(BaseAPI, ParentMethods):
 
 
 class resumes(BaseAPI, ParentMethods):
-    """Craigslist resumes API wrapper."""
+    """resumes"""
 
     category = "rrr"
     search_filters = filters.search.resumes
@@ -1775,7 +1775,7 @@ class resumes(BaseAPI, ParentMethods):
 
 
 class services(BaseAPI, ParentMethods):
-    """Craigslist services API wrapper."""
+    """services"""
 
     category = "bbb"
     search_filters = filters.search.services
