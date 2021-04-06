@@ -289,9 +289,9 @@ Let's get detailed posts with the post body for all cars & trucks for sale in Ab
 Additional attributes
 ---------------------
 
-* ``__doc__``: Gets category name of a subclass.
-* ``url``: Gets categorical search URL of a pycraigslist object.
-* ``count``: Gets number of posts of a pycraigslist object.
+* ``__doc__``: Gets category name.
+* ``url``: Gets full URL.
+* ``count``: Gets number of posts.
 
 .. code:: python
     
@@ -305,7 +305,7 @@ Additional attributes
 
     # 2
     print(east_bay_apa.url)
-    >>> 'https://sfbay.craigslist.org/search/eby/apa'
+    >>> 'https://sfbay.craigslist.org/search/eby/apa?searchNearby=1&s=0&max_price=800'
 
     # 3
     print(east_bay_apa.count)
