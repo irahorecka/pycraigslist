@@ -19,14 +19,9 @@ class BaseAPI:
     def __init__(self, site="sfbay", area="", filters=None, **kwargs):
         self.site = site
         self.area = area
-        self.search_filters = {**self.search_filters, **models.filters.get_addl(self._base_url)}
-        self.filters = {"searchNearby": 1, "s": 0}
-        # **kwargs will override filters if matching key exists
-        if isinstance(filters, dict):
-            self.filters.update(filters)
-        self.filters.update(**kwargs)
-        # parse self.filters to construct valid HTTP parameters
-        self.filters = models.filters.parse(self.filters, self.search_filters)
+        self.all_search_filters = {**self.search_filters, **models.filters.get_addl(self._base_url)}
+        # Get parsed filters to use as HTTP parameters
+        self.filters = models.filters.parse(filters, self.all_search_filters, **kwargs)
 
     @parse_limit
     def search(self, limit=None):
@@ -39,7 +34,7 @@ class BaseAPI:
     def search_detail(self, limit=None, include_body=False):
         """Yields detailed Craigslist posts as dictionary."""
         yield from models.search_detail.fetch_posts(
-            self.search(limit=limit), filters=self.search_filters, include_body=include_body
+            self.search(limit=limit), filters=self.all_search_filters, include_body=include_body
         )
 
     @property
@@ -59,19 +54,13 @@ class BaseAPI:
             return "https://%s.craigslist.org/search/%s" % (self.site, self.category)
         return "https://%s.craigslist.org/search/%s/%s" % (self.site, self.area, self.category)
 
-    @classmethod
-    def get_filters(cls):
-        """Gets readable Craigslist query filters for given class.
-        The intention is to provide user with valid filter keys and values,
-        therefore the returned dictionary is catered for ease of interpretation."""
-        category = cls.__name__ if not cls.category else cls.category
-        # set sfbay classified as default craigslist search url
-        category_url = "https://sfbay.craigslist.org/search/%s" % category
+    def get_filters(self):
+        """Gets Craigslist query filters in a readable format."""
         readable_filters = {
             key: "..." if value["value"] is None else "True/False"
-            for key, value in cls.search_filters.items()
+            for key, value in self.search_filters.items()
         }
-        readable_filters.update(models.filters.get_addl_readable(category_url))
+        readable_filters.update(models.filters.get_addl_readable(self._base_url))
 
         return readable_filters
 

@@ -25,13 +25,13 @@ class MaximumRequestsError(Exception):
 def yield_html(url, **kwargs):
     """Yields HTML content(s) to caller."""
     try:
-        # single request: a url string
+        # Single request: a url string
         if isinstance(url, str):
             yield get_html(get_request(url, **parse_kwargs(kwargs)).content)
-        # single request: a single url in a list or tuple
+        # Single request: a single url in a list or tuple
         elif isinstance(url, (list, tuple)) and len(url) == 1:
             yield get_html(get_request(url[0], **parse_kwargs(kwargs)).content)
-        # multiple requests
+        # Multiple requests
         else:
             yield from map(
                 get_html,
@@ -56,7 +56,7 @@ def get_request(url, params=None):
     wait time specified in _RETRY_ARGS."""
     if params is None:
         params = HEADERS
-    # don't add headers if params is {}
+    # Don't add headers if params is {}
     elif params != {}:
         params.update(HEADERS)
 
@@ -73,14 +73,13 @@ def threaded_get_request(urls, **kwargs):
 
 
 def concurrency(PoolExecutor, map_func, *args, **kwargs):
-    """General concurrency procedure to submit map-able
-    functions to arguments."""
-    # this procedure is designed to handle process pools and thread pools
-    # zip args and kwarg values to make tuple of args
+    """General concurrency procedure for thread pools and process
+    pools that submits map-able functions to arguments."""
+    # Zip args and kwarg values to make tuple of args
     zipped_args = zip(*args, *kwargs.values())
     with PoolExecutor(max_workers=5) as executor:
         futures = {
-            # func must accept all positional arguments (kwargs assumed by args OK)
+            # Func must accept all positional arguments (kwargs assumed by args OK)
             executor.submit(map_func, arg_tuple)
             for arg_tuple in zipped_args
         }

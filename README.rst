@@ -136,29 +136,33 @@ If we're interested in searching for vacation rentals, we'd use the subclass ``p
 Finding and using filters
 *************************
 As demonstrated in the jump-start example, we can apply filters to our Craigslist search.
-To find valid filters for a class or subclass, use ``.get_filters()``.
+To find valid filters for a class or subclass instance, use ``.get_filters()``.
 
 .. code:: python
 
     import pycraigslist
 
-    print(pycraigslist.housing.apa.get_filters())
+    tokyo_autos = pycraigslist.forsale.cta(site="tokyo") 
+    print(tokyo_autos.get_filters())
 
-    >>> {'query': '...', 'search_titles': 'True/False', 'has_image': 'True/False',
-        'posted_today': 'True/False', 'bundle_duplicates': 'True/False', 'search_distance': '...',
-        'zip_code': '...', 'min_price': '...', 'max_price': '...',
-        'min_bedrooms': '...', 'max_bedrooms': '...', 'min_bathrooms': '...',
-        'max_bathrooms': '...', 'min_ft2': '...', 'max_ft2': '...',
-        'private_room': 'True/False', 'private_bath': 'True/False', 'cats_ok': 'True/False',
-        'dogs_ok': 'True/False', 'is_furnished': 'True/False', 'no_smoking': 'True/False',
-        'wheelchair_acccess': 'True/False', 'ev_charging': 'True/False', 'no_application_fee': 'True/False',
-        'no_broker_fee': 'True/False',
-        'housing_type': ['apartment', 'condo', 'cottage/cabin', 'duplex', 'flat',
-                         'house', 'in-law', 'loft', 'townhouse', 'manufactured',
-                         'assisted living', 'land'],
-        'laundry': ['w/d in unit', 'w/d hookups', 'laundry in bldg', 'laundry on site', 'no laundry on site'],
-        'parking': ['carport', 'attached garage', 'detached garage', 'off-street parking', 'street parking',
-                    'valet parking', 'no parking']}
+    >>> {'query': '...', 'search_titles': 'True/False', 'has_image': 'True/False', 'posted_today': 'True/False',
+        'bundle_duplicates': 'True/False', 'search_distance': '...', 'zip_code': '...', 'min_price': '...',
+        'max_price': '...', 'make_model': '...', 'min_year': '...', 'max_year': '...', 'min_miles': '...',
+        'max_miles': '...', 'min_engine_displacement': '...', 'max_engine_displacement': '...',
+        'condition': ['新品', 'ほぼ新品', '美品', '良品', '使用に問題なし', 'サルベージ'],
+        'auto_cylinders': ['3気筒', '4気筒', '5気筒', '6気筒', '8気筒', '10気筒', '12気筒', 'その他'],
+        'auto_drivetrain': ['前輪', '後輪', '4WD'],
+        'auto_fuel_type': ['ガソリン', 'ディーゼル', 'ハイブリッド', '電気', 'その他'],
+        'auto_paint': ['ブラック', 'ブルー', 'ブラウン', 'グリーン', 'グレー', 'オレンジ', 'パープル', 'レッド',
+                       'シルバー', 'ホワイト', 'イエロー', 'カスタム'],
+        'auto_size': ['コンパクト', 'フルサイズ', '中型', 'サブコンパクト'],
+        'auto_title_status': ['クリーン', 'サルベージ', '再生', '部品のみ', '先取特権', '不明'],
+        'auto_transmission': ['MT', 'AT', 'その他'],
+        'auto_bodytype': ['バス', 'コンバーチブル', 'クーペ', 'ハッチバック', 'ミニバン', 'オフロード', 'ピックアップ',
+                          'セダン', 'トラック', 'SUV', 'ワゴン', 'バン', 'その他'],
+        'language': ['afrikaans', 'català', 'dansk', 'deutsch', 'english', 'español', 'suomi', 'français',
+                     'italiano', 'nederlands', 'norsk', 'português', 'svenska', 'filipino', 'türkçe',
+                     '中文', 'العربية', '日本語', '한국말', 'русский', 'tiếng việt']}
 
 Using this information, let's search for apartments / housing for rent in Eugene, Oregon that have at least 1 bedroom and a carport:
 
@@ -262,28 +266,24 @@ Let's get detailed posts with the post body for all cars & trucks for sale in Ab
         'site': 'abilene',
         'area': '',
         'category': 'cto',
-        'id': '7301439387',
+        'id': '7296017619',
         'repost_of': '',
-        'last_updated': '2021-04-03 16:15',
-        'title': 'Ford F-250 Super Duty XLT',
-        'neighborhood': 'Abilene',
-        'price': '$16,000',
-        'url': 'https://abilene.craigslist.org/cto/d/abilene-ford-250-super-duty-xlt/7301439387.html',
-        'lat': '32.255519',
-        'lon': '-99.787999',
+        'last_updated': '2021-03-23 18:18',
+        'title': '3/4 ton Chevy',
+        'neighborhood': 'Goldsboro',
+        'price': '$2,500',
+        'url': 'https://abilene.craigslist.org/cto/d/goldsboro-4-ton-chevy/7296017619.html',
+        'lat': '32.005573',
+        'lon': '-99.669342',
         'address': '1226 County Road 150',
-        'misc': ['2005 chevrolet malibu', 'delivery available'],
+        'misc': ['1999 1999 chevy 3/4 ton'],
         'condition': 'good',
-        'cylinders': '6 cylinders',
-        'drive': 'fwd',
-        'fuel': 'gas',
-        'odometer': '140000',
+        'fuel': 'diesel',
+        'odometer': '340000',
         'paint color': 'white',
-        'size': 'full-size',
         'title status': 'clean',
         'transmission': 'automatic',
-        'type': 'sedan',
-        'body': '05 Chev. Malibu. Run out good, stingy on gas.\nReady to go.'}
+        'body': '1999 - 3/4 Ton Chevrolet pickup\nRuns great. $2500.00'}
         # ...
 
 Additional attributes

@@ -13,8 +13,8 @@ def get_addl_readable(url):
     filters = get_addl(url)
     for key, value in filters.copy().items():
         if isinstance(value, dict):
-            # get only filter names
-            # e.g. ['apartment', 'condo'] from {'apartment': '1', 'condo': '2'}
+            # Get only filter names
+            # E.g. ['apartment', 'condo'] from {'apartment': '1', 'condo': '2'}
             filters[key] = list(value)
 
     return filters
@@ -22,8 +22,8 @@ def get_addl_readable(url):
 
 def get_addl(url):
     """Gets additional Craigslist query filters."""
-    # additional filters constitute niche filters for a category
-    # e.g. 'rent_period' is an additional filter for apartments / housing for rent
+    # Additional filters constitute niche filters for a category
+    # E.g. 'rent_period' is an additional filter for apartments / housing for rent
     filters = {}
     search_html = next(sessions.yield_html(url))
 
@@ -37,23 +37,21 @@ def get_addl(url):
     return filters
 
 
-def parse(filters, search_filters):
+def parse(filters, search_filters, **kwargs):
     """Parses and validates url and filters using categorical search filters as
     template reference. Returns filters for requests.get params."""
-    # iterate over a copy of filters
+    filters = parse_arg_filters(filters, **kwargs)
+    # Iterate over a copy of filters
     for key, value in filters.copy().items():
-        if key in ("searchNearby", "s"):
-            # skip default filters found in all queries
-            continue
         try:
-            # substitute and remove key for url_key
+            # Substitute and remove key for url_key
             url_key = search_filters[key]["url_key"]
             filters[url_key] = parse_value(value)
             if url_key != key:
-                # delete old key
+                # Delete old key
                 del filters[key]
         except KeyError:
-            # some filters allow multiple values - assign all specified by user
+            # Some filters allow multiple values - assign all specified by user
             try:
                 filters[key] = [
                     search_filters[key][parsed_val] for parsed_val in parse_value(value)
@@ -61,16 +59,28 @@ def parse(filters, search_filters):
             except (KeyError, TypeError):
                 raise ValueError("filter '%s' is or has a bad value" % key)
 
-    return filters
+    # Join default parameters for every filter
+    return {**{"searchNearby": 1, "s": 0}, **filters}
+
+
+def parse_arg_filters(filters, **kwargs):
+    """Parses and returns a dictionary from `filters` and **kwargs."""
+    query_filters = {}
+    # **kwargs will override filters if matching key exists
+    if isinstance(filters, dict):
+        query_filters.update(filters)
+    query_filters.update(**kwargs)
+
+    return query_filters
 
 
 def parse_value(filter_value):
     """Validates and further parses search filter values."""
-    # returns filter value(s) as list
+    # Returns filter value(s) as list
     if isinstance(filter_value, (float, str)):
         return [filter_value]
-    # returns bool or int as int
+    # Returns bool or int as int
     if isinstance(filter_value, (bool, int)):
         return [int(filter_value)]
-    # recursively parses values if filter_value is an iterable
+    # Recursively parses values if filter_value is an iterable
     return iter(parse_value(value)[0] for value in filter_value)

@@ -22,7 +22,7 @@ class search:
     community = {
         **base,
         **{
-            # no unique filters for community
+            # No unique filters for community
         },
     }
 
@@ -169,7 +169,7 @@ class search:
     services = {
         **base,
         **{
-            # no unique filters for services
+            # No unique filters for services
         },
     }
 
