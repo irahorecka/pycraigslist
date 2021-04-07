@@ -27,7 +27,7 @@ Installation
 Jump Start
 ----------
 
-Let's find posts with keyword "Mazda Miata" in the East Bay Area, California:
+Let's find cars & trucks for sale with keyword "Mazda Miata" in the East Bay Area, California:
 
 .. code:: python
 
@@ -142,52 +142,52 @@ To find valid filters for a class or subclass instance, use ``.get_filters()``.
 
     import pycraigslist
 
-    tokyo_autos = pycraigslist.forsale.cta(site="tokyo") 
+    tokyo_autos = pycraigslist.forsale.cta(site="tokyo")
     print(tokyo_autos.get_filters())
 
-    >>> {'query': '...', 'search_titles': 'True/False', 'has_image': 'True/False', 'posted_today': 'True/False',
-        'bundle_duplicates': 'True/False', 'search_distance': '...', 'zip_code': '...', 'min_price': '...',
-        'max_price': '...', 'make_model': '...', 'min_year': '...', 'max_year': '...', 'min_miles': '...',
+    >>> {'query': '...', 'search_titles': 'True/False', 'has_image': 'True/False',
+        'posted_today': 'True/False', 'bundle_duplicates': 'True/False',
+        'search_distance': '...', 'zip_code': '...', 'min_price': '...', 'max_price': '...',
+        'make_model': '...', 'min_year': '...', 'max_year': '...', 'min_miles': '...',
         'max_miles': '...', 'min_engine_displacement': '...', 'max_engine_displacement': '...',
         'condition': ['新品', 'ほぼ新品', '美品', '良品', '使用に問題なし', 'サルベージ'],
         'auto_cylinders': ['3気筒', '4気筒', '5気筒', '6気筒', '8気筒', '10気筒', '12気筒', 'その他'],
         'auto_drivetrain': ['前輪', '後輪', '4WD'],
         'auto_fuel_type': ['ガソリン', 'ディーゼル', 'ハイブリッド', '電気', 'その他'],
-        'auto_paint': ['ブラック', 'ブルー', 'ブラウン', 'グリーン', 'グレー', 'オレンジ', 'パープル', 'レッド',
-                       'シルバー', 'ホワイト', 'イエロー', 'カスタム'],
+        'auto_paint': ['ブラック', 'ブルー', 'ブラウン', 'グリーン', 'グレー', 'オレンジ', 'パープル',
+                       'レッド', 'シルバー', 'ホワイト', 'イエロー', 'カスタム'],
         'auto_size': ['コンパクト', 'フルサイズ', '中型', 'サブコンパクト'],
         'auto_title_status': ['クリーン', 'サルベージ', '再生', '部品のみ', '先取特権', '不明'],
         'auto_transmission': ['MT', 'AT', 'その他'],
-        'auto_bodytype': ['バス', 'コンバーチブル', 'クーペ', 'ハッチバック', 'ミニバン', 'オフロード', 'ピックアップ',
-                          'セダン', 'トラック', 'SUV', 'ワゴン', 'バン', 'その他'],
-        'language': ['afrikaans', 'català', 'dansk', 'deutsch', 'english', 'español', 'suomi', 'français',
-                     'italiano', 'nederlands', 'norsk', 'português', 'svenska', 'filipino', 'türkçe',
-                     '中文', 'العربية', '日本語', '한국말', 'русский', 'tiếng việt']}
+        'auto_bodytype': ['バス', 'コンバーチブル', 'クーペ', 'ハッチバック', 'ミニバン', 'オフロード',
+                          'ピックアップ', 'セダン', 'トラック', 'SUV', 'ワゴン', 'バン', 'その他'],
+        'language': ['afrikaans', 'català', 'dansk', 'deutsch', 'english', 'español', 'suomi',
+                     'français', 'italiano', 'nederlands', 'norsk', 'português', 'svenska',
+                     'filipino', 'türkçe', '中文', 'العربية', '日本語', '한국말', 'русский',
+                     'tiếng việt']}
 
-Using this information, let's search for apartments / housing for rent in Eugene, Oregon that have at least 1 bedroom and a carport:
+Using this information, let's find cars & trucks with clean (クリーン) titles in Tokyo, Japan:
 
 .. code:: python
 
     import pycraigslist
 
-    one_bedrooms = pycraigslist.housing.apa(site="eugene", min_bedrooms=1, parking="carport")
-    for room in one_bedrooms.search():
-        print(room)
+    tokyo_autos = pycraigslist.forsale.cta(site="tokyo", auto_title_status="クリーン")
+    for auto in tokyo_autos.search():
+        print(auto)
 
-    >>> {'country': 'US',
-        'region': 'OR',
-        'site': 'eugene',
+    >>> {'country': 'JP',
+        'region': '',
+        'site': 'tokyo',
         'area': '',
-        'category': 'apa',
-        'id': '7267556874',
+        'category': 'cto',
+        'id': '7301105503',
         'repost_of': '',
-        'last_updated': '2021-02-24 08:55',
-        'title': 'High End, Spacious Top Floor Two Bedroom!',
-        'neighborhood': 'Eugene',
-        'price': '$1,550',
-        'url': 'https://eugene.craigslist.org/apa/d/springfield-high-end-spacious-top-floor/7267556874.html',
-        'bedrooms': '2',
-        'area-ft2': '1000'}
+        'last_updated': '2021-04-03 14:04',
+        'title': 'Suzuki Jimny 660 XG 4WD Keyless Entry Aluminum Wheel Non-Smoking Car',
+        'neighborhood': 'Chiba Ken, Noda shi, Funakata 1630-1',
+        'price': '¥650,000',
+        'url': 'https://tokyo.craigslist.org/cto/d/suzuki-jimny-660-xg-4wd-keyless-entry/7301105503.html'}
         # ...
 
 If we want to apply a bunch of filters, pass a dictionary of filters into the ``filters`` keyword parameter.
