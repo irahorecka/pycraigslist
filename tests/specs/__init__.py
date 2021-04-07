@@ -2,7 +2,7 @@
 pycraigslist.tests.specs
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-A suite of modules that stores test specifications.
+A suite of modules that stores test data and utility methods.
 """
 
-from .specs import *
+from .static import *
