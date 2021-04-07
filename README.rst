@@ -215,7 +215,7 @@ General search
 **************
 
 To search for Craigslist posts, use ``.search()``.
-``.search()`` will return a dictionary of attributes (type ``str``) for every post and will get every post by default. 
+``.search()`` will return a dictionary of post attributes (type ``str``) and will search for every post by default. 
 Use the ``limit`` keyword parameter to add a stop limit to a query. For example, use ``limit=50`` if we want 50 posts.
 There is a maximum of 3000 posts per query.
 
