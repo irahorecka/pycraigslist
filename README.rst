@@ -40,16 +40,16 @@ Let's find cars & trucks for sale with keyword "Mazda Miata" in the East Bay Are
     >>> {'country': 'US',
         'region': 'CA',
         'site': 'sfbay',
-        'area': 'scz',
+        'area': 'eby',
         'category': 'cto',
-        'id': '7298072504',
+        'id': '7291715564',
         'repost_of': '',
-        'last_updated': '2021-03-27 17:12',
-        'title': '2005 Mazda MX-5 Miata',
-        'neighborhood': 'santa cruz',
-        'price': '$3,250',
-        'url': 'https://sfbay.craigslist.org/scz/cto/d/santa-cruz-2005-mazda-mx-miata/7298072504.html'}
-        # ...    
+        'last_updated': '2021-03-15 09:06',
+        'title': '1990 Mazda Miata',
+        'neighborhood': 'oakland lake merritt / grand',
+        'price': '$5,000',
+        'url': 'https://sfbay.craigslist.org/eby/cto/d/oakland-1990-mazda-miata/7291715564.html'}
+        # ...
 
 Background
 ----------
