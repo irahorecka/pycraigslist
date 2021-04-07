@@ -2,7 +2,7 @@
 pycraigslist.utils
 ~~~~~~~~~~~~~~~~~~
 
-This module provides utility functions that are used within pycraigslist.base.
+Provides utility functions for pycraigslist.base.
 """
 
 from functools import wraps
@@ -18,7 +18,6 @@ def parse_limit(method):
         # Yield method if limit is valid
         if limit is None or isinstance(limit, int) and limit >= 0:
             yield from method(*args, **kwargs)
-
         elif not isinstance(limit, int):
             raise TypeError("'limit' must be of type 'int'")
         else:

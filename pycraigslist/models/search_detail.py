@@ -2,7 +2,7 @@
 pycraigslist.models.search_detail
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This module gets and parses detailed posts from a Craigslist query.
+Adds details to posts from a Craigslist query.
 """
 
 from . import sessions
@@ -16,7 +16,7 @@ def fetch_posts(general_search, **kwargs):
     params = [{} for _ in posts_url]
     # Get every post's HTML content
     post_htmls = sessions.yield_html(posts_url, params=params)
-    kwargs["filters"] = invert_filters(kwargs["filters"])
+    kwargs["ref_filters"] = invert(kwargs["ref_filters"])
 
     # Yield detailed posts to caller
     for html in post_htmls:
@@ -30,10 +30,10 @@ def fetch_posts(general_search, **kwargs):
             pass
 
 
-def invert_filters(search_filters):
-    """Inverts search filters for a faster look-up time."""
+def invert(ref_filters):
+    """Inverts reference query filters for a faster look-up time."""
     inv_filters = {}
-    for key, value in search_filters.items():
+    for key, value in ref_filters.items():
         try:
             # From {"cats_ok": {"url_key": "pets_cat", "value": 1, "attr": "cats are ok - purrr"},}
             # To {"cats are ok - purrr": {"cats_ok": "true"},}
@@ -117,12 +117,12 @@ def get_body(post_content):
 
 def get_post_attrs(post_content, **kwargs):
     """Gets attributes from post's HTML content."""
-    filters = kwargs["filters"]
+    ref_filters = kwargs["ref_filters"]
     # Attributes without a recognizable ID will be appended to "misc"
     post_attrs = {"misc": []}
     for attr in get_attrs(post_content):
-        # Add to post_attrs by reference
-        parse_attrs(post_attrs, attr, filters)
+        # Add to post_attrs !! by reference !!
+        parse_attrs(post_attrs, attr, ref_filters)
 
     return post_attrs
 
@@ -136,16 +136,16 @@ def get_attrs(post_content):
                 yield attr_text.lower()
 
 
-def parse_attrs(post_attrs, attr, filters):
-    """Parses attributes using search filters as reference. Adds parsed
-    attributes to attributes collection (post_attrs) by reference."""
-    if attr in filters:
-        if isinstance(filters[attr], dict):
+def parse_attrs(post_attrs, attr, ref_filters):
+    """Parses attributes using reference query filters. Adds parsed
+    attributes by refernce to attributes collection (post_attrs)."""
+    if attr in ref_filters:
+        if isinstance(ref_filters[attr], dict):
             # E.g. update with {"cats_ok": "true"} from {"cats are ok - purrr": {"cats_ok": "true"},}
-            post_attrs.update(filters[attr])
+            post_attrs.update(ref_filters[attr])
         else:
             # Update with attribute value
-            post_attrs.update({filters[attr]: attr})
+            post_attrs.update({ref_filters[attr]: attr})
     elif ":" in attr:
         # Some attr key, value are delimited by ':' - parse it to dict and update
         key_ = attr.split(":")[0].strip()

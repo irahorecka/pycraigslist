@@ -2,7 +2,7 @@
 pycraigslist.models.sessions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This module handles all requests and construction of BeautifulSoup objects.
+Handles requests and constructs BeautifulSoup objects.
 """
 
 import concurrent.futures

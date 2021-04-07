@@ -2,7 +2,7 @@
 pycraigslist.base
 ~~~~~~~~~~~~~~~~~
 
-This module handles all communication from the user to the Craigslist API.
+Handles communication between the User and Craigslist.
 """
 
 import urllib
@@ -14,14 +14,16 @@ class BaseAPI:
     """Base class for interfacing with the Craigslist API."""
 
     category = ""
-    search_filters = {}
+    # Standard query filters that are permitted within category
+    query_filters = {}
 
     def __init__(self, site="sfbay", area="", filters=None, **kwargs):
         self.site = site
         self.area = area
-        self.all_search_filters = {**self.search_filters, **models.filters.get_addl(self._base_url)}
+        # Get additional filters joined with standard filters
+        self.all_query_filters = {**self.query_filters, **models.filters.get_addl(self._base_url)}
         # Get parsed filters to use as HTTP parameters
-        self.filters = models.filters.parse(filters, self.all_search_filters, **kwargs)
+        self.filters = models.filters.parse(filters, self.all_query_filters, **kwargs)
 
     @parse_limit
     def search(self, limit=None):
@@ -34,7 +36,7 @@ class BaseAPI:
     def search_detail(self, limit=None, include_body=False):
         """Yields detailed Craigslist posts as dictionary."""
         yield from models.search_detail.fetch_posts(
-            self.search(limit=limit), filters=self.all_search_filters, include_body=include_body
+            self.search(limit=limit), include_body=include_body, ref_filters=self.all_query_filters
         )
 
     @property
@@ -58,7 +60,7 @@ class BaseAPI:
         """Gets Craigslist query filters in a readable format."""
         readable_filters = {
             key: "..." if value["value"] is None else "True/False"
-            for key, value in self.search_filters.items()
+            for key, value in self.query_filters.items()
         }
         readable_filters.update(models.filters.get_addl_readable(self._base_url))
 

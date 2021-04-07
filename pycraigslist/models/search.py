@@ -2,7 +2,7 @@
 pycraigslist.models.search
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This module gets and parses posts from a Craigslist query.
+Gets and parses posts from a Craigslist query.
 """
 
 import re

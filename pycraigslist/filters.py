@@ -2,12 +2,12 @@
 pycraigslist.filters
 ~~~~~~~~~~~~~~~~~~~~
 
-This module stores Craigslist search filters and categories.
+Stores Craigslist query filters and categories.
 """
 
 
-class search:
-    """Store search filters by broad category."""
+class query:
+    """Store query filters by broad category."""
 
     base = {
         "query": {"url_key": "query", "value": None},
