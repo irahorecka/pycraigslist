@@ -316,7 +316,7 @@ Exceptions
 
 pycraigslist has the following exceptions: 
 
-* ``MaximumRequestsError`` : exceeds maximum number of requests
+* ``MaximumRequestsError`` : exceeds maximum retries for a query
 
 To use pycraigslist exceptions, import / import from ``pycraigslist.exceptions``. For example:
 
@@ -325,8 +325,8 @@ To use pycraigslist exceptions, import / import from ``pycraigslist.exceptions``
     import pycraigslist
     from pycraigslist.exceptions import MaximumRequestsError
 
-    sf_bikes = pycraigslist.forsale.bia(site="sfbay", area="sfc", min_price=50)
     try:
+        sf_bikes = pycraigslist.forsale.bia(site="sfbay", area="sfc", min_price=50)
         for bike in sf_bikes.search():
             print(bike)
     except MaximumRequestsError:
