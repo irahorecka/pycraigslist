@@ -9,6 +9,7 @@ import concurrent.futures
 import tenacity
 import requests
 from bs4 import BeautifulSoup
+from ..exceptions import MaximumRequestsError
 
 HEADERS = {"headers": {"User-Agent": "Mozilla/5.0"}}
 # Retry 10 times, starting with 0.01 second and doubling the delay every time
@@ -16,10 +17,6 @@ _RETRY_ARGS = {
     "wait": tenacity.wait.wait_random_exponential(multiplier=0.01, exp_base=2),
     "stop": tenacity.stop.stop_after_attempt(12),
 }
-
-
-class MaximumRequestsError(Exception):
-    """Exceeds maximum get requests."""
 
 
 def yield_html(url, **kwargs):
