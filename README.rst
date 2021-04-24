@@ -311,6 +311,27 @@ Additional attributes
     print(east_bay_apa.count)
     >>> 56
 
+Exceptions
+----------
+
+pycraigslist has the following exceptions: 
+
+* ``MaximumRequestsError`` : exceeds maximum number of requests
+
+To use pycraigslist exceptions, import / import from ``pycraigslist.exceptions``. For example:
+
+.. code:: python
+
+    import pycraigslist
+    from pycraigslist.exceptions import MaximumRequestsError
+
+    sf_bikes = pycraigslist.forsale.bia(site="sfbay", area="sfc", min_price=50)
+    try:
+        for bike in sf_bikes.search():
+            print(bike)
+    except MaximumRequestsError:
+        print("Yikes! Something's up with the network.")
+
 Contribute
 ----------
 
