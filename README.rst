@@ -108,7 +108,7 @@ Most pycraigslist classes have subclasses to allow for categorical searches. For
 Finding pycraigslist subclasses
 *******************************
 
-To search for subclasses, use ``.get_categories()``. The resulting keys are the subclass names.
+To search for subclasses, use the class method ``.get_categories()``. The resulting keys are the subclass names.
 
 .. code:: python
 
@@ -198,10 +198,10 @@ Note: keyword argument filters will override ``filters`` if there are conflictin
     import pycraigslist
 
     bike_filters = {
-    "bicycle_frame_material": "steel",
-    # array of filter values are accepted
-    "bicycle_wheel_size": ["650C", "700C"],
-    "bicycle_type": "road",
+        "bicycle_frame_material": "steel",
+        # array of filter values are accepted
+        "bicycle_wheel_size": ["650C", "700C"],
+        "bicycle_type": "road",
     }
     # we'd still get titanium road bikes with size 650C or 700C wheels
     titanium_bikes = pycraigslist.forsale.bia(
