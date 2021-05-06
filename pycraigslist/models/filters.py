@@ -5,7 +5,7 @@ pycraigslist.models.filters
 Handles parsing of Craigslist query filters.
 """
 
-from . import sessions
+from pycraigslist.models import sessions
 
 
 def get_addl_readable(url):

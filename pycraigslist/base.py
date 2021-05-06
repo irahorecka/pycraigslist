@@ -6,8 +6,8 @@ Handles communication between the User and Craigslist.
 """
 
 import urllib
-from . import models
-from .utils import parse_limit
+from pycraigslist import models
+from pycraigslist.utils import parse_limit
 
 
 class BaseAPI:
@@ -21,7 +21,10 @@ class BaseAPI:
         self.site = site
         self.area = area
         # Get additional filters joined with standard filters
-        self.all_query_filters = {**self.query_filters, **models.filters.get_addl(self._base_url)}
+        self.all_query_filters = {
+            **self.query_filters,
+            **models.filters.get_addl(self._base_url),
+        }
         # Get parsed filters to use as HTTP parameters
         self.filters = models.filters.parse(filters, self.all_query_filters, **kwargs)
 
@@ -36,7 +39,9 @@ class BaseAPI:
     def search_detail(self, limit=None, include_body=False):
         """Yields detailed Craigslist posts as dictionary."""
         yield from models.search_detail.fetch_posts(
-            self.search(limit=limit), include_body=include_body, ref_filters=self.all_query_filters
+            self.search(limit=limit),
+            include_body=include_body,
+            ref_filters=self.all_query_filters,
         )
 
     @property
@@ -47,14 +52,21 @@ class BaseAPI:
     @property
     def url(self):
         """Builds full Craigslist query URL."""
-        return "%s?%s" % (self._base_url, urllib.parse.urlencode(self.filters, doseq=True))
+        return "%s?%s" % (
+            self._base_url,
+            urllib.parse.urlencode(self.filters, doseq=True),
+        )
 
     @property
     def _base_url(self):
         """Builds standard Craigslist query URL."""
         if not self.area:
             return "https://%s.craigslist.org/search/%s" % (self.site, self.category)
-        return "https://%s.craigslist.org/search/%s/%s" % (self.site, self.area, self.category)
+        return "https://%s.craigslist.org/search/%s/%s" % (
+            self.site,
+            self.area,
+            self.category,
+        )
 
     def get_filters(self):
         """Gets Craigslist query filters in a readable format."""
@@ -73,6 +85,6 @@ class ParentMethods:
     @classmethod
     def get_categories(cls):
         """Gets valid Craigslist categories of instance."""
-        from . import filters
+        from pycraigslist import filters
 
         return filters.category.get(cls.__name__)

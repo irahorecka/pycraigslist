@@ -5,7 +5,7 @@ pycraigslist.models.search_detail
 Adds details to posts from a Craigslist query.
 """
 
-from . import sessions
+from pycraigslist.models import sessions
 
 
 def fetch_posts(general_search, **kwargs):
@@ -138,7 +138,7 @@ def get_attrs(post_content):
 
 def parse_attrs(post_attrs, attr, ref_filters):
     """Parses attributes using reference query filters. Adds parsed
-    attributes by refernce to attributes collection (post_attrs)."""
+    attributes by reference to attributes collection (post_attrs)."""
     if attr in ref_filters:
         if isinstance(ref_filters[attr], dict):
             # E.g. update with {"cats_ok": "true"} from {"cats are ok - purrr": {"cats_ok": "true"},}

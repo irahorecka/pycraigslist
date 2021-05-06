@@ -7,8 +7,8 @@ written in Python, for human beings.
 """
 
 # fmt: off
-from .api import (community, events, forsale, gigs,
-                  housing, jobs, services, resumes)
+from pycraigslist.api import (community, events, forsale, gigs,
+                              housing, jobs, services, resumes)
 
 __all__ = ["community", "events", "forsale", "gigs",
            "housing", "jobs", "services", "resumes"]

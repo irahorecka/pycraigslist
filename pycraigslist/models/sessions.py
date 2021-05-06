@@ -9,7 +9,7 @@ import concurrent.futures
 import tenacity
 import requests
 from bs4 import BeautifulSoup
-from ..exceptions import MaximumRequestsError
+from pycraigslist.exceptions import MaximumRequestsError
 
 HEADERS = {"headers": {"User-Agent": "Mozilla/5.0"}}
 # Retry 10 times, starting with 0.01 second and doubling the delay every time

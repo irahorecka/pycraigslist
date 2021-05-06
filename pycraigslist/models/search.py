@@ -6,7 +6,7 @@ Gets and parses posts from a Craigslist query.
 """
 
 import re
-from . import sessions
+from pycraigslist.models import sessions
 
 
 def fetch_posts(url, filters, **kwargs):
@@ -140,7 +140,7 @@ def get_post_content(post_html, **kwargs):
 
 
 def parse_url_subdomains(url):
-    """Parses site, area, and catgory from Craigslist query URL."""
+    """Parses site, area, and category from Craigslist query URL."""
     parsed_url = url.split("https://")[1].split(".")
     parsed_suburl = parsed_url[2].split("/")
     site = parsed_url[0]
