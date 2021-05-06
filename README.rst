@@ -215,7 +215,7 @@ General search
 **************
 
 To search for Craigslist posts, use ``.search()``.
-``.search()`` will return a dictionary of post attributes (type ``str``) and will search for every post by default. 
+``.search()`` will return a dictionary of post attributes (type ``str``) and will search for every post by default.
 Use the ``limit`` keyword parameter to add a stop limit to a query. For example, use ``limit=50`` if we want 50 posts.
 There is a maximum of 3000 posts per query.
 
@@ -260,7 +260,7 @@ Let's get detailed posts with the post body for all cars & trucks for sale in Ab
     all_autos = pycraigslist.forsale.cta(site="abilene")
     for auto in all_autos.search_detail(include_body=True):
         print(auto)
-        
+
     >>> {'country': 'US',
         'region': 'TX',
         'site': 'abilene',
@@ -294,7 +294,7 @@ Additional attributes
 * ``count``: Gets number of posts.
 
 .. code:: python
-    
+
     import pycraigslist
 
     east_bay_apa = pycraigslist.housing.apa(site="sfbay", area="eby", max_price=800)
@@ -314,7 +314,7 @@ Additional attributes
 Exceptions
 ----------
 
-pycraigslist has the following exceptions: 
+pycraigslist has the following exceptions:
 
 * ``MaximumRequestsError`` : exceeds maximum retries for a query
 
