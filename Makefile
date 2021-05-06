@@ -6,11 +6,15 @@ flake: ## Flake8 every python file
 	find . -type f -name "*.py" -a | xargs flake8;
 
 pylint: ## pylint every python file
-	find . -type f -name "*.py" -a | xargs pylint; 
+	find . -type f -name "*.py" -a | xargs pylint;
 
 test: ## Verbosely pytest ./tests/
 	python -m pytest ./tests/ -vv;
 	make clean;
+
+pre-commit: ## Install and autoupdate pre-commit
+	pre-commit install;
+	pre-commit autoupdate;
 
 setup: ## Build package distribution files
 	flit build;
