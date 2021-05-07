@@ -1,0 +1,7 @@
+requests
+bs4
+tenacity
+pytest
+pre-commit
+black
+flit
