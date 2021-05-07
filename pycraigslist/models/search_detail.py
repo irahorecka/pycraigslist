@@ -148,7 +148,8 @@ def parse_attrs(post_attrs, attr, ref_filters):
             post_attrs.update({ref_filters[attr]: attr})
     elif ":" in attr:
         # Some attr key, value are delimited by ':' - parse it to dict and update
-        key_ = attr.split(":")[0].strip()
+        # These attr keys are commonly separated by whitespaces and backslashes - replace with '_'
+        key_ = attr.split(":")[0].strip().replace(" / ", " ").replace(" ", "_")
         attr_ = attr.split(":")[1].strip()
         post_attrs.update({key_: attr_})
     else:
