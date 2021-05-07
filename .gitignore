@@ -134,5 +134,3 @@ dmypy.json
 
 # OS stuff
 .DS_store
-
-.pycraigslist/_version.py
