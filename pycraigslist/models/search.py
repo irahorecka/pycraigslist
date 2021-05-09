@@ -55,12 +55,12 @@ def fetch_posts_to_limit(url, filters, num_posts, **kwargs):
 
 def fetch_posts_from_page(page_html, start_idx, stop_idx, **kwargs):
     """Yields posts' content from a page of Craigslist listings (HTML content)."""
+    # We want country and region to precede all keys
+    post_json = get_post_country_region(page_html)
     posts = page_html.find("ul", {"class": "rows"})
     for idx, post in enumerate(posts.find_all("li", {"class": "result-row"}, recursive=False)):
-        # We want country and region to precede all keys
-        post_json = get_post_country_region(page_html)
-        post_json.update(get_post_content(post, **kwargs))
-        yield post_json
+        # Country and region attributes are post-agnostic - copy post_json and update
+        yield {**post_json.copy(), **get_post_content(post, **kwargs)}
         # Adjust for true post count idx
         idx += start_idx
         if idx + 1 == stop_idx:
@@ -134,9 +134,7 @@ def get_post_content(post_html, **kwargs):
         "url": post_url,
     }
     # If additional content is available, concat to post content
-    post_content.update(get_addl_content(post_html, **kwargs))
-
-    return post_content
+    return {**post_content, **get_addl_content(post_html, **kwargs)}
 
 
 def parse_url_subdomains(url):
@@ -152,7 +150,6 @@ def parse_url_subdomains(url):
     else:
         area = parsed_suburl[1]
         category = parsed_suburl[2]
-
     return site, area, category
 
 
@@ -178,7 +175,7 @@ class AddlContent:
             post.find("span", {"class": "housing"}).contents
         )
         if post.find("span", {"class": "housing"})
-        else ""
+        else {}
     }
 
     @staticmethod

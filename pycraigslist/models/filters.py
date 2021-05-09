@@ -16,7 +16,6 @@ def get_addl_readable(url):
             # Get only filter names
             # E.g. ['apartment', 'condo'] from {'apartment': '1', 'condo': '2'}
             addl_filters[key] = list(value)
-
     return addl_filters
 
 
@@ -27,7 +26,7 @@ def get_addl(url):
     addl_filters = {}
     search_html = next(sessions.yield_html(url))
 
-    for filter_item in search_html.find_all("div", class_="search-attribute"):
+    for filter_item in search_html.find_all("div", {"class": "search-attribute"}):
         filter_key = filter_item.attrs["data-attr"]
         filter_labels = filter_item.find_all("label")
         addl_filters[filter_key] = {
@@ -67,9 +66,7 @@ def parse_arg_filters(filters, **kwargs):
     # **kwargs will override filters if matching key exists
     if isinstance(filters, dict):
         query_filters.update(filters)
-    query_filters.update(**kwargs)
-
-    return query_filters
+    return {**query_filters, **kwargs}
 
 
 def parse_value(filter_value):

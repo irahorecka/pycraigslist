@@ -74,9 +74,7 @@ class BaseAPI:
             key: "..." if value["value"] is None else "True/False"
             for key, value in self.query_filters.items()
         }
-        readable_filters.update(models.filters.get_addl_readable(self._base_url))
-
-        return readable_filters
+        return {**readable_filters, **models.filters.get_addl_readable(self._base_url)}
 
 
 class ParentMethods:

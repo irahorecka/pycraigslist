@@ -58,7 +58,6 @@ def get_post_details(post_content, **kwargs):
     include_body = kwargs.get("include_body")
     if include_body in (True, 1):
         addl_detail.update(get_body(post_content))
-
     return addl_detail
 
 
@@ -84,7 +83,6 @@ def get_geotag(post_content):
     if post_map is not None:
         geotag_attr["lat"] = post_map.attrs["data-latitude"]
         geotag_attr["lon"] = post_map.attrs["data-longitude"]
-
     return geotag_attr
 
 
@@ -94,13 +92,12 @@ def get_address(post_content):
     address_attr = {"address": ""}
     if post_address is not None:
         address_attr["address"] = post_address.text
-
     return address_attr
 
 
 def get_body(post_content):
     """Gets body from post's HTML content."""
-    post_body = post_content.find("section", id="postingbody")
+    post_body = post_content.find("section", {"id": "postingbody"})
     body_attr = {"body": ""}
     if post_body is not None:
         # Remove elements with null attributes
@@ -111,7 +108,6 @@ def get_body(post_content):
         )
         # Squelch post_body_text to str
         body_attr["body"] = str("".join(post_body_text).strip())
-
     return body_attr
 
 
