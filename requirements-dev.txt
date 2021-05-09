@@ -1,6 +1,8 @@
 requests
 bs4
 tenacity
+cchardet
+lxml
 pytest
 pre-commit
 black
