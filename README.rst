@@ -24,10 +24,10 @@ Installation
 
     pip install pycraigslist
 
-Jump Start
-----------
+Quick Start
+-----------
 
-Let's find cars & trucks for sale with keyword "Mazda Miata" in the East Bay Area, California:
+Find cars & trucks for sale with keyword "Mazda Miata" in the East Bay Area, California:
 
 .. code:: python
 
@@ -71,7 +71,7 @@ pycraigslist classes
 * ``pycraigslist.resumes`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > resumes)
 * ``pycraigslist.services`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > services)
 
-We can search for posts in parent classes. Let's find paid gigs in Portland, Oregon:
+We can search for posts in parent classes. For example, finding paid gigs in Portland, Oregon:
 
 .. code:: python
 
@@ -108,7 +108,7 @@ Most pycraigslist classes have subclasses to allow for categorical searches. For
 Finding pycraigslist subclasses
 *******************************
 
-To search for subclasses, use the class method ``.get_categories()``. The resulting keys are the subclass names.
+Use class method ``.get_categories()`` to search for subclasses. The resulting keys are the subclass names.
 
 .. code:: python
 
@@ -131,12 +131,12 @@ To search for subclasses, use the class method ``.get_categories()``. The result
         'sha': 'wanted: room/share',
         'sbw': 'wanted: sublet/temp'}
 
-If we're interested in searching for vacation rentals, we'd use the subclass ``pycraigslist.housing.vac``.
+We'd choose ``pycraigslist.housing.vac`` if we're interested in searching for vacation rentals.
 
 Finding and using filters
 *************************
-As demonstrated in the jump-start example, we can apply filters to our Craigslist search.
-To find valid filters for a class or subclass instance, use ``.get_filters()``.
+We can apply filters to our search.
+Use ``.get_filters()`` to find valid filters for a class or subclass instance.
 
 .. code:: python
 
@@ -166,7 +166,7 @@ To find valid filters for a class or subclass instance, use ``.get_filters()``.
                      'filipino', 'türkçe', '中文', 'العربية', '日本語', '한국말', 'русский',
                      'tiếng việt']}
 
-Using this information, let's find cars & trucks with clean (クリーン) titles in Tokyo, Japan:
+Using this information, we can find cars & trucks with clean (クリーン) titles in Tokyo, Japan:
 
 .. code:: python
 
@@ -190,7 +190,7 @@ Using this information, let's find cars & trucks with clean (クリーン) title
         'url': 'https://tokyo.craigslist.org/cto/d/suzuki-jimny-660-xg-4wd-keyless-entry/7301105503.html'}
         # ...
 
-If we want to apply a bunch of filters, pass a dictionary of filters into the ``filters`` keyword parameter.
+When applying many filters, pass a dictionary of filters into the ``filters`` keyword parameter.
 Note: keyword argument filters will override ``filters`` if there are conflicting keys. For example:
 
 .. code:: python
@@ -216,10 +216,10 @@ General search
 
 To search for Craigslist posts, use ``.search()``.
 ``.search()`` will return a dictionary of post attributes (type ``str``) and will search for every post by default.
-Use the ``limit`` keyword parameter to add a stop limit to a query. For example, use ``limit=50`` if we want 50 posts.
+Use the ``limit`` keyword parameter to add a stop limit to a query. For example, use ``limit=50`` to get 50 posts.
 There is a maximum of 3000 posts per query.
 
-Let's find the first 20 posts for farming and gardening services in Denver, Colorado:
+Find the first 20 posts for farming and gardening services in Denver, Colorado:
 
 .. code:: python
 
@@ -251,7 +251,7 @@ The ``limit`` keyword parameter in ``.search`` also applies to ``.search_detail`
 Set ``include_body=True`` to include the post's body in the output. By default, ``include_body=False``.
 Disclaimer: ``.search_detail`` is more time consuming than ``.search``.
 
-Let's get detailed posts with the post body for all cars & trucks for sale in Abilene, Texas:
+Get detailed posts with the post body for all cars & trucks for sale in Abilene, Texas:
 
 .. code:: python
 
