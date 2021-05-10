@@ -59,8 +59,8 @@ def fetch_posts_from_page(page_html, start_idx, stop_idx, **kwargs):
     post_json = get_post_country_region(page_html)
     posts = page_html.find("ul", {"class": "rows"})
     for idx, post in enumerate(posts.find_all("li", {"class": "result-row"}, recursive=False)):
-        # Country and region attributes are post-agnostic - copy post_json and update
-        yield {**post_json.copy(), **get_post_content(post, **kwargs)}
+        # Country and region attributes are post-agnostic - merge post_json with post content
+        yield {**post_json, **get_post_content(post, **kwargs)}
         # Adjust for true post count idx
         idx += start_idx
         if idx + 1 == stop_idx:

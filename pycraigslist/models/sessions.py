@@ -54,21 +54,15 @@ def get_cl_strainer():
 
     def target_elem_attrs(elem, attrs):
         """Gets desired elements and attributes from Craigslist HTML document."""
-        # For pycraigslist.models.search_detail
-        if elem == "section" and attrs.get("class") == "userbody":
+        if (elem, attrs.get("class")) in (
+            ("section", "userbody"),
+            ("div", "search-attribute "),  # Trailing whitespace necessary
+            ("div", "search-attribute hide-list"),
+            ("span", "totalcount"),
+            ("ul", "rows"),
+        ):
             return True
-        # For pycraigslist.models.search
-        elif elem == "script" and attrs.get("type") == "text/javascript":
-            return True
-        # Whitespace after 'search-attribute' (index 0) is necessary
-        elif elem == "div" and attrs.get("class") in [
-            "search-attribute ",
-            "search-attribute hide-list",
-        ]:
-            return True
-        elif elem == "span" and attrs.get("class") == "totalcount":
-            return True
-        elif elem == "ul" and attrs.get("class") == "rows":
+        if (elem, attrs.get("type")) == ("script", "text/javascript"):
             return True
 
     return SoupStrainer(target_elem_attrs)
