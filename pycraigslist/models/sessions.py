@@ -54,6 +54,8 @@ def get_cl_strainer():
 
     def target_elem_attrs(elem, attrs):
         """Gets desired elements and attributes from Craigslist HTML document."""
+        if elem == "script":
+            return True
         if (elem, attrs.get("class")) in (
             ("section", "userbody"),
             ("div", "search-attribute "),  # Trailing whitespace necessary
@@ -61,8 +63,6 @@ def get_cl_strainer():
             ("span", "totalcount"),
             ("ul", "rows"),
         ):
-            return True
-        if (elem, attrs.get("type")) == ("script", "text/javascript"):
             return True
 
     return SoupStrainer(target_elem_attrs)
