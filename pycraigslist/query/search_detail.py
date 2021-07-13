@@ -1,6 +1,6 @@
 """
-pycraigslist.models.search_detail
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pycraigslist.query.search_detail
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Adds details to posts from a Craigslist query.
 """

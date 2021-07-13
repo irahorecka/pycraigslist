@@ -1,6 +1,6 @@
 """
-pycraigslist.models.filters
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pycraigslist.query.filters
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Handles parsing of Craigslist query filters.
 """

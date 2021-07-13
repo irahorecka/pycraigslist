@@ -1,6 +1,6 @@
 """
 pycraigslist.tests.test_api.test_query
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Tests querying and content from pycraigslist .search and .search_detail methods.
 """

@@ -1,6 +1,6 @@
 """
-pycraigslist.models
-~~~~~~~~~~~~~~~~~~~
+pycraigslist.query
+~~~~~~~~~~~~~~~~~~
 
 A suite of modules that interface with the Craigslist API.
 """

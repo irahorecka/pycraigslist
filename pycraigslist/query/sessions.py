@@ -1,6 +1,6 @@
 """
-pycraigslist.models.sessions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pycraigslist.query.sessions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Handles requests and constructs BeautifulSoup objects.
 """

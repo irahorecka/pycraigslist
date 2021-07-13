@@ -1,6 +1,6 @@
 """
-pycraigslist.models.search
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+pycraigslist.query.search
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Gets and parses posts from a Craigslist query.
 """
