@@ -1,13 +1,18 @@
 """
-pycraigslist.tests.test_api.test_content
+pycraigslist.tests.test_api.test_query
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Tests content from pycraigslist .search and .search_detail methods.
+Tests querying and content from pycraigslist .search and .search_detail methods.
 """
+
+import warnings
 
 from pytest import mark
 
 import specs
+
+# make a tuple of zipped parameters for `test_query_filters`
+QUERY_FILTERS = tuple(zip(specs.obj.pycraigslist_parents, specs.filters.all_))
 
 
 @mark.parametrize("parent", specs.obj.pycraigslist_parents)
@@ -67,3 +72,23 @@ def test_content_search_detail(parent):
         # Without include_body kwarg --> default value is False
         post_detail = next(listings.search_detail(limit=1))
         assert all(attr in post_detail.keys() for attr in specs.content.post_content_detail.keys())
+
+
+@mark.parametrize(["parent", "filters"], QUERY_FILTERS)
+def test_query_filters(parent, filters):
+    """Tests search filters plugged into query returns valid pycraigslist
+    datatype (i.e. dict obj). Tests every parent category with their respective
+    query filters."""
+    for filter_ in filters:
+        try:
+            post = next(parent(filters=filter_).search(limit=10))
+            assert isinstance(post, dict)
+        except StopIteration:
+            # No posts for query and a stop iteration is expected;
+            # however, throw warning.
+            warnings.warn(
+                UserWarning(
+                    "encountered StopIteration for filters %s. Adjust if issue persists." % filter_
+                )
+            )
+            assert True
