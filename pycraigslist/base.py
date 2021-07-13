@@ -6,7 +6,7 @@ Handles communication between the User and Craigslist.
 """
 
 import urllib
-from pycraigslist import models
+from pycraigslist import query
 from pycraigslist.utils import parse_limit
 
 
@@ -23,22 +23,22 @@ class BaseAPI:
         # Get additional filters joined with standard filters
         self.all_query_filters = {
             **self.query_filters,
-            **models.filters.get_addl(self._base_url),
+            **query.get_addl_filters(self._base_url),
         }
         # Get parsed filters to use as HTTP parameters
-        self.filters = models.filters.parse(filters, self.all_query_filters, **kwargs)
+        self.filters = query.parse(filters, self.all_query_filters, **kwargs)
 
     @parse_limit
     def search(self, limit=None):
         """Yields Craigslist posts as dictionary."""
-        yield from models.search.fetch_posts(
+        yield from query.fetch_posts(
             self._base_url, self.filters, category=self.category, limit=limit
         )
 
     @parse_limit
     def search_detail(self, limit=None, include_body=False):
         """Yields detailed Craigslist posts as dictionary."""
-        yield from models.search_detail.fetch_posts(
+        yield from query.fetch_detailed_posts(
             self.search(limit=limit),
             include_body=include_body,
             ref_filters=self.all_query_filters,
@@ -47,7 +47,7 @@ class BaseAPI:
     @property
     def count(self):
         """Gets approximate number of Craigslist posts."""
-        return models.search.get_total_post_count(self._base_url, self.filters)
+        return query.get_total_post_count(self._base_url, self.filters)
 
     @property
     def url(self):
@@ -74,7 +74,7 @@ class BaseAPI:
             key: "..." if value["value"] is None else "True/False"
             for key, value in self.query_filters.items()
         }
-        return {**readable_filters, **models.filters.get_addl_readable(self._base_url)}
+        return {**readable_filters, **query.get_addl_filters_readable(self._base_url)}
 
 
 class ParentMethods:
