@@ -1,5 +1,6 @@
 black: ## Black format every python file to line length 100
 	find . -type f -name "*.py" | xargs black --line-length=100;
+	find . -type f -name "*.py" | xargs absolufy-imports;
 	make clean;
 
 flake: ## Flake8 every python file
