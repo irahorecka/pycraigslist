@@ -1,4 +1,4 @@
-requests
+httpx
 bs4
 tenacity
 cchardet

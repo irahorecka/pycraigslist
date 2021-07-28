@@ -11,7 +11,7 @@ import concurrent.futures
 import cchardet
 import lxml
 import tenacity
-import requests
+import httpx
 from bs4 import BeautifulSoup, SoupStrainer
 
 from pycraigslist.exceptions import MaximumRequestsError
@@ -26,7 +26,7 @@ _RETRY_ARGS = {
 
 def yield_html(url, **kwargs):
     """Yields HTML content(s) to caller."""
-    session = requests.Session()
+    session = httpx.Client()
     strainer = get_cl_strainer()
     try:
         # Single request: a URL string
@@ -78,7 +78,7 @@ def get_html(text, strainer):
 
 @tenacity.retry(**_RETRY_ARGS)
 def get_request(requests_session, url, params=None):
-    """Gets requests.models.Response object using requests.get.
+    """Gets httpx.Response object using httpx.Client.get.
     Retry request if request fails, with number of attempts and
     wait time specified in _RETRY_ARGS."""
     if params is None:
