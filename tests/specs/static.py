@@ -221,6 +221,7 @@ class kwargs:
     invalid = (
         # Invalid site and area
         {"site": "bad_site"},
+        {"site": "monterey", "area": "area_not_allowed"},
         {"site": "sfbay", "area": "bad_area"},
         # Invalid filter keys
         {"site": "sandiego", "area": "esd", "bad_filter": "bad_value"},
