@@ -86,5 +86,8 @@ def validate_region(site, area):
     """Validates user input for site and area. Raises ValueError if bad input(s)."""
     if site not in region.sites:
         raise ValueError("'%s' is not a valid Craigslist site" % site)
-    if area and area not in region.areas.get(site, set()):
-        raise ValueError("'%s' is not a valid Craigslist area for site '%s'" % (area, site))
+    if area:
+        if site not in region.areas:
+            raise ValueError("site '%s' does not have an area" % site)
+        if area not in region.areas.get(site, set()):
+            raise ValueError("'%s' is not a valid Craigslist area for site '%s'" % (area, site))
