@@ -7,7 +7,7 @@ Handles requests and constructs BeautifulSoup objects.
 
 import concurrent.futures
 
-# Keep cchardet imported - operates in the background with lxml
+# Keep cchardet imported - operates in the background with lxml.
 import cchardet
 import lxml
 import tenacity
@@ -17,7 +17,7 @@ from bs4 import BeautifulSoup, SoupStrainer
 from pycraigslist.exceptions import MaximumRequestsError
 
 HEADERS = {"headers": {"User-Agent": "Mozilla/5.0"}}
-# Retry 12 times, starting with 0.01 second and doubling the delay every time
+# Retry 12 times, starting with 0.01 second and doubling the delay every time.
 _RETRY_ARGS = {
     "wait": tenacity.wait.wait_random_exponential(multiplier=0.01, exp_base=2),
     "stop": tenacity.stop.stop_after_attempt(12),
@@ -37,7 +37,7 @@ def yield_html(url, **kwargs):
             yield get_html(get_request(session, url[0], **parse_kwargs(kwargs)).text, strainer)
         # Multiple requests
         else:
-            # Build iterables of session and strainer objects equal in length to URL tuple
+            # Build iterables of session and strainer objects equal in length to URL tuple.
             sessions = make_iterable(session, len(url))
             strainers = make_iterable(strainer, len(url))
             yield from map(
@@ -83,7 +83,7 @@ def get_request(requests_session, url, params=None):
     wait time specified in _RETRY_ARGS."""
     if params is None:
         params = HEADERS
-    # Don't add headers if params is {}
+    # Don't add headers if params is {}.
     elif params != {}:
         params.update(HEADERS)
     return requests_session.get(url, params=params, timeout=5)
@@ -105,11 +105,11 @@ def threaded_get_request(sessions, urls, **kwargs):
 def concurrency(PoolExecutor, map_func, *args, **kwargs):
     """General concurrency procedure for thread pools and process
     pools that submits map-able functions to arguments."""
-    # Zip args and kwarg values to make tuple of args
+    # Zip args and kwarg values to make tuple of args.
     zipped_args = zip(*args, *kwargs.values())
     with PoolExecutor(max_workers=5) as executor:
         futures = {
-            # Func must accept all positional arguments (kwargs assumed by args OK)
+            # Func must accept all positional arguments (kwargs assumed by args OK).
             executor.submit(map_func, arg_tuple)
             for arg_tuple in zipped_args
         }

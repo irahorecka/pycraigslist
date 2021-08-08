@@ -15,7 +15,7 @@ def parse_limit(method):
     @wraps(method)
     def wrapper(*args, **kwargs):
         limit = kwargs.get("limit")
-        # Yield method if limit is valid
+        # Yield method if limit is valid.
         if limit is None or isinstance(limit, int) and limit >= 0:
             yield from method(*args, **kwargs)
         elif not isinstance(limit, int):

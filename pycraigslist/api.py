@@ -806,7 +806,7 @@ class forsale(BaseAPI, ParentMethods):
     class fur(BaseAPI):
         """general for sale - by owner"""
 
-        # An odd-ball - give 'for' alias 'fur'
+        # An odd-ball - give 'for' alias 'fur'.
 
         query_filters = filters.query.forsale
 

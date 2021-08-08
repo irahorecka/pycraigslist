@@ -10,23 +10,23 @@ from pycraigslist.query import sessions
 
 def fetch_detailed_posts(general_search, **kwargs):
     """Fetches additional details from every post in `general_search`."""
-    # Yield all post values from general search and link with post id
+    # Yield all post values from general search and link with post id.
     posts = {post["id"]: post for post in general_search}
     posts_url = [post["url"] for post in posts.values()]
     params = [{} for _ in posts_url]
-    # Get every post's HTML content
+    # Get every post's HTML content.
     post_htmls = sessions.yield_html(posts_url, params=params)
     kwargs["ref_filters"] = invert(kwargs["ref_filters"])
 
-    # Yield detailed posts to caller
+    # Yield detailed posts to caller.
     for html in post_htmls:
         post_details = get_post_details(html, **kwargs)
         try:
             # Because we're dealing with asynchronous requests, link post details
-            # to standard post content by post id
+            # to standard post content by post id.
             yield {**posts[post_details["id"]], **post_details}
         except KeyError:
-            # If post ID in details doesn't match post IDs from general search
+            # If post ID in details doesn't match post IDs from general search.
             pass
 
 
@@ -39,7 +39,7 @@ def invert(ref_filters):
             # To {"cats are ok - purrr": {"cats_ok": "true"},}
             inv_filters[value["attr"]] = {key: "true"}
         except KeyError:
-            # For filters with multiple values
+            # For filters with multiple values.
             # From {'auto_bodytype': ['bus', 'convertible', ... ],}
             # To {'bus': 'auto_bodytype', 'convertible': 'auto_bodytype', ... ,}
             if isinstance(value, dict):
@@ -100,13 +100,13 @@ def get_body(post_content):
     post_body = post_content.find("section", {"id": "postingbody"})
     body_attr = {"body": ""}
     if post_body is not None:
-        # Remove elements with null attributes
+        # Remove elements with null attributes.
         post_body_text = (
             getattr(element, "text", element)
             for element in post_body
             if not getattr(element, "attrs", None)
         )
-        # Squelch post_body_text to str
+        # Squelch post_body_text to str.
         body_attr["body"] = str("".join(post_body_text).strip())
     return body_attr
 
@@ -114,10 +114,10 @@ def get_body(post_content):
 def get_post_attrs(post_content, **kwargs):
     """Gets additional attributes from post's HTML content."""
     ref_filters = kwargs["ref_filters"]
-    # Attributes without a recognizable ID will be appended to "misc"
+    # Attributes without a recognizable ID will be appended to "misc".
     post_attrs = {"misc": []}
     for attr in get_attrs(post_content):
-        # Add to post_attrs !! by reference !!
+        # Add to post_attrs !! BY REFERENCE !!.
         parse_attrs(post_attrs, attr, ref_filters)
 
     return post_attrs
@@ -140,14 +140,14 @@ def parse_attrs(post_attrs, attr, ref_filters):
             # E.g. update with {"cats_ok": "true"} from {"cats are ok - purrr": {"cats_ok": "true"},}
             post_attrs.update(ref_filters[attr])
         else:
-            # Update with attribute value
+            # Update with attribute value.
             post_attrs.update({ref_filters[attr]: attr})
     elif ":" in attr:
-        # Some attr key, value are delimited by ':' - parse it to dict and update
-        # These attr keys are commonly separated by whitespaces and backslashes - replace with '_'
+        # Some attr key, value are delimited by ':' - parse it to dict and update.
+        # These attr keys are commonly separated by whitespaces and backslashes - replace with '_'.
         key_ = attr.split(":")[0].strip().replace(" / ", " ").replace(" ", "_")
         attr_ = attr.split(":")[1].strip()
         post_attrs.update({key_: attr_})
     else:
-        # attr not found in filter - append to list of anonymous attributes
+        # attr not found in filter - append to list of anonymous attributes.
         post_attrs["misc"].append(attr)

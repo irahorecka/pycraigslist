@@ -14,19 +14,21 @@ class BaseAPI:
     """Base class for interfacing with the Craigslist API."""
 
     category = ""
-    # Standard query filters that are permitted within category
+    # Standard query filters that are permitted within category.
     query_filters = {}
 
     def __init__(self, site="sfbay", area="", filters=None, **kwargs):
+        # Validate site and area values from caller.
+        query.validate_region(site, area)
         self.site = site
         self.area = area
-        # Get additional filters joined with standard filters
+        # Get additional filters joined with standard filters.
         self.all_query_filters = {
             **self.query_filters,
             **query.get_addl_filters(self._base_url),
         }
-        # Get parsed filters to use as HTTP parameters
-        self.filters = query.parse(filters, self.all_query_filters, **kwargs)
+        # Get parsed filters to use as HTTP parameters.
+        self.filters = query.parse_filters(filters, self.all_query_filters, **kwargs)
 
     @parse_limit
     def search(self, limit=None):
