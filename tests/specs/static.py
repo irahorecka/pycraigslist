@@ -11,7 +11,7 @@ import pycraigslist
 class content:
     """Suite of post content templates expected from search and search_detail methods."""
 
-    # Attributes that are guaranteed to exist in standard posts
+    # Attributes that are guaranteed to exist in standard posts.
     post_content_std = {
         "country": "",
         "region": "",
@@ -27,7 +27,7 @@ class content:
         "url": "",
     }
 
-    # Attributes that are guaranteed to exist in detailed posts WITHOUT body
+    # Attributes that are guaranteed to exist in detailed posts WITHOUT body.
     post_content_detail = {
         "country": "",
         "region": "",
@@ -47,7 +47,7 @@ class content:
         "misc": [],
     }
 
-    # Attributes that are guaranteed to exist in detailed posts WITH body
+    # Attributes that are guaranteed to exist in detailed posts WITH body.
     post_content_detail_body = {
         "country": "",
         "region": "",
@@ -206,6 +206,26 @@ class filters:
     )
 
     all_ = (community, events, forsale, gigs, housing, jobs, resumes, services)
+
+
+class kwargs:
+    """Suite of keyword arguments to test intantiation of pycraigslist.api.* object."""
+
+    valid = (
+        {"site": "monterey"},
+        {"site": "sfbay", "area": "eby"},
+        # Use a filter query that is applicable to all queries.
+        {"site": "sandiego", "area": "csd", "has_image": True},
+        {"site": "sandiego", "area": "csd", "filters": {"has_image": True}},
+    )
+    invalid = (
+        # Invalid site and area
+        {"site": "bad_site"},
+        {"site": "sfbay", "area": "bad_area"},
+        # Invalid filter keys
+        {"site": "sandiego", "area": "esd", "bad_filter": "bad_value"},
+        {"site": "sandiego", "area": "esd", "filters": {"bad_filter": "bad_value"}},
+    )
 
 
 class limits:
