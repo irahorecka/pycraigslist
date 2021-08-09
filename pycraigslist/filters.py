@@ -2,7 +2,7 @@
 pycraigslist.filters
 ~~~~~~~~~~~~~~~~~~~~
 
-Stores Craigslist query filters and categories.
+Stores Craigslist query filters, categories, and regions.
 """
 
 
@@ -564,5 +564,6 @@ class region:
         'wichitafalls', 'williamsport', 'wilmington', 'winchester', 'winnipeg', 'winstonsalem',
         'wollongong', 'worcester', 'wuhan', 'wv', 'wyoming', 'xian',
         'yakima', 'yellowknife', 'york', 'youngstown', 'yubasutter', 'yucatan',
+        'yuma', 'zagreb', 'zamboanga', 'zanesville', 'zurich',
     }
     # fmt: on
