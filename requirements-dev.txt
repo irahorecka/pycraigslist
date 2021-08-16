@@ -7,4 +7,5 @@ pytest
 pre-commit
 absolufy-imports
 black
+flake8
 flit
