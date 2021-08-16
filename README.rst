@@ -138,6 +138,9 @@ Finding and using filters
 We can apply filters to our search.
 Use ``.get_filters()`` to find valid filters for a class or subclass instance.
 
+Search filters are sensitive to the context of the pycraigslist instance and the language of the region. For example,
+here are applicable filters for cars & trucks for sale in Tokyo, Japan:
+
 .. code:: python
 
     import pycraigslist
@@ -166,7 +169,7 @@ Use ``.get_filters()`` to find valid filters for a class or subclass instance.
                      'filipino', 'türkçe', '中文', 'العربية', '日本語', '한국말', 'русский',
                      'tiếng việt']}
 
-Using this information, we can find cars & trucks with clean (クリーン) titles in Tokyo, Japan:
+To find cars & trucks with clean titles, we'd use the filter parameter "クリーン" (pronounced 'koo-lean'):
 
 .. code:: python
 
@@ -318,13 +321,14 @@ Exceptions
 pycraigslist has the following exceptions:
 
 * ``MaximumRequestsError`` : exceeds maximum retries for a query
+* ``InvalidFilterValue`` : filter is not recognized or has an invalid value
 
 To use pycraigslist exceptions, import / import from ``pycraigslist.exceptions``. For example:
 
 .. code:: python
 
     import pycraigslist
-    from pycraigslist.exceptions import MaximumRequestsError
+    from pycraigslist.exceptions import MaximumRequestsError, InvalidFilterValue
 
     try:
         sf_bikes = pycraigslist.forsale.bia(site="sfbay", area="sfc", min_price=50)
@@ -332,6 +336,8 @@ To use pycraigslist exceptions, import / import from ``pycraigslist.exceptions``
             print(bike)
     except MaximumRequestsError:
         print("Yikes! Something's up with the network.")
+    except InvalidFilterValue as e:
+        print(f"Craigslist filter validation failed. Filter: '{e.name}', Value: '{e.value}'")
 
 Contribute
 ----------
