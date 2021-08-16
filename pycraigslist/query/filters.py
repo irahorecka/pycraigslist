@@ -7,6 +7,7 @@ Handles parsing of Craigslist query filters.
 
 from pycraigslist.query import sessions
 from pycraigslist.filters import region
+from pycraigslist.exceptions import InvalidFilterValue
 
 
 def get_addl_filters_readable(url):
@@ -55,7 +56,7 @@ def parse_filters(filters, query_filters, **kwargs):
             try:
                 filters[key] = [query_filters[key][parsed_val] for parsed_val in parse_value(value)]
             except (KeyError, TypeError):
-                raise ValueError("filter '%s' is or has a bad value" % key)
+                raise InvalidFilterValue("filter '%s' is or has a bad value" % key, key, value)
 
     # Join default parameters for every filter.
     return {**{"searchNearby": 1, "s": 0}, **filters}
