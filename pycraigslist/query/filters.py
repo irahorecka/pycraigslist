@@ -56,7 +56,12 @@ def parse_filters(filters, query_filters, **kwargs):
             try:
                 filters[key] = [query_filters[key][parsed_val] for parsed_val in parse_value(value)]
             except (KeyError, TypeError):
-                raise InvalidFilterValue("filter '%s' is or has a bad value" % key, key, value)
+                raise InvalidFilterValue(
+                    "either '%s' is an invalid filter or '%s' is a bad value for '%s'"
+                    % (key, value, key),
+                    key,
+                    value,
+                )
 
     # Join default parameters for every filter.
     return {**{"searchNearby": 1, "s": 0}, **filters}

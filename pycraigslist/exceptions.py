@@ -11,10 +11,10 @@ class MaximumRequestsError(Exception):
 
 
 class InvalidFilterValue(ValueError):
-    """Search filter has no or an invalid value."""
+    """Filter is not recognized or has an invalid value."""
 
     def __init__(self, message, name, value):
         self.message = message
         self.name = name
         self.value = value
-        super(InvalidFilterValue, self).__init__(message)
+        super().__init__(message)
