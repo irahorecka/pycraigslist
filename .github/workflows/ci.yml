@@ -7,6 +7,10 @@ on:
   pull_request:
     branches:
       - master
+  schedule:
+    # At minute 30 past hour 5 and 17.
+    # * is a special character in YAML so you have to quote this string.
+    - cron: '30 5,17 * * *'
 
 jobs:
   build:
@@ -14,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: [3.5, 3.6, 3.7, 3.8, 3.9]
 
     steps:
       - uses: actions/checkout@v2
