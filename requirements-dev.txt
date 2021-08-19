@@ -3,9 +3,11 @@ bs4
 tenacity
 cchardet
 lxml
+Faker
 pytest
 pre-commit
 absolufy-imports
 black
 flake8
+pylint
 flit

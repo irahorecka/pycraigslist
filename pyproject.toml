@@ -13,7 +13,6 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.5",
     "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
@@ -22,4 +21,4 @@ classifiers = [
     "Topic :: Utilities",
 ]
 requires-python = ">=3.6"
-requires = ["httpx>=0.18.0", "beautifulsoup4>=4.9.0", "tenacity>=7.0.0", "cchardet>=2.1.0", "lxml>=4.6.0"]
+requires = ["httpx>=0.18.0", "beautifulsoup4>=4.9.0", "tenacity>=7.0.0", "cchardet>=2.1.0", "lxml>=4.6.0", "Faker>=8.11.0"]
