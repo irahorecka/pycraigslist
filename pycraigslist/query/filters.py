@@ -55,13 +55,13 @@ def parse_filters(filters, query_filters, **kwargs):
             # Some filters allow multiple values - assign all specified by user.
             try:
                 filters[key] = [query_filters[key][parsed_val] for parsed_val in parse_value(value)]
-            except (KeyError, TypeError):
+            except (KeyError, TypeError) as error:
                 raise InvalidFilterValue(
                     "either '%s' is an invalid filter or '%s' is a bad value for '%s'"
                     % (key, value, key),
                     key,
                     value,
-                )
+                ) from error
 
     # Join default parameters for every filter.
     return {**{"searchNearby": 1, "s": 0}, **filters}

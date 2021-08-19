@@ -13,10 +13,10 @@ import lxml
 import tenacity
 import httpx
 from bs4 import BeautifulSoup, SoupStrainer
+from faker import Faker
 
 from pycraigslist.exceptions import MaximumRequestsError
 
-HEADERS = {"headers": {"User-Agent": "Mozilla/5.0"}}
 # Retry 12 times, starting with 0.01 second and doubling the delay every time.
 _RETRY_ARGS = {
     "wait": tenacity.wait.wait_random_exponential(multiplier=0.01, exp_base=2),
@@ -28,28 +28,45 @@ def yield_html(url, **kwargs):
     """Yields HTML content(s) to caller."""
     session = httpx.Client()
     strainer = get_cl_strainer()
+    fake = Faker()
     try:
         # Single request: a URL string
         if isinstance(url, str):
-            yield get_html(get_request(session, url, **parse_kwargs(kwargs)).text, strainer)
+            yield get_html(
+                get_request(
+                    session, url, {"User-Agent": fake.firefox()}, **parse_kwargs(kwargs)
+                ).text,
+                strainer,
+            )
         # Single request: a single URL in a list or tuple
         elif isinstance(url, (list, tuple)) and len(url) == 1:
-            yield get_html(get_request(session, url[0], **parse_kwargs(kwargs)).text, strainer)
+            yield get_html(
+                get_request(
+                    session, url[0], {"User-Agent": fake.firefox()}, **parse_kwargs(kwargs)
+                ).text,
+                strainer,
+            )
         # Multiple requests
         else:
             # Build iterables of session and strainer objects equal in length to URL tuple.
             sessions = make_iterable(session, len(url))
             strainers = make_iterable(strainer, len(url))
+            # Generate random Mozilla Firefox web browser user agent strings.
+            headers = [{"User-Agent": ua()} for ua in make_iterable(fake.firefox, len(url))]
             yield from map(
                 get_html,
                 (
                     response.text
-                    for response in threaded_get_request(sessions, url, **parse_kwargs(kwargs))
+                    for response in threaded_get_request(
+                        sessions, url, headers, **parse_kwargs(kwargs)
+                    )
                 ),
                 strainers,
             )
-    except tenacity.RetryError:
-        raise MaximumRequestsError("Maximum requests attempted - check network connection.")
+    except tenacity.RetryError as error:
+        raise MaximumRequestsError(
+            "Maximum requests attempted - check network connection."
+        ) from error
 
 
 def get_cl_strainer():
@@ -67,6 +84,7 @@ def get_cl_strainer():
             ("ul", "rows"),
         ):
             return True
+        return False
 
     return SoupStrainer(target_elem_attrs)
 
@@ -77,19 +95,14 @@ def get_html(text, strainer):
 
 
 @tenacity.retry(**_RETRY_ARGS)
-def get_request(requests_session, url, params=None):
+def get_request(requests_session, url, headers, params=None):
     """Gets httpx.Response object using httpx.Client.get.
     Retry request if request fails, with number of attempts and
     wait time specified in _RETRY_ARGS."""
-    if params is None:
-        params = HEADERS
-    # Don't add headers if params is {}.
-    elif params != {}:
-        params.update(HEADERS)
-    return requests_session.get(url, params=params, timeout=5)
+    return requests_session.get(url, headers=headers, params=params, timeout=5)
 
 
-def threaded_get_request(sessions, urls, **kwargs):
+def threaded_get_request(sessions, urls, headers, **kwargs):
     """Yields requests from get_request concurrently."""
     yield from iter(
         concurrency(
@@ -97,6 +110,7 @@ def threaded_get_request(sessions, urls, **kwargs):
             lambda args: get_request(*args),
             sessions,
             urls,
+            headers,
             **kwargs
         )
     )
