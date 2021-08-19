@@ -9,6 +9,7 @@ and .search_detail methods.
 import warnings
 from functools import partial
 
+import pytest
 from pytest import mark, param
 
 import specs
@@ -40,7 +41,7 @@ def test_content_search(parent):
     listings = parent()
     if listings.count > 0:
         post = next(listings.search(limit=1))
-        assert all(attr in post.keys() for attr in specs.content.post_content_std.keys())
+        assert all(attr in post for attr in specs.content.post_content_std)
 
 
 @mark.parametrize("parent", specs.obj.pycraigslist_parents)
@@ -68,20 +69,26 @@ def test_content_search_detail(parent):
     if listings.count > 0:
         # With include_body=True
         post_detail_w_body = next(listings.search_detail(limit=1, include_body=True))
-        assert all(
-            attr in post_detail_w_body.keys()
-            for attr in specs.content.post_content_detail_body.keys()
-        )
+        assert all(attr in post_detail_w_body for attr in specs.content.post_content_detail_body)
 
         # With include_body=False
         post_detail_wo_body = next(listings.search_detail(limit=1, include_body=False))
-        assert all(
-            attr in post_detail_wo_body.keys() for attr in specs.content.post_content_detail.keys()
-        )
+        assert all(attr in post_detail_wo_body for attr in specs.content.post_content_detail)
 
         # Without include_body kwarg --> default value is False.
         post_detail = next(listings.search_detail(limit=1))
-        assert all(attr in post_detail.keys() for attr in specs.content.post_content_detail.keys())
+        assert all(attr in post_detail for attr in specs.content.post_content_detail)
+
+
+@mark.parametrize("parent", specs.obj.pycraigslist_parents)
+def test_impossible_query(parent):
+    """Tests queries that will (almost) always yield no posts."""
+    listings = parent(query="@@ this is likely an impossible query @@")
+    # Posts' count of 0 is expected for a query with no posts.
+    assert listings.count == 0
+    with pytest.raises(StopIteration):
+        # Stop iteration is expected for a query with no posts.
+        next(listings.search())
 
 
 @mark.parametrize(["parent", "filters"], QUERY_FILTERS)
@@ -110,7 +117,7 @@ def test_valid_instantiation(valid_instance):
 
 
 @mark.parametrize(
-    ["input", "expected"],
+    ["input_", "expected"],
     [
         param("1", ["1"], id="String"),
         param(1.0, [1.0], id="Float"),
@@ -123,8 +130,9 @@ def test_valid_instantiation(valid_instance):
         param(["1", 1, 1.0, True], ["1", 1, 1.0, True], id="Mixed list of types"),
     ],
 )
-def test_parse_value(input, expected):
-    output = pycraigslist.query.filters.parse_value(input)
+def test_parse_value(input_, expected):
+    """Tests pycraigslist.query.filters.parse_value function."""
+    output = pycraigslist.query.filters.parse_value(input_)
     if isinstance(output, list):
         assert output == expected
     else:
@@ -132,12 +140,13 @@ def test_parse_value(input, expected):
 
 
 @mark.parametrize(
-    ["input", "modifications", "expected"],
+    ["input_", "modifications", "expected"],
     [
         param({"a": True}, {"a": False}, {"a": False}),
         param({"a": True, "b": True}, {"a": False}, {"a": False, "b": True}),
         param({"a": True}, {"b": True}, {"a": True, "b": True}),
     ],
 )
-def test_parse_arg_filters(input, modifications, expected):
-    assert pycraigslist.query.filters.parse_arg_filters(input, **modifications) == expected
+def test_parse_arg_filters(input_, modifications, expected):
+    """Tests pycraigslist.query.filters.parse_arg_filters function."""
+    assert pycraigslist.query.filters.parse_arg_filters(input_, **modifications) == expected
