@@ -26,8 +26,8 @@ import pycraigslist
     ],
 )
 def test_parse_value(input_, expected):
-    """Tests pycraigslist.query.filters.parse_value function."""
-    output = pycraigslist.query.filters.parse_value(input_)
+    """Tests pycraigslist.query.filters.parse_filter_value function."""
+    output = pycraigslist.query.filters.parse_filter_value(input_)
     if isinstance(output, list):
         assert output == expected
     else:
@@ -43,5 +43,5 @@ def test_parse_value(input_, expected):
     ],
 )
 def test_parse_arg_filters(input_, modifications, expected):
-    """Tests pycraigslist.query.filters.parse_arg_filters function."""
-    assert pycraigslist.query.filters.parse_arg_filters(input_, **modifications) == expected
+    """Tests pycraigslist.query.filters.merge_dict_kwargs function."""
+    assert pycraigslist.query.filters.merge_dict_kwargs(input_, **modifications) == expected

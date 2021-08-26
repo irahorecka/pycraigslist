@@ -10,10 +10,10 @@ import re
 from pycraigslist.query import sessions
 
 
-def fetch_posts(url, filters, **kwargs):
+def fetch_posts(url, params, **kwargs):
     """Yields every post from a Craigslist query as a dictionary with string values;
-    provided a URL and query filters from the caller."""
-    total_post_count = get_total_post_count(url, filters)
+    provided a URL and HTTP parameters from the caller."""
+    total_post_count = get_total_post_count(url, params)
     # Return empty search if total_post_count cannot be found in search page.
     if total_post_count == 0:
         return ()
@@ -22,33 +22,32 @@ def fetch_posts(url, filters, **kwargs):
     # Choose lesser number of posts if comparable.
     if not limit or total_post_count < limit:
         limit = total_post_count
-    yield from fetch_posts_to_limit(url, filters, limit, **kwargs)
+    yield from fetch_posts_to_limit(url, params, limit, **kwargs)
 
 
-def get_total_post_count(url, filters):
-    """Gets total number of posts from Craigslist URL and parameters."""
-    search_html = next(sessions.yield_html(url, params=filters))
+def get_total_post_count(url, params):
+    """Gets total number of posts from Craigslist URL and HTTP parameters."""
+    search_html = next(sessions.yield_html(url, params=params))
     total_count = search_html.find("span", {"class": "totalcount"})
     return 0 if total_count is None else int(total_count.text)
 
 
-def fetch_posts_to_limit(url, filters, num_posts, **kwargs):
-    """Exhaustively yields posts' content (up to num_posts) from Craigslist
-    URL and filters."""
+def fetch_posts_to_limit(url, params, num_posts, **kwargs):
+    """Exhaustively yields posts' content (up to `num_posts`) from Craigslist
+    URL and HTTP parameters."""
     # Find number of search pages - there are 120 posts per page.
-    num_pages = int(num_posts / 120) + 1 if num_posts % 120 != 0 else int(num_posts / 120)
-    # Container to hold appending iterables
-    zip_iter = []
+    num_pages = int(num_posts / 120) + 1 if num_posts % 120 > 0 else int(num_posts / 120)
+    # Container to hold appending iterables of page search parameters.
+    page_iter = []
     for page_num in range(num_pages):
         # Get first post's post index in a search page.
         # E.g. third page first post is 240, i.e. it is the 240th post in the query.
-        filters["s"] = page_num * 120
-        zip_iter.append((url, filters.copy(), filters["s"]))
+        params["s"] = page_num * 120
+        page_iter.append((url, params.copy(), params["s"]))
 
     # Unzip for threading requests.
-    search_urls, page_filters, start_idxs = zip(*zip_iter)
-    search_pages = sessions.yield_html(search_urls, params=page_filters)
-    for idx, html in enumerate(search_pages):
+    page_urls, page_params, start_idxs = zip(*page_iter)
+    for idx, html in enumerate(sessions.yield_html(page_urls, params=page_params)):
         yield from (
             fetch_posts_from_page(html, start_idx=start_idxs[idx], stop_idx=num_posts, **kwargs)
         )
@@ -57,11 +56,11 @@ def fetch_posts_to_limit(url, filters, num_posts, **kwargs):
 def fetch_posts_from_page(page_html, start_idx, stop_idx, **kwargs):
     """Yields posts' content from a page of Craigslist listings (HTML content)."""
     # We want country and region to precede all keys.
-    post_json = get_post_country_region(page_html)
+    post_country_region = get_post_country_region(page_html)
     posts = page_html.find("ul", {"class": "rows"})
     for idx, post in enumerate(posts.find_all("li", {"class": "result-row"}, recursive=False)):
-        # Country and region attributes are post-agnostic - merge post_json with post content.
-        yield {**post_json, **get_post_content(post, **kwargs)}
+        # Country and region attributes are post-agnostic - merge post_country_region with post content.
+        yield {**post_country_region, **get_post_content(post, **kwargs)}
         # Adjust for true post count idx.
         idx += start_idx
         if idx + 1 == stop_idx:
@@ -106,15 +105,14 @@ def get_post_content(post_html, **kwargs):
     repost_of = post_html.attrs.get("data-repost-of")
     time = post_html.find("time")
     if time:
-        datetime = time.attrs["datetime"]
+        post_last_updated = time.attrs["datetime"]
     else:
         pl = post_html.find("span", {"class": "pl"})
-        datetime = pl.text.split(":")[0].strip() if pl else None
+        post_last_updated = pl.text.split(":")[0].strip() if pl else ""
 
     # Parse bs4 html.
     post_id = post_html.attrs["data-pid"]
     post_repost_of = repost_of or ""
-    post_last_updated = datetime
     post_title = header_link.text
     post_neighborhood = neighborhood.text.strip()[1:-1] if neighborhood else ""
     post_price = price.text if price else ""

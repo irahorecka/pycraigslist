@@ -6,7 +6,7 @@ A suite of modules that interface with the Craigslist API.
 """
 
 from pycraigslist.query.filters import (
-    parse_filters,
+    parse_filters_to_params,
     get_addl_filters,
     get_addl_filters_readable,
     validate_region,

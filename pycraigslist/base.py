@@ -22,13 +22,13 @@ class BaseAPI:
         query.validate_region(site, area)
         self.site = site
         self.area = area
-        # Get additional filters joined with standard filters.
-        self.query_filters_total = {
+        # Join additional filters with standard filters.
+        self.query_filters_all = {
             **self.query_filters,
             **query.get_addl_filters(self.base_url),
         }
         # Parse filters to get HTTP parameters.
-        self.params = query.parse_filters(filters, self.query_filters_total, **kwargs)
+        self.params = query.parse_filters_to_params(self.query_filters_all, filters, **kwargs)
 
     @parse_limit
     def search(self, limit=None):
@@ -43,7 +43,7 @@ class BaseAPI:
         yield from query.fetch_detailed_posts(
             self.search(limit=limit),
             include_body=include_body,
-            reference_filters=self.query_filters_total,
+            reference_filters=self.query_filters_all,
         )
 
     @property

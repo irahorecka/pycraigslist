@@ -114,3 +114,13 @@ def test_query_filters(parent, filters):
 def test_valid_instantiation(valid_instance):
     """Tests proper instantiation of pycraigslist.api.* instances using valid kwargs."""
     assert type(valid_instance()).__bases__[0] == pycraigslist.base.BaseAPI
+
+
+def test_filter_override():
+    """Tests the proper overriding of the `filter` keyword dictionary values with those
+    provided as a keyword argument."""
+    filters = {
+        "bicycle_frame_material": "steel",
+    }
+    bicycles = pycraigslist.forsale.bia(filters=filters, bicycle_frame_material="aluminum")
+    assert next(bicycles.search_detail(limit=1))["bicycle_frame_material"] == "aluminum"
