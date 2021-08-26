@@ -12,21 +12,21 @@ from functools import partial
 import pytest
 from pytest import mark, param
 
-import specs
+import params
 import pycraigslist
 
 # Make a tuple of zipped parameters for `test_query_filters`.
 # I.e. pycraigslist.forsale will receive valid filters for the forsale category.
-QUERY_FILTERS = tuple(zip(specs.obj.pycraigslist_parents, specs.filters.all_))
+QUERY_FILTERS = tuple(zip(params.obj.pycraigslist_parents, params.filters.all_))
 # Make a tuple of valid pycraigslist.api.* partial instances for `test_valid_instantiation`.
 VALID_INSTANCES = tuple(
     partial(obj, **kwargs)
-    for kwargs in specs.kwargs.valid
-    for obj in specs.obj.pycraigslist_parents
+    for kwargs in params.kwargs.valid
+    for obj in params.obj.pycraigslist_parents
 )
 
 
-@mark.parametrize("parent", specs.obj.pycraigslist_parents)
+@mark.parametrize("parent", params.obj.pycraigslist_parents)
 def test_dtype_search(parent):
     """Tests output datatype of search method."""
     listings = parent()
@@ -35,16 +35,16 @@ def test_dtype_search(parent):
         assert isinstance(post, dict)
 
 
-@mark.parametrize("parent", specs.obj.pycraigslist_parents)
+@mark.parametrize("parent", params.obj.pycraigslist_parents)
 def test_content_search(parent):
     """Tests output content of search method."""
     listings = parent()
     if listings.count > 0:
         post = next(listings.search(limit=1))
-        assert all(attr in post for attr in specs.content.post_content_std)
+        assert all(attr in post for attr in params.content.post_content_std)
 
 
-@mark.parametrize("parent", specs.obj.pycraigslist_parents)
+@mark.parametrize("parent", params.obj.pycraigslist_parents)
 def test_dtype_search_detail(parent):
     """Tests output datatype of search_detail method."""
     listings = parent()
@@ -62,25 +62,25 @@ def test_dtype_search_detail(parent):
         assert isinstance(post_detail, dict)
 
 
-@mark.parametrize("parent", specs.obj.pycraigslist_parents)
+@mark.parametrize("parent", params.obj.pycraigslist_parents)
 def test_content_search_detail(parent):
     """Tests output content of search_detail method."""
     listings = parent()
     if listings.count > 0:
         # With include_body=True
         post_detail_w_body = next(listings.search_detail(limit=1, include_body=True))
-        assert all(attr in post_detail_w_body for attr in specs.content.post_content_detail_body)
+        assert all(attr in post_detail_w_body for attr in params.content.post_content_detail_body)
 
         # With include_body=False
         post_detail_wo_body = next(listings.search_detail(limit=1, include_body=False))
-        assert all(attr in post_detail_wo_body for attr in specs.content.post_content_detail)
+        assert all(attr in post_detail_wo_body for attr in params.content.post_content_detail)
 
         # Without include_body kwarg --> default value is False.
         post_detail = next(listings.search_detail(limit=1))
-        assert all(attr in post_detail for attr in specs.content.post_content_detail)
+        assert all(attr in post_detail for attr in params.content.post_content_detail)
 
 
-@mark.parametrize("parent", specs.obj.pycraigslist_parents)
+@mark.parametrize("parent", params.obj.pycraigslist_parents)
 def test_impossible_query(parent):
     """Tests queries that will (almost) always yield no posts."""
     listings = parent(query="@@ this is likely an impossible query @@")
@@ -114,39 +114,3 @@ def test_query_filters(parent, filters):
 def test_valid_instantiation(valid_instance):
     """Tests proper instantiation of pycraigslist.api.* instances using valid kwargs."""
     assert type(valid_instance()).__bases__[0] == pycraigslist.base.BaseAPI
-
-
-@mark.parametrize(
-    ["input_", "expected"],
-    [
-        param("1", ["1"], id="String"),
-        param(1.0, [1.0], id="Float"),
-        param(True, [True], id="Boolean"),
-        param(1, [1], id="Integer"),
-        param(["1", "2"], ["1", "2"], id="List of integers"),
-        param([1.0, 2.0], [1.0, 2.0], id="List of integers"),
-        param([True, False], [True, False], id="List of integers"),
-        param([1, 2], [1, 2], id="List of integers"),
-        param(["1", 1, 1.0, True], ["1", 1, 1.0, True], id="Mixed list of types"),
-    ],
-)
-def test_parse_value(input_, expected):
-    """Tests pycraigslist.query.filters.parse_value function."""
-    output = pycraigslist.query.filters.parse_value(input_)
-    if isinstance(output, list):
-        assert output == expected
-    else:
-        assert list(output) == expected
-
-
-@mark.parametrize(
-    ["input_", "modifications", "expected"],
-    [
-        param({"a": True}, {"a": False}, {"a": False}),
-        param({"a": True, "b": True}, {"a": False}, {"a": False, "b": True}),
-        param({"a": True}, {"b": True}, {"a": True, "b": True}),
-    ],
-)
-def test_parse_arg_filters(input_, modifications, expected):
-    """Tests pycraigslist.query.filters.parse_arg_filters function."""
-    assert pycraigslist.query.filters.parse_arg_filters(input_, **modifications) == expected

@@ -9,7 +9,7 @@ import inspect
 import warnings
 from pytest import mark
 
-import specs
+import params
 import pycraigslist
 
 
@@ -26,7 +26,7 @@ def test_zero_limits():
     assert len_posts == expected_len
 
 
-@mark.parametrize("limit", specs.limits.std)
+@mark.parametrize("limit", params.limits.std)
 def test_limits(limit):
     """Tests number of posts always equal the search limit, or the maximum
     posts of page if exceeded by limit."""
@@ -40,7 +40,7 @@ def test_limits(limit):
         assert len_posts == expected_len
 
 
-@mark.parametrize("limit", specs.limits.std_fringe)
+@mark.parametrize("limit", params.limits.std_fringe)
 def test_fringe_limits(limit):
     """Tests number of posts always equal the search limit, or the maximum
     posts of page if exceeded by limit. This test captures API behavior when
@@ -55,7 +55,7 @@ def test_fringe_limits(limit):
         assert len_posts == expected_len
 
 
-@mark.parametrize("limit", specs.limits.detail)
+@mark.parametrize("limit", params.limits.detail)
 def test_detail_limits(limit):
     """Tests number of detailed posts always equal the search limit, or the maximum
     posts of page if exceeded by limit."""
@@ -69,7 +69,7 @@ def test_detail_limits(limit):
         assert len_posts == expected_len
 
 
-@mark.parametrize("limit", specs.limits.detail_fringe)
+@mark.parametrize("limit", params.limits.detail_fringe)
 def test_fringe_detail_limits(limit):
     """Tests number of detailed posts always equal the search limit, or the maximum
     posts of page if exceeded by limit. This test captures API behavior when using

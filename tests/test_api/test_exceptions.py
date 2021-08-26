@@ -10,13 +10,13 @@ from functools import partial
 import pytest
 from pytest import mark
 
-import specs
+import params
 
 # Make a tuple of invalid pycraigslist.api.* partial instances for `test_invalid_instantiation`.
 INVALID_INSTANCES = tuple(
     partial(obj, **kwargs)
-    for kwargs in specs.kwargs.invalid
-    for obj in specs.obj.pycraigslist_parents
+    for kwargs in params.kwargs.invalid
+    for obj in params.obj.pycraigslist_parents
 )
 
 

@@ -1,8 +1,8 @@
 """
-pycraigslist.tests.specs.static
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pycraigslist.tests.params
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Stores static information for testing.
+A module that stores testing data iterables for `pytest.mark.parameterize`.
 """
 
 import pycraigslist
