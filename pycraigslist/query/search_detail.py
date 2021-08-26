@@ -16,7 +16,7 @@ def fetch_detailed_posts(general_search, **kwargs):
     params = [{} for _ in posts_url]
     # Get every post's HTML content.
     post_htmls = sessions.yield_html(posts_url, params=params)
-    kwargs["ref_filters"] = invert(kwargs["ref_filters"])
+    kwargs["reference_filters"] = invert(kwargs["reference_filters"])
 
     # Yield detailed posts to caller.
     for html in post_htmls:
@@ -30,10 +30,10 @@ def fetch_detailed_posts(general_search, **kwargs):
             pass
 
 
-def invert(ref_filters):
+def invert(reference_filters):
     """Inverts reference query filters for a faster look-up time downstream."""
     inv_filters = {}
-    for key, value in ref_filters.items():
+    for key, value in reference_filters.items():
         try:
             # From {"cats_ok": {"url_key": "pets_cat", "value": 1, "attr": "cats are ok - purrr"},}
             # To {"cats are ok - purrr": {"cats_ok": "true"},}
@@ -113,12 +113,12 @@ def get_body(post_content):
 
 def get_post_attrs(post_content, **kwargs):
     """Gets additional attributes from post's HTML content."""
-    ref_filters = kwargs["ref_filters"]
+    reference_filters = kwargs["reference_filters"]
     # Attributes without a recognizable ID will be appended to "misc".
     post_attrs = {"misc": []}
     for attr in get_attrs(post_content):
         # Add to post_attrs !! BY REFERENCE !!.
-        parse_attrs(post_attrs, attr, ref_filters)
+        parse_attrs(post_attrs, attr, reference_filters)
 
     return post_attrs
 
@@ -132,16 +132,16 @@ def get_attrs(post_content):
                 yield attr_text.lower()
 
 
-def parse_attrs(post_attrs, attr, ref_filters):
+def parse_attrs(post_attrs, attr, reference_filters):
     """Parses attributes using reference query filters. Adds parsed
     attributes by reference to attributes collection (post_attrs)."""
-    if attr in ref_filters:
-        if isinstance(ref_filters[attr], dict):
+    if attr in reference_filters:
+        if isinstance(reference_filters[attr], dict):
             # E.g. update with {"cats_ok": "true"} from {"cats are ok - purrr": {"cats_ok": "true"},}
-            post_attrs.update(ref_filters[attr])
+            post_attrs.update(reference_filters[attr])
         else:
             # Update with attribute value.
-            post_attrs.update({ref_filters[attr]: attr})
+            post_attrs.update({reference_filters[attr]: attr})
     elif ":" in attr:
         # Some attr key, value are delimited by ':' - parse it to dict and update.
         # These attr keys are commonly separated by whitespaces and backslashes - replace with '_'.

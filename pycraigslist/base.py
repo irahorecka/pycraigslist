@@ -23,18 +23,18 @@ class BaseAPI:
         self.site = site
         self.area = area
         # Get additional filters joined with standard filters.
-        self.all_query_filters = {
+        self.query_filters_total = {
             **self.query_filters,
-            **query.get_addl_filters(self._base_url),
+            **query.get_addl_filters(self.base_url),
         }
-        # Get parsed filters to use as HTTP parameters.
-        self.filters = query.parse_filters(filters, self.all_query_filters, **kwargs)
+        # Parse filters to get HTTP parameters.
+        self.params = query.parse_filters(filters, self.query_filters_total, **kwargs)
 
     @parse_limit
     def search(self, limit=None):
         """Yields Craigslist posts as dictionary."""
         yield from query.fetch_posts(
-            self._base_url, self.filters, category=self.category, limit=limit
+            self.base_url, self.params, category=self.category, limit=limit
         )
 
     @parse_limit
@@ -43,24 +43,24 @@ class BaseAPI:
         yield from query.fetch_detailed_posts(
             self.search(limit=limit),
             include_body=include_body,
-            ref_filters=self.all_query_filters,
+            reference_filters=self.query_filters_total,
         )
 
     @property
     def count(self):
         """Gets approximate number of Craigslist posts."""
-        return query.get_total_post_count(self._base_url, self.filters)
+        return query.get_total_post_count(self.base_url, self.params)
 
     @property
     def url(self):
         """Builds full Craigslist query URL."""
         return "%s?%s" % (
-            self._base_url,
-            urllib.parse.urlencode(self.filters, doseq=True),
+            self.base_url,
+            urllib.parse.urlencode(self.params, doseq=True),
         )
 
     @property
-    def _base_url(self):
+    def base_url(self):
         """Builds standard Craigslist query URL."""
         if not self.area:
             return "https://%s.craigslist.org/search/%s" % (self.site, self.category)
@@ -76,7 +76,7 @@ class BaseAPI:
             key: "..." if value["value"] is None else "True/False"
             for key, value in self.query_filters.items()
         }
-        return {**readable_filters, **query.get_addl_filters_readable(self._base_url)}
+        return {**readable_filters, **query.get_addl_filters_readable(self.base_url)}
 
 
 class ParentMethods:
