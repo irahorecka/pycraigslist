@@ -17,10 +17,10 @@ pre-commit: ## Install and autoupdate pre-commit
 	pre-commit install;
 	pre-commit autoupdate;
 
-setup: ## Build package distribution files
+build: ## Build package distribution files
 	flit build;
 
-upload: ## Upload package distribution files to pypi
+publish: ## Publish package distribution files to pypi
 	flit publish;
 	make clean;
 
