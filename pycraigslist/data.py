@@ -1,13 +1,13 @@
 """
-pycraigslist.filters
-~~~~~~~~~~~~~~~~~~~~
+pycraigslist.data
+~~~~~~~~~~~~~~~~~
 
 Stores Craigslist query filters, categories, and regions.
 """
 
 
-class query:
-    """Store query filters by broad category."""
+class query_filters:
+    """Store query filters of Craigslist categories."""
 
     base = {
         "query": {"url_key": "query", "value": None},

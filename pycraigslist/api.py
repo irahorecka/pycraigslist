@@ -6,14 +6,14 @@ Suite of pycraigslist objects to interface with Craigslist.
 """
 
 from pycraigslist.base import BaseAPI, ParentMethods
-from pycraigslist import filters
+from pycraigslist import data
 
 
 class community(BaseAPI, ParentMethods):
     """community"""
 
     category = "ccc"
-    query_filters = filters.query.community
+    query_filters = data.query_filters.community
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -21,7 +21,7 @@ class community(BaseAPI, ParentMethods):
     class act(BaseAPI):
         """activity partners"""
 
-        query_filters = filters.query.community
+        query_filters = data.query_filters.community
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -30,7 +30,7 @@ class community(BaseAPI, ParentMethods):
     class ats(BaseAPI):
         """artists"""
 
-        query_filters = filters.query.community
+        query_filters = data.query_filters.community
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -39,7 +39,7 @@ class community(BaseAPI, ParentMethods):
     class kid(BaseAPI):
         """childcare"""
 
-        query_filters = filters.query.community
+        query_filters = data.query_filters.community
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -48,7 +48,7 @@ class community(BaseAPI, ParentMethods):
     class com(BaseAPI):
         """general community"""
 
-        query_filters = filters.query.community
+        query_filters = data.query_filters.community
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -57,7 +57,7 @@ class community(BaseAPI, ParentMethods):
     class grp(BaseAPI):
         """groups"""
 
-        query_filters = filters.query.community
+        query_filters = data.query_filters.community
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -66,7 +66,7 @@ class community(BaseAPI, ParentMethods):
     class vnn(BaseAPI):
         """local news and views"""
 
-        query_filters = filters.query.community
+        query_filters = data.query_filters.community
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -75,7 +75,7 @@ class community(BaseAPI, ParentMethods):
     class laf(BaseAPI):
         """lost & found"""
 
-        query_filters = filters.query.community
+        query_filters = data.query_filters.community
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -84,7 +84,7 @@ class community(BaseAPI, ParentMethods):
     class mis(BaseAPI):
         """missed connections"""
 
-        query_filters = filters.query.community
+        query_filters = data.query_filters.community
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -93,7 +93,7 @@ class community(BaseAPI, ParentMethods):
     class muc(BaseAPI):
         """musicians"""
 
-        query_filters = filters.query.community
+        query_filters = data.query_filters.community
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -102,7 +102,7 @@ class community(BaseAPI, ParentMethods):
     class pet(BaseAPI):
         """pets"""
 
-        query_filters = filters.query.community
+        query_filters = data.query_filters.community
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -111,7 +111,7 @@ class community(BaseAPI, ParentMethods):
     class pol(BaseAPI):
         """politics"""
 
-        query_filters = filters.query.community
+        query_filters = data.query_filters.community
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -120,7 +120,7 @@ class community(BaseAPI, ParentMethods):
     class rnr(BaseAPI):
         """rants & raves"""
 
-        query_filters = filters.query.community
+        query_filters = data.query_filters.community
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -129,7 +129,7 @@ class community(BaseAPI, ParentMethods):
     class rid(BaseAPI):
         """rideshare"""
 
-        query_filters = filters.query.community
+        query_filters = data.query_filters.community
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -138,7 +138,7 @@ class community(BaseAPI, ParentMethods):
     class vol(BaseAPI):
         """volunteers"""
 
-        query_filters = filters.query.community
+        query_filters = data.query_filters.community
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -149,7 +149,7 @@ class events(BaseAPI, ParentMethods):
     """events"""
 
     category = "eee"
-    query_filters = filters.query.events
+    query_filters = data.query_filters.events
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -159,7 +159,7 @@ class forsale(BaseAPI, ParentMethods):
     """for sale"""
 
     category = "sss"
-    query_filters = filters.query.forsale
+    query_filters = data.query_filters.forsale
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -167,7 +167,7 @@ class forsale(BaseAPI, ParentMethods):
     class ata(BaseAPI):
         """antiques"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -176,7 +176,7 @@ class forsale(BaseAPI, ParentMethods):
     class ppa(BaseAPI):
         """appliances"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -185,7 +185,7 @@ class forsale(BaseAPI, ParentMethods):
     class ppd(BaseAPI):
         """appliances - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -194,7 +194,7 @@ class forsale(BaseAPI, ParentMethods):
     class app(BaseAPI):
         """appliances - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -203,7 +203,7 @@ class forsale(BaseAPI, ParentMethods):
     class ara(BaseAPI):
         """arts & crafts"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -212,7 +212,7 @@ class forsale(BaseAPI, ParentMethods):
     class ard(BaseAPI):
         """arts & crafts - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -221,7 +221,7 @@ class forsale(BaseAPI, ParentMethods):
     class art(BaseAPI):
         """arts & crafts - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -230,7 +230,7 @@ class forsale(BaseAPI, ParentMethods):
     class sna(BaseAPI):
         """atvs, utvs, snowmobiles"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -239,7 +239,7 @@ class forsale(BaseAPI, ParentMethods):
     class snd(BaseAPI):
         """atvs, utvs, snowmobiles - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -248,7 +248,7 @@ class forsale(BaseAPI, ParentMethods):
     class snw(BaseAPI):
         """atvs, utvs, snowmobiles - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -257,7 +257,7 @@ class forsale(BaseAPI, ParentMethods):
     class pta(BaseAPI):
         """auto parts"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -266,7 +266,7 @@ class forsale(BaseAPI, ParentMethods):
     class ptd(BaseAPI):
         """auto parts - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -275,7 +275,7 @@ class forsale(BaseAPI, ParentMethods):
     class pts(BaseAPI):
         """auto parts - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -284,7 +284,7 @@ class forsale(BaseAPI, ParentMethods):
     class wta(BaseAPI):
         """auto wheels & tires"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -293,7 +293,7 @@ class forsale(BaseAPI, ParentMethods):
     class wtd(BaseAPI):
         """auto wheels & tires - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -302,7 +302,7 @@ class forsale(BaseAPI, ParentMethods):
     class wto(BaseAPI):
         """auto wheels & tires - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -311,7 +311,7 @@ class forsale(BaseAPI, ParentMethods):
     class ava(BaseAPI):
         """aviation"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -320,7 +320,7 @@ class forsale(BaseAPI, ParentMethods):
     class avd(BaseAPI):
         """aviation - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -329,7 +329,7 @@ class forsale(BaseAPI, ParentMethods):
     class avo(BaseAPI):
         """aviation - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -338,7 +338,7 @@ class forsale(BaseAPI, ParentMethods):
     class baa(BaseAPI):
         """baby & kid stuff"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -347,7 +347,7 @@ class forsale(BaseAPI, ParentMethods):
     class bad(BaseAPI):
         """baby & kid stuff - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -356,7 +356,7 @@ class forsale(BaseAPI, ParentMethods):
     class bab(BaseAPI):
         """baby & kid stuff - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -365,7 +365,7 @@ class forsale(BaseAPI, ParentMethods):
     class bar(BaseAPI):
         """barter"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -374,7 +374,7 @@ class forsale(BaseAPI, ParentMethods):
     class bip(BaseAPI):
         """bicycle parts"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -383,7 +383,7 @@ class forsale(BaseAPI, ParentMethods):
     class bdp(BaseAPI):
         """bicycle parts - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -392,7 +392,7 @@ class forsale(BaseAPI, ParentMethods):
     class bop(BaseAPI):
         """bicycle parts - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -401,7 +401,7 @@ class forsale(BaseAPI, ParentMethods):
     class bia(BaseAPI):
         """bicycles"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -410,7 +410,7 @@ class forsale(BaseAPI, ParentMethods):
     class bid(BaseAPI):
         """bicycles - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -419,7 +419,7 @@ class forsale(BaseAPI, ParentMethods):
     class bik(BaseAPI):
         """bicycles - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -428,7 +428,7 @@ class forsale(BaseAPI, ParentMethods):
     class bpa(BaseAPI):
         """boat parts & accessories"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -437,7 +437,7 @@ class forsale(BaseAPI, ParentMethods):
     class bpd(BaseAPI):
         """boat parts & accessories - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -446,7 +446,7 @@ class forsale(BaseAPI, ParentMethods):
     class bpo(BaseAPI):
         """boat parts & accessories - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -455,7 +455,7 @@ class forsale(BaseAPI, ParentMethods):
     class boo(BaseAPI):
         """boats"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -464,7 +464,7 @@ class forsale(BaseAPI, ParentMethods):
     class bod(BaseAPI):
         """boats - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -473,7 +473,7 @@ class forsale(BaseAPI, ParentMethods):
     class boa(BaseAPI):
         """boats - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -482,7 +482,7 @@ class forsale(BaseAPI, ParentMethods):
     class bka(BaseAPI):
         """books & magazines"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -491,7 +491,7 @@ class forsale(BaseAPI, ParentMethods):
     class bkd(BaseAPI):
         """books & magazines - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -500,7 +500,7 @@ class forsale(BaseAPI, ParentMethods):
     class bks(BaseAPI):
         """books & magazines - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -509,7 +509,7 @@ class forsale(BaseAPI, ParentMethods):
     class bfa(BaseAPI):
         """business"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -518,7 +518,7 @@ class forsale(BaseAPI, ParentMethods):
     class bfd(BaseAPI):
         """business - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -527,7 +527,7 @@ class forsale(BaseAPI, ParentMethods):
     class bfs(BaseAPI):
         """business - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -536,7 +536,7 @@ class forsale(BaseAPI, ParentMethods):
     class cta(BaseAPI):
         """cars & trucks"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -545,7 +545,7 @@ class forsale(BaseAPI, ParentMethods):
     class ctd(BaseAPI):
         """cars & trucks - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -554,7 +554,7 @@ class forsale(BaseAPI, ParentMethods):
     class cto(BaseAPI):
         """cars & trucks - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -563,7 +563,7 @@ class forsale(BaseAPI, ParentMethods):
     class ema(BaseAPI):
         """cds / dvds / vhs"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -572,7 +572,7 @@ class forsale(BaseAPI, ParentMethods):
     class emq(BaseAPI):
         """cds / dvds / vhs - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -581,7 +581,7 @@ class forsale(BaseAPI, ParentMethods):
     class emd(BaseAPI):
         """cds / dvds / vhs - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -590,7 +590,7 @@ class forsale(BaseAPI, ParentMethods):
     class moa(BaseAPI):
         """cell phones"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -599,7 +599,7 @@ class forsale(BaseAPI, ParentMethods):
     class mod(BaseAPI):
         """cell phones - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -608,7 +608,7 @@ class forsale(BaseAPI, ParentMethods):
     class mob(BaseAPI):
         """cell phones - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -617,7 +617,7 @@ class forsale(BaseAPI, ParentMethods):
     class cla(BaseAPI):
         """clothing & accessories"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -626,7 +626,7 @@ class forsale(BaseAPI, ParentMethods):
     class cld(BaseAPI):
         """clothing & accessories - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -635,7 +635,7 @@ class forsale(BaseAPI, ParentMethods):
     class clo(BaseAPI):
         """clothing & accessories - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -644,7 +644,7 @@ class forsale(BaseAPI, ParentMethods):
     class cba(BaseAPI):
         """collectibles"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -653,7 +653,7 @@ class forsale(BaseAPI, ParentMethods):
     class cbd(BaseAPI):
         """collectibles - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -662,7 +662,7 @@ class forsale(BaseAPI, ParentMethods):
     class clt(BaseAPI):
         """collectibles - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -671,7 +671,7 @@ class forsale(BaseAPI, ParentMethods):
     class syp(BaseAPI):
         """computer parts"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -680,7 +680,7 @@ class forsale(BaseAPI, ParentMethods):
     class sdp(BaseAPI):
         """computer parts - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -689,7 +689,7 @@ class forsale(BaseAPI, ParentMethods):
     class sop(BaseAPI):
         """computer parts - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -698,7 +698,7 @@ class forsale(BaseAPI, ParentMethods):
     class sya(BaseAPI):
         """computers"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -707,7 +707,7 @@ class forsale(BaseAPI, ParentMethods):
     class syd(BaseAPI):
         """computers - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -716,7 +716,7 @@ class forsale(BaseAPI, ParentMethods):
     class sys(BaseAPI):
         """computers - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -725,7 +725,7 @@ class forsale(BaseAPI, ParentMethods):
     class ela(BaseAPI):
         """electronics"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -734,7 +734,7 @@ class forsale(BaseAPI, ParentMethods):
     class eld(BaseAPI):
         """electronics - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -743,7 +743,7 @@ class forsale(BaseAPI, ParentMethods):
     class ele(BaseAPI):
         """electronics - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -752,7 +752,7 @@ class forsale(BaseAPI, ParentMethods):
     class gra(BaseAPI):
         """farm & garden"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -761,7 +761,7 @@ class forsale(BaseAPI, ParentMethods):
     class zip(BaseAPI):
         """free stuff"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -770,7 +770,7 @@ class forsale(BaseAPI, ParentMethods):
     class fua(BaseAPI):
         """furniture"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -779,7 +779,7 @@ class forsale(BaseAPI, ParentMethods):
     class gms(BaseAPI):
         """garage & moving sales"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -788,7 +788,7 @@ class forsale(BaseAPI, ParentMethods):
     class foa(BaseAPI):
         """general for sale"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -797,7 +797,7 @@ class forsale(BaseAPI, ParentMethods):
     class fod(BaseAPI):
         """general for sale - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -808,7 +808,7 @@ class forsale(BaseAPI, ParentMethods):
 
         # An odd-ball - give 'for' alias 'fur'.
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = "for"
@@ -817,7 +817,7 @@ class forsale(BaseAPI, ParentMethods):
     class haa(BaseAPI):
         """health and beauty"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -826,7 +826,7 @@ class forsale(BaseAPI, ParentMethods):
     class had(BaseAPI):
         """health and beauty - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -835,7 +835,7 @@ class forsale(BaseAPI, ParentMethods):
     class hab(BaseAPI):
         """health and beauty - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -844,7 +844,7 @@ class forsale(BaseAPI, ParentMethods):
     class hva(BaseAPI):
         """heavy equipment"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -853,7 +853,7 @@ class forsale(BaseAPI, ParentMethods):
     class hvd(BaseAPI):
         """heavy equipment - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -862,7 +862,7 @@ class forsale(BaseAPI, ParentMethods):
     class hvo(BaseAPI):
         """heavy equipment - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -871,7 +871,7 @@ class forsale(BaseAPI, ParentMethods):
     class hsa(BaseAPI):
         """household items"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -880,7 +880,7 @@ class forsale(BaseAPI, ParentMethods):
     class hsd(BaseAPI):
         """household items - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -889,7 +889,7 @@ class forsale(BaseAPI, ParentMethods):
     class hsh(BaseAPI):
         """household items - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -898,7 +898,7 @@ class forsale(BaseAPI, ParentMethods):
     class jwa(BaseAPI):
         """jewelry"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -907,7 +907,7 @@ class forsale(BaseAPI, ParentMethods):
     class jwd(BaseAPI):
         """jewelry - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -916,7 +916,7 @@ class forsale(BaseAPI, ParentMethods):
     class jwl(BaseAPI):
         """jewelry - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -925,7 +925,7 @@ class forsale(BaseAPI, ParentMethods):
     class maa(BaseAPI):
         """materials"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -934,7 +934,7 @@ class forsale(BaseAPI, ParentMethods):
     class mad(BaseAPI):
         """materials - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -943,7 +943,7 @@ class forsale(BaseAPI, ParentMethods):
     class mat(BaseAPI):
         """materials - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -952,7 +952,7 @@ class forsale(BaseAPI, ParentMethods):
     class mpa(BaseAPI):
         """motorcycle parts & accessories"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -961,7 +961,7 @@ class forsale(BaseAPI, ParentMethods):
     class mpd(BaseAPI):
         """motorcycle parts & accessories - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -970,7 +970,7 @@ class forsale(BaseAPI, ParentMethods):
     class mpo(BaseAPI):
         """motorcycle parts & accessories - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -979,7 +979,7 @@ class forsale(BaseAPI, ParentMethods):
     class mca(BaseAPI):
         """motorcycles/scooters"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -988,7 +988,7 @@ class forsale(BaseAPI, ParentMethods):
     class mcd(BaseAPI):
         """motorcycles/scooters - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -997,7 +997,7 @@ class forsale(BaseAPI, ParentMethods):
     class mcy(BaseAPI):
         """motorcycles/scooters - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1006,7 +1006,7 @@ class forsale(BaseAPI, ParentMethods):
     class msa(BaseAPI):
         """musical instruments"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1015,7 +1015,7 @@ class forsale(BaseAPI, ParentMethods):
     class msd(BaseAPI):
         """musical instruments - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1024,7 +1024,7 @@ class forsale(BaseAPI, ParentMethods):
     class msg(BaseAPI):
         """musical instruments - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1033,7 +1033,7 @@ class forsale(BaseAPI, ParentMethods):
     class pha(BaseAPI):
         """photo/video"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1042,7 +1042,7 @@ class forsale(BaseAPI, ParentMethods):
     class phd(BaseAPI):
         """photo/video - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1051,7 +1051,7 @@ class forsale(BaseAPI, ParentMethods):
     class pho(BaseAPI):
         """photo/video - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1060,7 +1060,7 @@ class forsale(BaseAPI, ParentMethods):
     class rva(BaseAPI):
         """recreational vehicles"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1069,7 +1069,7 @@ class forsale(BaseAPI, ParentMethods):
     class rvd(BaseAPI):
         """recreational vehicles - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1078,7 +1078,7 @@ class forsale(BaseAPI, ParentMethods):
     class rvs(BaseAPI):
         """recreational vehicles - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1087,7 +1087,7 @@ class forsale(BaseAPI, ParentMethods):
     class sga(BaseAPI):
         """sporting goods"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1096,7 +1096,7 @@ class forsale(BaseAPI, ParentMethods):
     class sgd(BaseAPI):
         """sporting goods - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1105,7 +1105,7 @@ class forsale(BaseAPI, ParentMethods):
     class spo(BaseAPI):
         """sporting goods - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1114,7 +1114,7 @@ class forsale(BaseAPI, ParentMethods):
     class tia(BaseAPI):
         """tickets"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1123,7 +1123,7 @@ class forsale(BaseAPI, ParentMethods):
     class tid(BaseAPI):
         """tickets - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1132,7 +1132,7 @@ class forsale(BaseAPI, ParentMethods):
     class tix(BaseAPI):
         """tickets - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1141,7 +1141,7 @@ class forsale(BaseAPI, ParentMethods):
     class tla(BaseAPI):
         """tools"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1150,7 +1150,7 @@ class forsale(BaseAPI, ParentMethods):
     class taa(BaseAPI):
         """toys & games"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1159,7 +1159,7 @@ class forsale(BaseAPI, ParentMethods):
     class tad(BaseAPI):
         """toys & games - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1168,7 +1168,7 @@ class forsale(BaseAPI, ParentMethods):
     class tag(BaseAPI):
         """toys & games - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1177,7 +1177,7 @@ class forsale(BaseAPI, ParentMethods):
     class tra(BaseAPI):
         """trailers"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1186,7 +1186,7 @@ class forsale(BaseAPI, ParentMethods):
     class trb(BaseAPI):
         """trailers - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1195,7 +1195,7 @@ class forsale(BaseAPI, ParentMethods):
     class tro(BaseAPI):
         """trailers - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1204,7 +1204,7 @@ class forsale(BaseAPI, ParentMethods):
     class vga(BaseAPI):
         """video gaming"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1213,7 +1213,7 @@ class forsale(BaseAPI, ParentMethods):
     class vgd(BaseAPI):
         """video gaming - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1222,7 +1222,7 @@ class forsale(BaseAPI, ParentMethods):
     class vgm(BaseAPI):
         """video gaming - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1231,7 +1231,7 @@ class forsale(BaseAPI, ParentMethods):
     class waa(BaseAPI):
         """wanted"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1240,7 +1240,7 @@ class forsale(BaseAPI, ParentMethods):
     class wad(BaseAPI):
         """wanted - by dealer"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1249,7 +1249,7 @@ class forsale(BaseAPI, ParentMethods):
     class wan(BaseAPI):
         """wanted - by owner"""
 
-        query_filters = filters.query.forsale
+        query_filters = data.query_filters.forsale
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1260,7 +1260,7 @@ class gigs(BaseAPI, ParentMethods):
     """gigs"""
 
     category = "ggg"
-    query_filters = filters.query.gigs
+    query_filters = data.query_filters.gigs
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -1268,7 +1268,7 @@ class gigs(BaseAPI, ParentMethods):
     class cpg(BaseAPI):
         """computer gigs"""
 
-        query_filters = filters.query.gigs
+        query_filters = data.query_filters.gigs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1277,7 +1277,7 @@ class gigs(BaseAPI, ParentMethods):
     class crg(BaseAPI):
         """creative gigs"""
 
-        query_filters = filters.query.gigs
+        query_filters = data.query_filters.gigs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1286,7 +1286,7 @@ class gigs(BaseAPI, ParentMethods):
     class cwg(BaseAPI):
         """crew gigs"""
 
-        query_filters = filters.query.gigs
+        query_filters = data.query_filters.gigs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1295,7 +1295,7 @@ class gigs(BaseAPI, ParentMethods):
     class dmg(BaseAPI):
         """domestic gigs"""
 
-        query_filters = filters.query.gigs
+        query_filters = data.query_filters.gigs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1304,7 +1304,7 @@ class gigs(BaseAPI, ParentMethods):
     class evg(BaseAPI):
         """event gigs"""
 
-        query_filters = filters.query.gigs
+        query_filters = data.query_filters.gigs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1313,7 +1313,7 @@ class gigs(BaseAPI, ParentMethods):
     class lbg(BaseAPI):
         """labor gigs"""
 
-        query_filters = filters.query.gigs
+        query_filters = data.query_filters.gigs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1322,7 +1322,7 @@ class gigs(BaseAPI, ParentMethods):
     class tlg(BaseAPI):
         """talent gigs"""
 
-        query_filters = filters.query.gigs
+        query_filters = data.query_filters.gigs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1331,7 +1331,7 @@ class gigs(BaseAPI, ParentMethods):
     class wrg(BaseAPI):
         """writing gigs"""
 
-        query_filters = filters.query.gigs
+        query_filters = data.query_filters.gigs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1342,7 +1342,7 @@ class housing(BaseAPI, ParentMethods):
     """housing"""
 
     category = "hhh"
-    query_filters = filters.query.housing
+    query_filters = data.query_filters.housing
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -1350,7 +1350,7 @@ class housing(BaseAPI, ParentMethods):
     class apa(BaseAPI):
         """apartments / housing for rent"""
 
-        query_filters = filters.query.housing
+        query_filters = data.query_filters.housing
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1359,7 +1359,7 @@ class housing(BaseAPI, ParentMethods):
     class swp(BaseAPI):
         """housing swap"""
 
-        query_filters = filters.query.housing
+        query_filters = data.query_filters.housing
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1368,7 +1368,7 @@ class housing(BaseAPI, ParentMethods):
     class off(BaseAPI):
         """office & commercial"""
 
-        query_filters = filters.query.housing
+        query_filters = data.query_filters.housing
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1377,7 +1377,7 @@ class housing(BaseAPI, ParentMethods):
     class prk(BaseAPI):
         """parking & storage"""
 
-        query_filters = filters.query.housing
+        query_filters = data.query_filters.housing
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1386,7 +1386,7 @@ class housing(BaseAPI, ParentMethods):
     class rea(BaseAPI):
         """real estate"""
 
-        query_filters = filters.query.housing
+        query_filters = data.query_filters.housing
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1395,7 +1395,7 @@ class housing(BaseAPI, ParentMethods):
     class reb(BaseAPI):
         """real estate - by dealer"""
 
-        query_filters = filters.query.housing
+        query_filters = data.query_filters.housing
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1404,7 +1404,7 @@ class housing(BaseAPI, ParentMethods):
     class reo(BaseAPI):
         """real estate - by owner"""
 
-        query_filters = filters.query.housing
+        query_filters = data.query_filters.housing
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1413,7 +1413,7 @@ class housing(BaseAPI, ParentMethods):
     class roo(BaseAPI):
         """rooms & shares"""
 
-        query_filters = filters.query.housing
+        query_filters = data.query_filters.housing
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1422,7 +1422,7 @@ class housing(BaseAPI, ParentMethods):
     class sub(BaseAPI):
         """sublets & temporary"""
 
-        query_filters = filters.query.housing
+        query_filters = data.query_filters.housing
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1431,7 +1431,7 @@ class housing(BaseAPI, ParentMethods):
     class vac(BaseAPI):
         """vacation rentals"""
 
-        query_filters = filters.query.housing
+        query_filters = data.query_filters.housing
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1440,7 +1440,7 @@ class housing(BaseAPI, ParentMethods):
     class hou(BaseAPI):
         """wanted: apts"""
 
-        query_filters = filters.query.housing
+        query_filters = data.query_filters.housing
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1449,7 +1449,7 @@ class housing(BaseAPI, ParentMethods):
     class rew(BaseAPI):
         """wanted: real estate"""
 
-        query_filters = filters.query.housing
+        query_filters = data.query_filters.housing
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1458,7 +1458,7 @@ class housing(BaseAPI, ParentMethods):
     class sha(BaseAPI):
         """wanted: room/share"""
 
-        query_filters = filters.query.housing
+        query_filters = data.query_filters.housing
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1467,7 +1467,7 @@ class housing(BaseAPI, ParentMethods):
     class sbw(BaseAPI):
         """wanted: sublet/temp"""
 
-        query_filters = filters.query.housing
+        query_filters = data.query_filters.housing
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1478,7 +1478,7 @@ class jobs(BaseAPI, ParentMethods):
     """jobs"""
 
     category = "jjj"
-    query_filters = filters.query.jobs
+    query_filters = data.query_filters.jobs
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -1486,7 +1486,7 @@ class jobs(BaseAPI, ParentMethods):
     class acc(BaseAPI):
         """accounting/finance"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1495,7 +1495,7 @@ class jobs(BaseAPI, ParentMethods):
     class ofc(BaseAPI):
         """admin/office"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1504,7 +1504,7 @@ class jobs(BaseAPI, ParentMethods):
     class egr(BaseAPI):
         """architect/engineer/cad"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1513,7 +1513,7 @@ class jobs(BaseAPI, ParentMethods):
     class med(BaseAPI):
         """art/media/design"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1522,7 +1522,7 @@ class jobs(BaseAPI, ParentMethods):
     class bus(BaseAPI):
         """business/mgmt"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1531,7 +1531,7 @@ class jobs(BaseAPI, ParentMethods):
     class csr(BaseAPI):
         """customer service"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1540,7 +1540,7 @@ class jobs(BaseAPI, ParentMethods):
     class edu(BaseAPI):
         """education/teaching"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1549,7 +1549,7 @@ class jobs(BaseAPI, ParentMethods):
     class etc(BaseAPI):
         """et cetera"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1558,7 +1558,7 @@ class jobs(BaseAPI, ParentMethods):
     class fbh(BaseAPI):
         """food/beverage/hospitality"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1567,7 +1567,7 @@ class jobs(BaseAPI, ParentMethods):
     class lab(BaseAPI):
         """general labor"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1576,7 +1576,7 @@ class jobs(BaseAPI, ParentMethods):
     class gov(BaseAPI):
         """government"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1585,7 +1585,7 @@ class jobs(BaseAPI, ParentMethods):
     class hea(BaseAPI):
         """healthcare"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1594,7 +1594,7 @@ class jobs(BaseAPI, ParentMethods):
     class hum(BaseAPI):
         """human resource"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1603,7 +1603,7 @@ class jobs(BaseAPI, ParentMethods):
     class lgl(BaseAPI):
         """legal/paralegal"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1612,7 +1612,7 @@ class jobs(BaseAPI, ParentMethods):
     class mnu(BaseAPI):
         """manufacturing"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1621,7 +1621,7 @@ class jobs(BaseAPI, ParentMethods):
     class mar(BaseAPI):
         """marketing/advertising/pr"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1630,7 +1630,7 @@ class jobs(BaseAPI, ParentMethods):
     class npo(BaseAPI):
         """nonprofit"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1639,7 +1639,7 @@ class jobs(BaseAPI, ParentMethods):
     class rej(BaseAPI):
         """real estate"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1648,7 +1648,7 @@ class jobs(BaseAPI, ParentMethods):
     class ret(BaseAPI):
         """retail/wholesale"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1657,7 +1657,7 @@ class jobs(BaseAPI, ParentMethods):
     class sls(BaseAPI):
         """sales"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1666,7 +1666,7 @@ class jobs(BaseAPI, ParentMethods):
     class spa(BaseAPI):
         """salon/spa/fitness"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1675,7 +1675,7 @@ class jobs(BaseAPI, ParentMethods):
     class sci(BaseAPI):
         """science/biotech"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1684,7 +1684,7 @@ class jobs(BaseAPI, ParentMethods):
     class sec(BaseAPI):
         """security"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1693,7 +1693,7 @@ class jobs(BaseAPI, ParentMethods):
     class trd(BaseAPI):
         """skilled trades/artisan"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1702,7 +1702,7 @@ class jobs(BaseAPI, ParentMethods):
     class sof(BaseAPI):
         """software/qa/dba/etc"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1711,7 +1711,7 @@ class jobs(BaseAPI, ParentMethods):
     class sad(BaseAPI):
         """systems/networking"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1720,7 +1720,7 @@ class jobs(BaseAPI, ParentMethods):
     class tch(BaseAPI):
         """technical support"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1729,7 +1729,7 @@ class jobs(BaseAPI, ParentMethods):
     class trp(BaseAPI):
         """transportation"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1738,7 +1738,7 @@ class jobs(BaseAPI, ParentMethods):
     class tfr(BaseAPI):
         """tv/film/video/radio"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1747,7 +1747,7 @@ class jobs(BaseAPI, ParentMethods):
     class web(BaseAPI):
         """web/html/info design"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1756,7 +1756,7 @@ class jobs(BaseAPI, ParentMethods):
     class wri(BaseAPI):
         """writing/editing"""
 
-        query_filters = filters.query.jobs
+        query_filters = data.query_filters.jobs
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1767,7 +1767,7 @@ class resumes(BaseAPI, ParentMethods):
     """resumes"""
 
     category = "rrr"
-    query_filters = filters.query.resumes
+    query_filters = data.query_filters.resumes
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -1777,7 +1777,7 @@ class services(BaseAPI, ParentMethods):
     """services"""
 
     category = "bbb"
-    query_filters = filters.query.services
+    query_filters = data.query_filters.services
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -1785,7 +1785,7 @@ class services(BaseAPI, ParentMethods):
     class aos(BaseAPI):
         """automotive services"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1794,7 +1794,7 @@ class services(BaseAPI, ParentMethods):
     class bts(BaseAPI):
         """beauty services"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1803,7 +1803,7 @@ class services(BaseAPI, ParentMethods):
     class cms(BaseAPI):
         """cell phone / mobile services"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1812,7 +1812,7 @@ class services(BaseAPI, ParentMethods):
     class cps(BaseAPI):
         """computer services"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1821,7 +1821,7 @@ class services(BaseAPI, ParentMethods):
     class crs(BaseAPI):
         """creative services"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1830,7 +1830,7 @@ class services(BaseAPI, ParentMethods):
     class cys(BaseAPI):
         """cycle services"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1839,7 +1839,7 @@ class services(BaseAPI, ParentMethods):
     class evs(BaseAPI):
         """event services"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1848,7 +1848,7 @@ class services(BaseAPI, ParentMethods):
     class fgs(BaseAPI):
         """farm & garden services"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1857,7 +1857,7 @@ class services(BaseAPI, ParentMethods):
     class fns(BaseAPI):
         """financial services"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1866,7 +1866,7 @@ class services(BaseAPI, ParentMethods):
     class hss(BaseAPI):
         """household services"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1875,7 +1875,7 @@ class services(BaseAPI, ParentMethods):
     class lbs(BaseAPI):
         """labor / hauling / moving"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1884,7 +1884,7 @@ class services(BaseAPI, ParentMethods):
     class lgs(BaseAPI):
         """legal services"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1893,7 +1893,7 @@ class services(BaseAPI, ParentMethods):
     class lss(BaseAPI):
         """lessons & tutoring"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1902,7 +1902,7 @@ class services(BaseAPI, ParentMethods):
     class mas(BaseAPI):
         """marine services"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1911,7 +1911,7 @@ class services(BaseAPI, ParentMethods):
     class pas(BaseAPI):
         """pet services"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1920,7 +1920,7 @@ class services(BaseAPI, ParentMethods):
     class rts(BaseAPI):
         """real estate services"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1929,7 +1929,7 @@ class services(BaseAPI, ParentMethods):
     class sks(BaseAPI):
         """skilled trade services"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1938,7 +1938,7 @@ class services(BaseAPI, ParentMethods):
     class biz(BaseAPI):
         """small biz ads"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1947,7 +1947,7 @@ class services(BaseAPI, ParentMethods):
     class trv(BaseAPI):
         """travel/vacation services"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__
@@ -1956,7 +1956,7 @@ class services(BaseAPI, ParentMethods):
     class wet(BaseAPI):
         """writing / editing / translation"""
 
-        query_filters = filters.query.services
+        query_filters = data.query_filters.services
 
         def __init__(self, *args, **kwargs):
             self.category = self.__class__.__name__

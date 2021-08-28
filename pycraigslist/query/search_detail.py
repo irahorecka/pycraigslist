@@ -12,14 +12,15 @@ def fetch_detailed_posts(standard_posts, **kwargs):
     """Fetches additional details from every post in `standard_posts`."""
     # Expand all post values fetched from standard search and link with post ID.
     posts = {post["id"]: post for post in standard_posts}
-    posts_url = [post["url"] for post in posts.values()]
-    params = [{} for _ in posts_url]
+    urls = [post["url"] for post in posts.values()]
+    # Parameters are not required when querying an individual post.
+    params = [{} for _ in urls]
     # Yield every post's HTML content.
-    post_htmls = sessions.yield_html(posts_url, params=params)
+    htmls = sessions.yield_html(urls, params=params)
     kwargs["reference_filters"] = invert_filters(kwargs["reference_filters"])
 
     # Yield detailed posts to caller.
-    for html in post_htmls:
+    for html in htmls:
         post_details = get_post_details(html, **kwargs)
         try:
             # Because we're dealing with asynchronous requests, link post details

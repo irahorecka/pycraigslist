@@ -6,7 +6,7 @@ Handles parsing of Craigslist query filters.
 """
 
 from pycraigslist.query import sessions
-from pycraigslist.filters import region
+from pycraigslist.data import region
 from pycraigslist.exceptions import InvalidFilterValue
 
 
@@ -39,7 +39,9 @@ def get_addl_filters(url):
 def parse_filters_to_params(reference_filters, filters, **kwargs):
     """Parses and validates filters, using categorical query filters as
     a reference. Returns filters as parameters for an HTTP request."""
-    filters = merge_dict_kwargs(filters, **kwargs)
+    # Merges a dictionary with **kwargs.
+    # `**kwargs` will override `filters` if matching key exists.
+    filters = {**filters, **kwargs} if isinstance(filters, dict) else kwargs
     # Iterate over a copy of filters.
     for key, value in filters.copy().items():
         try:
@@ -65,14 +67,6 @@ def parse_filters_to_params(reference_filters, filters, **kwargs):
 
     # Join default parameters for every filter.
     return {**{"searchNearby": 1, "s": 0}, **filters}
-
-
-def merge_dict_kwargs(d, **kwargs):
-    """Merges a dictionary with **kwargs. Returns merged dictionary."""
-    if not isinstance(d, dict):
-        d = {}
-    # `**kwargs` will override `d` if matching key exists.
-    return {**d, **kwargs}
 
 
 def parse_filter_value(value):

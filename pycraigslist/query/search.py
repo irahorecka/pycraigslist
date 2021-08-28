@@ -27,8 +27,8 @@ def fetch_posts(url, params, **kwargs):
 
 def get_total_post_count(url, params):
     """Gets total number of posts from Craigslist URL and HTTP parameters."""
-    search_html = next(sessions.yield_html(url, params=params))
-    total_count = search_html.find("span", {"class": "totalcount"})
+    html = next(sessions.yield_html(url, params=params))
+    total_count = html.find("span", {"class": "totalcount"})
     return 0 if total_count is None else int(total_count.text)
 
 
