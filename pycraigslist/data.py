@@ -5,6 +5,8 @@ pycraigslist.data
 Stores Craigslist query filters, categories, and regions.
 """
 
+# DO NOT black format file.
+
 
 class query_filters:
     """Store query filters of Craigslist categories."""
@@ -448,7 +450,6 @@ class region:
         "vancouver": {"nvn", "pml", "van", "rch", "bnc", "rds"},
     }
 
-    # fmt: off
     sites = {
         'abbotsford', 'aberdeen', 'abilene', 'acapulco', 'accra', 'addisababa',
         'adelaide', 'ahmedabad', 'akroncanton', 'albany', 'albanyga', 'albuquerque',
@@ -566,4 +567,3 @@ class region:
         'yakima', 'yellowknife', 'york', 'youngstown', 'yubasutter', 'yucatan',
         'yuma', 'zagreb', 'zamboanga', 'zanesville', 'zurich',
     }
-    # fmt: on
