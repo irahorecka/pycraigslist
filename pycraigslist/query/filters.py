@@ -6,7 +6,7 @@ Handles parsing of Craigslist query filters.
 """
 
 from pycraigslist.query import sessions
-from pycraigslist.data import region
+from pycraigslist.constants import region
 from pycraigslist.exceptions import InvalidFilterValue
 
 

@@ -6,7 +6,7 @@ Handles communication between the User and Craigslist.
 """
 
 import urllib
-from pycraigslist import data, query
+from pycraigslist import constants, query
 from pycraigslist.utils import parse_limit
 
 
@@ -85,4 +85,4 @@ class ParentMethods:
     @classmethod
     def get_categories(cls):
         """Gets valid Craigslist categories of instance."""
-        return data.category.get(cls.__name__)
+        return constants.category.get(cls.__name__)
