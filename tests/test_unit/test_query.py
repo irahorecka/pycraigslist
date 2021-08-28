@@ -32,16 +32,3 @@ def test_parse_value(input_, expected):
         assert output == expected
     else:
         assert list(output) == expected
-
-
-@mark.parametrize(
-    ["input_", "modifications", "expected"],
-    [
-        param({"a": True}, {"a": False}, {"a": False}),
-        param({"a": True, "b": True}, {"a": False}, {"a": False, "b": True}),
-        param({"a": True}, {"b": True}, {"a": True, "b": True}),
-    ],
-)
-def test_parse_arg_filters(input_, modifications, expected):
-    """Tests pycraigslist.query.filters.merge_dict_kwargs function."""
-    assert pycraigslist.query.filters.merge_dict_kwargs(input_, **modifications) == expected

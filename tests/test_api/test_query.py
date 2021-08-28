@@ -10,7 +10,7 @@ import warnings
 from functools import partial
 
 import pytest
-from pytest import mark, param
+from pytest import mark
 
 import params
 import pycraigslist
@@ -122,5 +122,7 @@ def test_filter_override():
     filters = {
         "bicycle_frame_material": "steel",
     }
+    # 'aluminum' should override 'steel' when constructing an instance with
+    # matching filter keywords.
     bicycles = pycraigslist.forsale.bia(filters=filters, bicycle_frame_material="aluminum")
     assert next(bicycles.search_detail(limit=1))["bicycle_frame_material"] == "aluminum"
