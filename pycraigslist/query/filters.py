@@ -39,7 +39,7 @@ def get_addl_filters(url):
 def parse_filters_to_params(reference_filters, filters, **kwargs):
     """Parses and validates filters, using categorical query filters as
     a reference. Returns filters as parameters for an HTTP request."""
-    # Merges a dictionary with **kwargs.
+    # Merge `filters` with `**kwargs`.
     # `**kwargs` will override `filters` if matching key exists.
     filters = {**filters, **kwargs} if isinstance(filters, dict) else kwargs
     # Iterate over a copy of filters.
