@@ -21,4 +21,4 @@ classifiers = [
     "Topic :: Utilities",
 ]
 requires-python = ">=3.6"
-requires = ["httpx>=0.18.0", "beautifulsoup4>=4.9.0", "tenacity>=7.0.0", "cchardet>=2.1.0", "lxml>=4.6.0", "Faker>=8.11.0"]
+requires = ["httpx>=0.18.0", "beautifulsoup4>=4.9.0", "tenacity>=7.0.0", "cchardet>=2.1.0", "lxml>=4.6.0", "fake_headers>=1.0.2"]
