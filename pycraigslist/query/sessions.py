@@ -13,7 +13,7 @@ import lxml
 import tenacity
 import httpx
 from bs4 import BeautifulSoup, SoupStrainer
-from faker import Faker
+from fake_headers import Headers
 
 from pycraigslist.exceptions import MaximumRequestsError
 
@@ -28,22 +28,19 @@ def yield_html(url, **kwargs):
     """Yields HTML content(s) to caller."""
     session = httpx.Client()
     strainer = get_cl_strainer()
-    fake = Faker()
+    # For generating random request headers.
+    rand_header = Headers(headers=True)
     try:
         # Single request: a URL string
         if isinstance(url, str):
             yield get_html(
-                get_request(
-                    session, url, {"User-Agent": fake.firefox()}, **parse_kwargs(kwargs)
-                ).text,
+                get_request(session, url, rand_header.generate(), **parse_kwargs(kwargs)).text,
                 strainer,
             )
         # Single request: a single URL in a list or tuple
         elif isinstance(url, (list, tuple)) and len(url) == 1:
             yield get_html(
-                get_request(
-                    session, url[0], {"User-Agent": fake.firefox()}, **parse_kwargs(kwargs)
-                ).text,
+                get_request(session, url[0], rand_header.generate(), **parse_kwargs(kwargs)).text,
                 strainer,
             )
         # Multiple requests
@@ -51,8 +48,7 @@ def yield_html(url, **kwargs):
             # Build iterables of session and strainer objects equal in length to URL tuple.
             sessions = make_iterable(session, len(url))
             strainers = make_iterable(strainer, len(url))
-            # Generate random Mozilla Firefox web browser user agent strings.
-            headers = [{"User-Agent": ua()} for ua in make_iterable(fake.firefox, len(url))]
+            headers = [hdr() for hdr in make_iterable(rand_header.generate, len(url))]
             yield from map(
                 get_html,
                 (
