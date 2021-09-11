@@ -10,6 +10,10 @@ pycraigslist
 
 A fast and expressive `Craigslist <https://www.craigslist.org/about/sites>`__ API wrapper.
 
++---+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ⚠ | As of September 2021, it is believed that Craigslist added a rate-limiter. It is advised to throttle requests to Craigslist to prevent a 403 HTTP response status code. View the *Exceptions* section below to appropriately handle this error if encountered.|
++---+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
 Disclaimer
 ----------
 
@@ -327,14 +331,16 @@ To use pycraigslist exceptions, import / import from ``pycraigslist.exceptions``
 .. code:: python
 
     import pycraigslist
-    from pycraigslist.exceptions import MaximumRequestsError, InvalidFilterValue
+    from pycraigslist.exceptions import HTTPError, InvalidFilterValue
 
     try:
         sf_bikes = pycraigslist.forsale.bia(site="sfbay", area="sfc", min_price=50)
         for bike in sf_bikes.search():
             print(bike)
-    except MaximumRequestsError:
+    except ConnectionError:
         print("Yikes! Something's up with the network.")
+    except HTTPError as e:
+        print(f"Bad HTTP response encountered: {e.status_code} {e.detail}")
     except InvalidFilterValue as e:
         print(f"Craigslist filter validation failed. Filter: '{e.name}', Value: '{e.value}'")
 
