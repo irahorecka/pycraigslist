@@ -5,8 +5,8 @@ pycraigslist.api
 Suite of pycraigslist objects to interface with Craigslist.
 """
 
-from pycraigslist.base import BaseAPI, ParentMethods
 from pycraigslist import constants
+from pycraigslist.base import BaseAPI, ParentMethods
 
 
 class community(BaseAPI, ParentMethods):

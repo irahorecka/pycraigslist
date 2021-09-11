@@ -5,9 +5,9 @@ pycraigslist.query.filters
 Handles parsing of Craigslist query filters.
 """
 
-from pycraigslist.query import sessions
 from pycraigslist.constants import region
 from pycraigslist.exceptions import InvalidFilterValue
+from pycraigslist.query import sessions
 
 
 def get_addl_filters_readable(url):

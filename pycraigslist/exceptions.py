@@ -6,8 +6,13 @@ Contains the set of pycraigslist's exceptions.
 """
 
 
-class MaximumRequestsError(Exception):
-    """Exceeds maximum get requests."""
+class HTTPError(Exception):
+    """An HTTP error occurred."""
+
+    def __init__(self, status_code, detail):
+        self.status_code = status_code
+        self.detail = detail
+        super().__init__("%s %s" % (self.status_code, self.detail))
 
 
 class InvalidFilterValue(ValueError):

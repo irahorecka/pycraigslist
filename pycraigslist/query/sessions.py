@@ -6,21 +6,23 @@ Handles requests and constructs BeautifulSoup objects.
 """
 
 import concurrent.futures
+import http
 
 # Keep cchardet imported - operates in the background with lxml.
 import cchardet
+import httpx
 import lxml
 import tenacity
-import httpx
 from bs4 import BeautifulSoup, SoupStrainer
 from fake_headers import Headers
 
-from pycraigslist.exceptions import MaximumRequestsError
+from pycraigslist.exceptions import HTTPError
 
 # Retry 12 times, starting with 0.01 second and doubling the delay every time.
 _RETRY_ARGS = {
     "wait": tenacity.wait.wait_random_exponential(multiplier=0.01, exp_base=2),
     "stop": tenacity.stop.stop_after_attempt(12),
+    "retry": tenacity.retry_if_exception_type(httpx.ConnectError),
 }
 
 
@@ -60,9 +62,7 @@ def yield_html(url, **kwargs):
                 strainers,
             )
     except tenacity.RetryError as error:
-        raise MaximumRequestsError(
-            "Maximum requests attempted - check network connection."
-        ) from error
+        raise ConnectionError("Maximum requests attempted - check network connection.") from error
 
 
 def get_cl_strainer():
@@ -92,10 +92,16 @@ def get_html(text, strainer):
 
 @tenacity.retry(**_RETRY_ARGS)
 def get_request(requests_session, url, headers, params=None):
-    """Gets httpx.Response object using httpx.Client.get.
-    Retry request if request fails, with number of attempts and
-    wait time specified in _RETRY_ARGS."""
-    return requests_session.get(url, headers=headers, params=params, timeout=5)
+    """Gets httpx.Response object using httpx.Client.get. Retry request if request fails
+    due to connection error, with number of attempts and wait time specified in _RETRY_ARGS.
+    Raise HTTPError if either a client or server error is raised."""
+    response = requests_session.get(url, headers=headers, params=params, timeout=5)
+    status_code = response.status_code
+    # Raise exception for either client or server error - most commonly 403 client error.
+    if int(status_code / 100) in (4, 5):
+        detail = http.HTTPStatus(status_code).phrase
+        raise HTTPError(status_code, detail)
+    return response
 
 
 def threaded_get_request(sessions, urls, headers, **kwargs):
