@@ -332,7 +332,7 @@ To use pycraigslist exceptions, import / import from ``pycraigslist.exceptions``
 .. code:: python
 
     import pycraigslist
-    from pycraigslist.exceptions import HTTPError, InvalidFilterValue
+    from pycraigslist.exceptions import ConnectionError, HTTPError, InvalidFilterValue
 
     try:
         sf_bikes = pycraigslist.forsale.bia(site="sfbay", area="sfc", min_price=50)
