@@ -323,7 +323,8 @@ Exceptions
 
 pycraigslist has the following exceptions:
 
-* ``MaximumRequestsError`` : exceeds maximum retries for a query
+* ``ConnectionError`` : exceeded maximum retries for a query
+* ``HTTPError`` : encountered a client or server error
 * ``InvalidFilterValue`` : filter is not recognized or has an invalid value
 
 To use pycraigslist exceptions, import / import from ``pycraigslist.exceptions``. For example:
