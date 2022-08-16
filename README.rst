@@ -8,17 +8,17 @@ pycraigslist
 .. |PyPI pyversions| image:: https://img.shields.io/pypi/pyversions/pycraigslist.svg
     :target: https://pypi.python.org/pypi/pycraigslist/
 
-A fast and expressive `Craigslist <https://www.craigslist.org/about/sites>`__ API wrapper.
+A quick `Craigslist <https://www.craigslist.org/about/sites>`__ API wrapper
 
-+---+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ⚠ | As of September 2021, it is believed that Craigslist added a rate-limiter. It is advised to throttle requests to Craigslist to prevent a 403 HTTP response status code. View the *Exceptions* section below to appropriately handle this error if encountered.|
-+---+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++---+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ⚠ | September 2021: Craigslist added a rate-limiter, and it's advised to throttle requests to prevent a 403 HTTP status code. View the *Exceptions* section below to handle this exception.|
++---+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 Disclaimer
 ----------
 
 * I do not work or have an affiliation with Craigslist.
-* This library is intended for educational purposes. It is not advised to crawl and download data from Craigslist.
+* This library is intended for educational purposes.
 
 Installation
 ------------
@@ -57,7 +57,7 @@ Find cars & trucks for sale with keyword "Mazda Miata" in the East Bay Area, Cal
 Background
 ----------
 
-This library is intended to be expressive and easy to use.
+Search for anything on Craigslist with Python!
 
 
 pycraigslist classes
@@ -74,7 +74,7 @@ pycraigslist classes
 * ``pycraigslist.resumes`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > resumes)
 * ``pycraigslist.services`` |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > services)
 
-We can search for posts in parent classes. For example, finding paid gigs in Portland, Oregon:
+Search for posts in parent classes for a broader query. For example, finding paid gigs in Portland, Oregon:
 
 .. code:: python
 
@@ -101,15 +101,12 @@ We can search for posts in parent classes. For example, finding paid gigs in Por
 pycraigslist subclasses
 ***********************
 
-Most pycraigslist classes have subclasses to allow for categorical searches. For example:
+Most pycraigslist classes have subclasses to allow for a targeted query. For example:
 
 * ``pycraigslist.forsale.bia`` |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > for sale > bikes)
 * ``pycraigslist.forsale.cta`` |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > for sale > cars & trucks)
 * ``pycraigslist.housing.apa`` |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > housing > apartments / housing for rent)
 * ``pycraigslist.housing.roo`` |nbsp| |nbsp| |nbsp| |nbsp| (craigslist.org > housing > apartments / rooms & shares)
-
-Finding pycraigslist subclasses
-*******************************
 
 Use class method ``.get_categories()`` to search for subclasses. The resulting keys are the subclass names.
 
@@ -134,15 +131,15 @@ Use class method ``.get_categories()`` to search for subclasses. The resulting k
         'sha': 'wanted: room/share',
         'sbw': 'wanted: sublet/temp'}
 
-We'd choose ``pycraigslist.housing.vac`` if we're interested in searching for vacation rentals.
+E.g., use ``pycraigslist.housing.vac`` to search for vacation rentals.
 
 Finding and using filters
 *************************
-We can apply filters to our search.
+Apply search filters to narrow your query.
 Use ``.get_filters()`` to find valid filters for a class or subclass instance.
 
-Search filters are sensitive to the context of the pycraigslist instance and the language of the region. For example,
-here are applicable filters for cars & trucks for sale in Tokyo, Japan:
+Search filters are sensitive to the language of the region.
+E.g., get filters for cars & trucks for sale in Tokyo, Japan:
 
 .. code:: python
 
@@ -172,7 +169,7 @@ here are applicable filters for cars & trucks for sale in Tokyo, Japan:
                      'filipino', 'türkçe', '中文', 'العربية', '日本語', '한국말', 'русский',
                      'tiếng việt']}
 
-To find cars & trucks with clean titles, we'd use the filter parameter "クリーン" (pronounced 'koo-lean'):
+E.g., use the filter parameter "クリーン" to find cars & trucks with clean titles:
 
 .. code:: python
 
@@ -205,11 +202,11 @@ Note: keyword argument filters will override ``filters`` if there are conflictin
 
     bike_filters = {
         "bicycle_frame_material": "steel",
-        # array of filter values are accepted
+        # Array of filter values are accepted
         "bicycle_wheel_size": ["650C", "700C"],
         "bicycle_type": "road",
     }
-    # we'd still get titanium road bikes with size 650C or 700C wheels
+    # This would search for titanium road bikes with size 650C or 700C wheels
     titanium_bikes = pycraigslist.forsale.bia(
         site="sfbay", area="sfc", bicycle_frame_material="titanium", filters=bike_filters
     )
@@ -225,7 +222,7 @@ To search for Craigslist posts, use ``.search()``.
 Use the ``limit`` keyword parameter to add a stop limit to a query. For example, use ``limit=50`` to get 50 posts.
 There is a maximum of 3000 posts per query.
 
-Find the first 20 posts for farming and gardening services in Denver, Colorado:
+E.g., find the first 20 posts for farming and gardening services in Denver, Colorado:
 
 .. code:: python
 
@@ -257,7 +254,7 @@ The ``limit`` keyword parameter in ``.search`` also applies to ``.search_detail`
 Set ``include_body=True`` to include the post's body in the output. By default, ``include_body=False``.
 Disclaimer: ``.search_detail`` is more time consuming than ``.search``.
 
-Get detailed posts with the post body for all cars & trucks for sale in Abilene, Texas:
+E.g., get detailed posts with the post body for all cars & trucks for sale in Abilene, Texas:
 
 .. code:: python
 
