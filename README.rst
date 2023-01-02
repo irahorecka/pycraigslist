@@ -27,7 +27,7 @@ Installation
 
     pip install pycraigslist
 
-Quick Start
+Quick start
 -----------
 
 Find cars & trucks for sale with keyword "Mazda Miata" in the East Bay Area, California:
