@@ -345,7 +345,7 @@ To use pycraigslist exceptions, import / import from ``pycraigslist.exceptions``
 Contribute
 ----------
 
-- `Issue Tracker <https://github.com/irahorecka/pycraigslist/issues>`__
+- `Issues Tracker <https://github.com/irahorecka/pycraigslist/issues>`__
 - `Source Code <https://github.com/irahorecka/pycraigslist/tree/master/pycraigslist>`__
 
 Support
