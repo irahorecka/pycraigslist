@@ -11,7 +11,7 @@ pycraigslist
 A quick `Craigslist <https://www.craigslist.org/about/sites>`__ API wrapper
 
 +---+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ⚠ | January 2023: This library currently does not work as intended because of Craigslist's anti-scraping efforts. Craigslist is likely using the JavaScript experimental technology ``navigator.webdriver`` in the navigator interface, which can detect automation tools such as ``Selenium``.|
+| ⚠ | January 2023: This library does not currently work as intended because of Craigslist's anti-scraping efforts. Craigslist is likely using the JavaScript experimental technology ``navigator.webdriver`` in the navigator interface, which can detect automation tools such as ``Selenium``.|
 +---+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 +---+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
