@@ -10,57 +10,62 @@ import http
 
 # Keep cchardet imported - operates in the background with lxml.
 import cchardet
-import httpx
 import lxml
 import tenacity
 from bs4 import BeautifulSoup, SoupStrainer
-from fake_headers import Headers
-
-from pycraigslist.exceptions import HTTPError
+from selenium.webdriver import Firefox
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.firefox.options import Options
+from selenium.common.exceptions import WebDriverException
 
 # Retry 12 times, starting with 0.01 second and doubling the delay every time.
-_RETRY_ARGS = {
+RETRY_ARGS = {
     "wait": tenacity.wait.wait_random_exponential(multiplier=0.01, exp_base=2),
     "stop": tenacity.stop.stop_after_attempt(12),
-    "retry": tenacity.retry_if_exception_type(httpx.ConnectError),
+    "retry": tenacity.retry_if_exception_type(WebDriverException),
 }
+OPTIONS = Options()
+OPTIONS.add_argument("--headless")
+
+
+class Browser:
+    def __init__(self, driver, service, **kwargs):
+        self.browser = driver(service=service, **kwargs)
+
+    def __enter__(self):
+        return self.browser
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        self.browser.close()
 
 
 def yield_html(url, **kwargs):
     """Yields HTML content(s) to caller."""
-    session = httpx.Client()
     strainer = get_cl_strainer()
-    # For generating random request headers.
-    rand_header = Headers(headers=True)
     try:
-        # Single request: a URL string
+        # # Single request: a URL string
         if isinstance(url, str):
             yield get_html(
-                get_request(session, url, rand_header.generate(), **parse_kwargs(kwargs)).text,
+                test(url),
                 strainer,
             )
-        # Single request: a single URL in a list or tuple
-        elif isinstance(url, (list, tuple)) and len(url) == 1:
-            yield get_html(
-                get_request(session, url[0], rand_header.generate(), **parse_kwargs(kwargs)).text,
-                strainer,
-            )
-        # Multiple requests
-        else:
-            # Build iterables of session and strainer objects equal in length to URL tuple.
-            sessions = make_iterable(session, len(url))
-            strainers = make_iterable(strainer, len(url))
-            headers = [hdr() for hdr in make_iterable(rand_header.generate, len(url))]
-            yield from map(
-                get_html,
-                (
-                    response.text
-                    for response in threaded_get_request(
-                        sessions, url, headers, **parse_kwargs(kwargs)
-                    )
-                ),
-                strainers,
-            )
+        # # Single request: a single URL in a list or tuple
+        # elif isinstance(url, (list, tuple)) and len(url) == 1:
+        #     yield get_html(
+        #         get_request(session, url[0], rand_header.generate(), **parse_kwargs(kwargs)).text,
+        #         strainer,
+        #     )
+        # # Multiple requests
+        # else:
+        #     # Build iterables of session and strainer objects equal in length to URL tuple.
+        #     sessions = make_iterable(session, len(url))
+        strainers = make_iterable(strainer, len(url))
+        #     headers = [hdr() for hdr in make_iterable(rand_header.generate, len(url))]
+        yield from map(
+            get_html,
+            (response.text for response in thread_test(url)),
+            strainers,
+        )
     except tenacity.RetryError as error:
         raise ConnectionError("Maximum requests attempted - check network connection.") from error
 
@@ -87,13 +92,39 @@ def get_cl_strainer():
 
 def get_html(text, strainer):
     """Gets bs4.BeautifulSoup object from response text."""
+    print(BeautifulSoup(text, "lxml", parse_only=strainer))
     return BeautifulSoup(text, "lxml", parse_only=strainer)
 
 
-@tenacity.retry(**_RETRY_ARGS)
+def map_processes(func, _iterable):
+    """Map function with iterable object in using process pools."""
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        result = executor.map(func, _iterable)
+    return result
+
+
+def thread_test(urls):
+    with Browser(Firefox, Service("/opt/WebDriver/bin/geckodriver")) as browser:
+        for url in urls:
+            browser.get(url)
+            yield browser.page_source
+        # for b in map_processes(browser.get, urls):
+        #     yield b.page_source
+
+
+def test(url):
+    with Browser(Firefox, Service("/opt/WebDriver/bin/geckodriver")) as browser:
+        browser.get(url)
+        import time
+
+        time.sleep(5)
+        return browser.page_source
+
+
+@tenacity.retry(**RETRY_ARGS)
 def get_request(requests_session, url, headers, params=None):
     """Gets httpx.Response object using httpx.Client.get. Retry request if request fails
-    due to connection error, with number of attempts and wait time specified in _RETRY_ARGS.
+    due to connection error, with number of attempts and wait time specified in RETRY_ARGS.
     Raise HTTPError if either a client or server error is raised."""
     response = requests_session.get(url, headers=headers, params=params, timeout=5)
     status_code = response.status_code
