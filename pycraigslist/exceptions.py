@@ -5,6 +5,8 @@ pycraigslist.exceptions
 Contains the set of pycraigslist's exceptions.
 """
 
+from requests.exceptions import ConnectionError
+
 
 class HTTPError(Exception):
     """An HTTP error occurred."""
