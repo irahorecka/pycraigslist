@@ -8,7 +8,7 @@ pycraigslist
 .. |PyPI pyversions| image:: https://img.shields.io/pypi/pyversions/pycraigslist.svg
     :target: https://pypi.python.org/pypi/pycraigslist/
 
-A quick `Craigslist <https://www.craigslist.org/about/sites>`__ API wrapper
+`Craigslist <https://www.craigslist.org/about/sites>`__ API wrapper
 
 +---+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | ⚠ | January 2023: This library does not currently work as intended because of Craigslist's anti-scraping efforts. Craigslist is likely using the JavaScript experimental technology ``navigator.webdriver`` in the navigator interface, which can detect automation tools such as ``Selenium``.|
