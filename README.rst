@@ -360,4 +360,4 @@ If you are having issues or would like to propose a new feature, please use the 
 License
 -------
 
-The project is licensed under the MIT license.
+This project is licensed under the MIT license.
