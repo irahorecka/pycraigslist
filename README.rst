@@ -3,6 +3,7 @@ pycraigslist
 
 .. image:: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Craigslist.svg/2560px-Craigslist.svg.png
    :align: center
+   :width: 540px
 
 |PyPI version fury.io| |PyPI pyversions|
 
