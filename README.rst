@@ -1,6 +1,9 @@
 pycraigslist
 ============
 
+.. image:: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Craigslist.svg/2560px-Craigslist.svg.png
+   :align: center
+
 |PyPI version fury.io| |PyPI pyversions|
 
 .. |PyPI version fury.io| image:: https://badge.fury.io/py/pycraigslist.svg
