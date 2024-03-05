@@ -6,11 +6,11 @@
 
 <br>
 
+[Craigslist](https://www.craigslist.org/about/sites) API wrapper
+
 [![pypiv](https://img.shields.io/pypi/v/pycraigslist.svg)](https://pypi.python.org/pypi/pycraigslist)
 [![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
 [![Licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/irahorecka/comics/main/LICENSE)
-
-[Craigslist](https://www.craigslist.org/about/sites) API wrapper
 
   --- ----------------------------------------------------------------------
   ⚠   January 2023: This library does not currently work as intended because
