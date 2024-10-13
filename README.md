@@ -12,18 +12,6 @@
 [![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
 [![Licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/irahorecka/pycraigslist/main/LICENSE)
 
-  --- ----------------------------------------------------------------------
-  ⚠   January 2023: This library does not currently work as intended because
-      of Craigslist\'s anti-scraping efforts. Craigslist is likely using the
-      JavaScript experimental technology `navigator.webdriver` in the
-      navigator interface, which can detect automation tools such as
-      `Selenium`.
-      
-  ⚠   September 2021: Craigslist added a rate-limiter, and it\'s advised to
-      throttle requests to prevent a 403 HTTP status code. View the
-      *Exceptions* section below to handle this exception.
-  --- ---------------------------------------------------------------------
-
 ## Disclaimer
 
 -   I do not work or have an affiliation with Craigslist.
