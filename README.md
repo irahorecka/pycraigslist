@@ -17,7 +17,10 @@
 -   I do not work or have an affiliation with Craigslist.
 -   This library is intended for educational purposes.
 
-## Dealing with Cloudflare Restrictions  
+## Dealing with Cloudflare Restrictions
+
+> [!WARNING]
+> **Cloudflare anti-bot protection blocks direct API access.**
 
 If you encounter issues retrieving posts from Craigslist due to Cloudflare’s anti-scraping measures, consider using [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr). This open-source proxy solution bypasses Cloudflare’s protections.  
 
