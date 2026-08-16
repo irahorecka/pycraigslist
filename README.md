@@ -1,7 +1,7 @@
 # pycraigslist
 
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Craigslist.svg/2560px-Craigslist.svg.png" width="50%"/>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Craigslist.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" width="50%"/>
 </p>
 
 <br>
